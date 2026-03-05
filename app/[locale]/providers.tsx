@@ -1,6 +1,5 @@
 "use client"
 import * as React from "react"
-
 import { HeroUIProvider } from "@heroui/system"
 
 function Providers({ children }: { children: React.ReactNode }) {
