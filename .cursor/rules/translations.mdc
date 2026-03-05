@@ -1,0 +1,46 @@
+---
+description: How to handle translations (i18n) in this project
+globs: "**/messages/**/*.json", "**/*.tsx", "**/*.ts"
+alwaysApply: false
+---
+
+# Translation handling
+
+When adding or changing user-facing text:
+
+1. **Use translation keys in code**  
+   Use `useTranslations()` (or `getTranslations()` on the server) and call `t("key.path")`. Never hardcode user-facing strings in components.
+
+2. **Add entries in all locale files**  
+   Add or update the same key in every file under `messages/` (e.g. `messages/en.json`, `messages/ar.json`). Keep keys and structure identical across locales.
+
+3. **Key structure**  
+   Use nested keys by feature: `auth.signIn.title`, `auth.signIn.email.placeholder`, `page.error.default`. Match the structure used in existing messages.
+
+4. **Validation and API errors**  
+   Zod schemas and API error handling should use translation keys (e.g. `auth.validation.email.invalid`). In the UI, pass those keys through `t()` so the message is shown in the current locale.
+
+5. **Types**  
+   Message keys are typed via `i18n/types.d.ts` (from `messages/en.json`). After changing JSON, TypeScript will enforce that only existing keys are used.
+
+Example:
+
+```tsx
+const t = useTranslations()
+// ✅ Use keys
+<Title>{t("auth.signIn.title")}</Title>
+<TextInput placeholder={t("auth.signIn.email.placeholder")} />
+// ❌ Don't hardcode
+<Title>Sign in</Title>
+```
+
+In `messages/en.json` and `messages/ar.json`:
+
+```json
+"auth": {
+  "signIn": {
+    "title": "Sign in to your account",
+    "email": { "placeholder": "Enter your email" }
+  }
+}
+```
