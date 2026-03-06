@@ -66,7 +66,7 @@ export default function Header() {
       isBordered={false}
       className="-mb-16 bg-black/30 text-white md:-mb-20 md:bg-transparent md:pt-4"
       maxWidth="xl"
-      position="sticky"
+      position="static"
     >
       {/* Start: logo (right in RTL, left in LTR) */}
       <NavbarContent justify="start">
