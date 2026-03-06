@@ -2,15 +2,15 @@ import type { Metadata } from "next"
 import { Locale, NextIntlClientProvider } from "next-intl"
 import { getMessages, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
-// import { satoshi, ibmPlexSansArabic } from "@/assets/font"
+import { cn } from "@heroui/theme"
+import { satoshi, ibmPlexSansArabic } from "@/assets/font"
 import { routing } from "@/i18n/routing"
 import "../globals.css"
 import Providers from "./providers"
 
 export const metadata: Metadata = {
-  title: "Raad",
-  description:
-    "Every shipment. Every driver. Every decision. Aligned in real time.",
+  title: "Wahed",
+  description: "Wahed",
 }
 
 type Props = {
@@ -31,10 +31,10 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className="light">
       <body>
         <div
-        // className={cn(
-        //   `${satoshi.variable} ${ibmPlexSansArabic.variable} text-white antialiased`,
-        //   locale === "en" ? satoshi.className : ibmPlexSansArabic.className
-        // )}
+          className={cn(
+            `${satoshi.variable} ${ibmPlexSansArabic.variable} text-white antialiased`,
+            locale === "en" ? satoshi.className : ibmPlexSansArabic.className
+          )}
         >
           <NextIntlClientProvider messages={messages}>
             <Providers>{children}</Providers>

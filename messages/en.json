@@ -1,8 +1,24 @@
 {
+  "Header": {
+    "nav": {
+      "home": "Home",
+      "ourProjects": "Our Projects",
+      "ourServices": "Our Services",
+      "aboutCompany": "About the Company",
+      "contactUs": "Contact Us"
+    },
+    "language": "English",
+    "languageAr": "العربية"
+  },
   "HomePage": {
     "title": "To get started, edit the page.tsx file.",
     "description": "Looking for a starting point or more instructions? Head over to Templates or the Learning center.",
     "deploy": "Deploy Now",
     "docs": "Documentation"
+  },
+  "Hero": {
+    "title": "Discover the space you deserve, where your new lifestyle begins",
+    "description": "Start your journey towards the right property through diverse options and a simple, clear search experience—and discover your journey with confidence.",
+    "cta": "Learn more"
   }
 }
