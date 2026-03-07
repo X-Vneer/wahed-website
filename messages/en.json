@@ -31,5 +31,13 @@
     "description": "We use our expertise in managing and developing multi-category real estate to deliver reliable, rewarding returns through smart, secure, and sustainable property investments.",
     "cta": "Learn More",
     "imageAlt": "Luxury waterfront tower"
+  },
+  "ProjectsSection": {
+    "subtitle": "Crystallization of Creativity",
+    "title": "Our Projects",
+    "description": "Our projects are a crystallization of creativity and luxury, combining modern design and quality execution to deliver exceptional and sustainable value, meeting future aspirations and always reinforcing our customers' trust.",
+    "projectName": "Al-Fayhaa Residential Project",
+    "projectAlt": "Project image: {name}",
+    "allProjects": "All Projects"
   }
 }

@@ -66,8 +66,9 @@ export default function About() {
             </p>
 
             <Button
+              size="lg"
               radius="none"
-              className="mt-12 min-w-48 bg-[#1d1d1f] px-8 text-white hover:bg-black md:mt-20"
+              className="bg-primary hover:bg-primary/95 mt-12 min-w-48 px-8 text-white md:mt-20"
               startContent={<WhatsAppIcon />}
             >
               {t("cta")}
