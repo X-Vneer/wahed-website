@@ -6,26 +6,6 @@ import { Button } from "@heroui/button"
 import { cn } from "@heroui/theme"
 import { projectImage } from "@/assets"
 
-function ArrowIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="text-secondary rtl:rotate-180"
-      aria-hidden
-    >
-      <path d="M5 12h14M12 5l7 7-7 7" />
-    </svg>
-  )
-}
-
 export default function Projects() {
   const t = useTranslations("ProjectsSection")
 
@@ -58,7 +38,7 @@ export default function Projects() {
                 </svg>
               </span>
             </div>
-            <h2 className="text-primary text-4xl leading-tight font-bold lg:text-6xl">
+            <h2 className="text-4xl leading-tight font-bold text-black lg:text-6xl">
               {t("title")}
             </h2>
           </div>
