@@ -32,6 +32,11 @@
     "cta": "Learn More",
     "imageAlt": "Luxury waterfront tower"
   },
+  "GallerySection": {
+    "subtitle": "Features of Excellence",
+    "title": "Image Gallery",
+    "imageAlt": "Gallery image {index}"
+  },
   "ProjectsSection": {
     "subtitle": "Crystallization of Creativity",
     "title": "Our Projects",
@@ -39,5 +44,11 @@
     "projectName": "Al-Fayhaa Residential Project",
     "projectAlt": "Project image: {name}",
     "allProjects": "All Projects"
+  },
+  "PartnersSection": {
+    "subtitle": "Communication Gateway",
+    "title": "Leadership Alliance",
+    "description": "Leadership alliances are an extension of our ambitious vision. They bring together strategic expertise and reliable partnerships to deliver sustainable value and qualitative projects. They strengthen our position and always support the trust of our partners and customers.",
+    "logoAlt": "Partner {index} logo"
   }
 }
