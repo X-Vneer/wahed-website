@@ -31,7 +31,7 @@ export default function Gallery() {
             <span className="text-secondary block w-16 md:w-24" aria-hidden>
               <svg
                 viewBox="0 0 90 12"
-                className="h-3 w-full"
+                className="h-3 w-full ltr:rotate-180"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
               >

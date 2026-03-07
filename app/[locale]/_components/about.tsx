@@ -40,7 +40,7 @@ export default function About() {
               <span className="text-secondary block w-24 md:w-32" aria-hidden>
                 <svg
                   viewBox="0 0 136 12"
-                  className="h-3 w-full"
+                  className="h-3 w-full ltr:rotate-180"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                 >

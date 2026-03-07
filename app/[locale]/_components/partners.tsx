@@ -1,6 +1,6 @@
 "use client"
 
-import { useLocale, useTranslations } from "next-intl"
+import { useTranslations } from "next-intl"
 import Image from "next/image"
 import {
   partner1,
@@ -38,7 +38,7 @@ export default function Partners() {
               <span className="text-secondary block w-16 md:w-20" aria-hidden>
                 <svg
                   viewBox="0 0 90 12"
-                  className="h-3 w-full"
+                  className="h-3 w-full ltr:rotate-180"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                 >
