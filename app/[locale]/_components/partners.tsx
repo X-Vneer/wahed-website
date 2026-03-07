@@ -54,7 +54,7 @@ export default function Partners() {
                 </svg>
               </span>
             </div>
-            <h2 className="text-3xl leading-tight font-bold md:text-4xl lg:text-6xl">
+            <h2 className="text-4xl leading-tight font-bold md:text-5xl lg:text-6xl">
               {t("title")}
             </h2>
             <p className="text-text-secondary mt-5 max-w-xl md:text-base">

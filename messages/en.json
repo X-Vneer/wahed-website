@@ -50,5 +50,23 @@
     "title": "Leadership Alliance",
     "description": "Leadership alliances are an extension of our ambitious vision. They bring together strategic expertise and reliable partnerships to deliver sustainable value and qualitative projects. They strengthen our position and always support the trust of our partners and customers.",
     "logoAlt": "Partner {index} logo"
+  },
+  "CtaSection": {
+    "subtitle": "Communication Gateway",
+    "title": "Start the Conversation",
+    "description": "We believe that communication is the beginning of building trust. We are happy to answer your inquiries and provide the necessary support to be your partners in achieving your aspirations and providing an experience that always meets your expectations.",
+    "cta": "Click here"
+  },
+  "Footer": {
+    "tagline": "Oasis of tranquility weaves simplicity",
+    "logoAlt": "Wahed logo",
+    "navAriaLabel": "Footer navigation",
+    "copyright": "© 2026 WAHED. All Rights Reserved.",
+    "social": {
+      "instagram": "Instagram",
+      "x": "X",
+      "youtube": "YouTube",
+      "facebook": "Facebook"
+    }
   }
 }
