@@ -60,7 +60,7 @@ export default function Hero() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-14 left-1/2 -translate-x-1/2 text-secondary"
+        className="text-secondary pointer-events-none absolute bottom-14 left-1/2 -translate-x-1/2"
       >
         <svg
           width="20"
@@ -72,13 +72,13 @@ export default function Hero() {
           <path
             d="M10 2V58"
             stroke="currentColor"
-            strokeWidth="2.5"
+            strokeWidth="2"
             strokeLinecap="round"
           />
           <path
             d="M4 52L10 60L16 52"
             stroke="currentColor"
-            strokeWidth="2.5"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />

@@ -1,5 +1,6 @@
 import { Locale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
+import About from "./_components/about"
 import Header from "./_components/header"
 import Hero from "./_components/hero"
 import Wahed from "./_components/wahed"
@@ -15,6 +16,7 @@ export default async function HomePage({ params }: Props) {
       <Header />
       <Hero />
       <Wahed />
+      <About />
     </>
   )
 }

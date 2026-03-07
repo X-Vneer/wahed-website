@@ -6,7 +6,7 @@ export default function Wahed() {
   const t = useTranslations("About")
 
   return (
-    <section className="text-primary py-16 md:py-24">
+    <section className="text-primary py-16 md:py-24 lg:py-32">
       <div className="container">
         <div className="relative flex flex-col items-center justify-between gap-10 lg:flex-row">
           <div className="">
