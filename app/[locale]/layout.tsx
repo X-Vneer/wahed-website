@@ -15,15 +15,15 @@ export const metadata: Metadata = {
 
 type Props = {
   children: React.ReactNode
-  params: Promise<{ locale: Locale }>
+  params: Promise<{ locale: string }>
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
-  if (!routing.locales.includes(locale)) {
+  if (!routing.locales.includes(locale as Locale)) {
     notFound()
   }
-  setRequestLocale(locale)
+  setRequestLocale(locale as Locale)
 
   const messages = await getMessages()
 

@@ -10,11 +10,11 @@ import Partners from "./_components/partners"
 import Projects from "./_components/projects"
 import Wahed from "./_components/wahed"
 
-type Props = { params: Promise<{ locale: Locale }> }
+type Props = { params: Promise<{ locale: string }> }
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params
-  setRequestLocale(locale)
+  setRequestLocale(locale as Locale)
 
   return (
     <>
