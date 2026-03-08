@@ -48,7 +48,6 @@ export default function Header() {
   const menuItems = [
     { key: "home", href: "/" },
     { key: "ourProjects", href: "/projects" },
-    { key: "ourServices", href: "/services" },
     { key: "aboutCompany", href: "/about" },
     { key: "contactUs", href: "/contact" },
   ] as const
