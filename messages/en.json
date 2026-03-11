@@ -65,6 +65,28 @@
     "description": "We believe that communication is the beginning of building trust. We are happy to answer your inquiries and provide the necessary support to be your partners in achieving your aspirations and providing an experience that always meets your expectations.",
     "cta": "Click here"
   },
+  "ContactForm": {
+    "firstNameLabel": "First name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastNameLabel": "Last name",
+    "lastNamePlaceholder": "Enter your last name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "phoneLabel": "Phone number",
+    "phonePlaceholder": "Enter your phone number",
+    "messageLabel": "Message details",
+    "messagePlaceholder": "Enter your message details",
+    "submit": "Send",
+    "success": "Your message has been sent.",
+    "error": "Something went wrong. Please try again."
+  },
+  "ContactSection": {
+    "title": "Let’s start the conversation",
+    "description": "Whether you have questions or are ready to begin your next project, our team is here to provide you with professional guidance and support at every stage.",
+    "contactMethodsTitle": "Contact details",
+    "phone": "+96658241563",
+    "email": "info@wahdeinvestment.sa"
+  },
   "Footer": {
     "tagline": "Oasis of tranquility weaves simplicity",
     "logoAlt": "Wahed logo",

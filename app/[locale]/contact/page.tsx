@@ -1,6 +1,6 @@
-import React from "react"
 import PageShadow from "@/components/common/page-shadow"
 import Header from "../_components/header"
+import Contact from "./_components/contact"
 import ContactHero from "./_components/hero"
 
 const Page = () => {
@@ -9,6 +9,7 @@ const Page = () => {
       <Header variant="dark" />
       <PageShadow />
       <ContactHero />
+      <Contact />
     </>
   )
 }

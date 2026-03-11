@@ -11,9 +11,9 @@ export default function ContactHero() {
   const t = useTranslations("ContactHero")
 
   return (
-    <section className="relative z-10 flex min-h-[60vh] items-center py-16 md:py-24">
+    <section className="relative z-10 flex min-h-[60vh] items-center py-16 md:pt-24 md:pb-16">
       <div className="container">
-        <div className="mx-auto min-h-100 max-w-2xl space-y-6 pt-26 pb-20">
+        <div className="mx-auto min-h-90 max-w-2xl space-y-6 pt-26 pb-20 md:min-h-100">
           <motion.div
             className="text-secondary flex items-center justify-center gap-3 text-center text-lg font-medium md:text-2xl"
             initial={{ opacity: 0, y: 16 }}
@@ -53,7 +53,7 @@ export default function ContactHero() {
 
           <TextLinesAnimation
             as="h1"
-            className="text-primary text-center text-2xl leading-relaxed font-medium md:text-3xl lg:text-5xl"
+            className="text-primary text-center text-3xl leading-relaxed font-medium md:text-5xl"
             delay={0.15}
             duration={0.7}
             stagger={0.16}
