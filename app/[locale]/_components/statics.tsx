@@ -38,7 +38,7 @@ export default function Statics() {
   return (
     <section className="py-12 md:py-26">
       <div className="container">
-        <div className="flex flex-col items-stretch divide-y divide-[#E9E9E9] md:flex-row md:divide-x">
+        <div className="flex flex-col items-stretch divide-[#E9E9E9] max-md:divide-y md:flex-row md:divide-x">
           {STATS.map(({ id, value, prefix, suffix, labelKey, Icon }) => (
             <div key={id} className="flex flex-1 flex-col gap-3 py-5 md:px-10">
               <div className="flex h-10 w-10 items-center justify-center">
