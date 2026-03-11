@@ -6,6 +6,8 @@ import { cn } from "@heroui/theme"
 import { satoshi, ibmPlexSansArabic } from "@/assets/font"
 import { routing } from "@/i18n/routing"
 import "../globals.css"
+import Footer from "./_components/footer"
+import Header from "./_components/header"
 import Providers from "./providers"
 
 export const metadata: Metadata = {
@@ -37,7 +39,10 @@ export default async function LocaleLayout({ children, params }: Props) {
           )}
         >
           <NextIntlClientProvider messages={messages}>
-            <Providers>{children}</Providers>
+            <Providers>
+              {children}
+              <Footer />
+            </Providers>
           </NextIntlClientProvider>
         </div>
       </body>

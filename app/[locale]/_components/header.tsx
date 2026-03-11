@@ -14,7 +14,8 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@heroui/navbar"
-import { whiteLogo } from "@/assets"
+import { cn } from "@heroui/theme"
+import { blackLogo, whiteLogo } from "@/assets"
 import { useRouter, usePathname, Link } from "@/i18n/navigation"
 
 function GlobeIcon({ className }: { className?: string }) {
@@ -39,7 +40,11 @@ function GlobeIcon({ className }: { className?: string }) {
   )
 }
 
-export default function Header() {
+export default function Header({
+  variant = "light",
+}: {
+  variant?: "light" | "dark"
+}) {
   const t = useTranslations("Header")
   const locale = useLocale()
   const router = useRouter()
@@ -63,7 +68,10 @@ export default function Header() {
     <Navbar
       isBlurred={false}
       isBordered={false}
-      className="-mb-16 bg-black/30 text-white md:-mb-20 md:bg-transparent md:pt-4"
+      className={cn(
+        "-mb-16 bg-black/30 text-white md:-mb-20 md:bg-transparent md:pt-4",
+        variant === "light" ? "text-white" : "text-primary"
+      )}
       maxWidth="xl"
       position="static"
     >
@@ -71,12 +79,21 @@ export default function Header() {
       <NavbarContent justify="start">
         <NavbarBrand>
           <Link href="/" className="text-inherit">
-            <Image
-              src={whiteLogo}
-              alt="Raad"
-              className="w-20 lg:w-26"
-              priority
-            />
+            {variant === "light" ? (
+              <Image
+                src={whiteLogo}
+                alt="Raad"
+                className="w-20 lg:w-26"
+                priority
+              />
+            ) : (
+              <Image
+                src={blackLogo}
+                alt="Raad"
+                className="w-20 lg:w-26"
+                priority
+              />
+            )}
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -88,21 +105,27 @@ export default function Header() {
             <HeroUILink
               as={Link}
               href={item.href}
-              className="text-white/90 transition-colors hover:text-white"
+              className={cn(
+                variant === "light" ? "text-white" : "text-primary"
+              )}
             >
               {t(`nav.${item.key}`)}
             </HeroUILink>
           </NavbarItem>
         ))}
         <div className="h-8">
-          <Divider orientation="vertical" className="bg-white" />
+          <Divider
+            orientation="vertical"
+            className={cn(variant === "light" ? "bg-white" : "bg-primary")}
+          />
         </div>
         <NavbarItem className="flex">
           <Button
             type="button"
             variant="light"
             radius="sm"
-            className="text-white"
+            color="primary"
+            className={cn(variant === "light" ? "text-white" : "text-primary")}
             onPress={switchLocale}
             aria-label={
               locale === "ar" ? "Switch to English" : "التبديل إلى العربية"
