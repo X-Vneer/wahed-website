@@ -56,7 +56,7 @@ export default function Partners() {
   const t = useTranslations("PartnersSection")
 
   return (
-    <section className="py-14 md:py-20">
+    <section className="bg-[#efefef] py-14 md:py-20">
       <div className="container">
         <div
           className={`flex flex-col items-stretch gap-8 md:flex-row md:items-center md:gap-12 lg:gap-16`}

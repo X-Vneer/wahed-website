@@ -30,7 +30,10 @@
     "title": "Wahed Urban",
     "description": "We use our expertise in managing and developing multi-category real estate to deliver reliable, rewarding returns through smart, secure, and sustainable property investments.",
     "cta": "Learn More",
-    "imageAlt": "Luxury waterfront tower"
+    "imageAlt": "Luxury waterfront tower",
+    "totalProjectsArea": "Total project area",
+    "builtArea": "Built-up area (sqm)",
+    "yearsExperience": "Years of experience"
   },
   "GallerySection": {
     "subtitle": "Features of Excellence",

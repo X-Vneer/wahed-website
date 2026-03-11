@@ -42,7 +42,7 @@ export default function About() {
   const imageY = useTransform(
     scrollYProgress,
     [0, 0.4, 0.8, 1],
-    ["0%", "6%", "14%", "20%"]
+    ["0%", "6%", "14%", "16%"]
   )
   const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.08, 1.18])
   const contentY = useTransform(
@@ -190,7 +190,7 @@ export default function About() {
           </motion.div>
 
           <motion.div
-            className="h-svh w-full origin-center overflow-hidden md:max-w-[400px]"
+            className="h-[85svh] w-full origin-center overflow-hidden md:max-w-[400px]"
             style={{ y: imageY, scale: imageScale }}
             transition={{ duration: 0.8, ease: easeOut }}
           >
