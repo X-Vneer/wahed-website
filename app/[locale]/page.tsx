@@ -19,7 +19,6 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <Header />
-
       <Hero />
       <Wahed />
       <About />
