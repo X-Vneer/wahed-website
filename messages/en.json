@@ -30,6 +30,13 @@
     "title": "Our Story",
     "description": "Wahd Company launched with an ambitious investment vision to develop qualitative real estate projects, and today it represents an integrated entity that leads the establishment of investment projects and the construction of residential complexes according to the highest standards of quality and sustainability to create a solid real estate value that lasts for generations."
   },
+  "OurVision": {
+    "visionTitle": "Our Vision",
+    "visionDescription": "To be pioneers in the construction and real estate development sector by providing innovative and sustainable projects that contribute to improving the work and living environment, and to build a distinguished reputation based on quality, integrity, and commitment to our clients and society.",
+    "missionTitle": "Our Mission",
+    "missionDescription": "We at Wahd Company strive to transform urban projects into integrated experiences that combine creativity, quality, and sustainability. We are committed to delivering projects that meet the highest standards and create lasting value for our clients and the community.",
+    "workerAlt": "Wahd team member"
+  },
   "ContactHero": {
     "eyebrow": "First step",
     "title": "Get in touch and let us shape the features of your next <span>investment</span> with confidence and sustainability.",
