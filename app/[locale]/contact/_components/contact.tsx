@@ -9,7 +9,7 @@ const Contact = () => {
     <section className="relative pb-10">
       <div className="container">
         <div className="grid gap-10 md:grid-cols-2">
-          <div className="flex flex-col items-start justify-start text-right md:items-end">
+          <div className="flex flex-col items-start justify-start">
             <div className="w-full max-w-md space-y-4">
               <div className="space-y-2">
                 <h2 className="text-primary text-3xl font-semibold">
