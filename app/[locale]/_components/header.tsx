@@ -69,10 +69,10 @@ export default function Header({
       isBlurred={false}
       isBordered={false}
       className={cn(
-        "-mb-16 bg-black/30 text-white md:-mb-20 md:bg-transparent md:pt-4",
+        "container -mb-16 bg-black/30 text-white md:-mb-20 md:bg-transparent md:pt-4",
         variant === "light" ? "text-white" : "text-primary"
       )}
-      maxWidth="xl"
+      maxWidth="full"
       position="static"
     >
       {/* Start: logo (right in RTL, left in LTR) */}
