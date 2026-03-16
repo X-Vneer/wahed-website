@@ -37,6 +37,21 @@
     "missionDescription": "We at Wahd Company strive to transform urban projects into integrated experiences that combine creativity, quality, and sustainability. We are committed to delivering projects that meet the highest standards and create lasting value for our clients and the community.",
     "workerAlt": "Wahd team member"
   },
+  "BoardOfDirectors": {
+    "eyebrow": "Behind the story: leadership",
+    "title": "Board of Directors",
+    "memberAlt": "Board member {index}"
+  },
+  "OurValues": {
+    "eyebrow": "Bonds of Survival",
+    "title": "Our Values",
+    "qualityTitle": "Quality",
+    "qualityDescription": "Commitment to the highest standards of quality and accuracy in every project.",
+    "innovationTitle": "Innovation",
+    "innovationDescription": "Innovative design solutions that combine creativity and efficiency.",
+    "sustainabilityTitle": "Sustainability",
+    "sustainabilityDescription": "Balanced sustainable solutions that combine environment and development."
+  },
   "ContactHero": {
     "eyebrow": "First step",
     "title": "Get in touch and let us shape the features of your next <span>investment</span> with confidence and sustainability.",

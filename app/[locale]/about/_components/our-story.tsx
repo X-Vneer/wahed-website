@@ -57,9 +57,17 @@ export default function OurStory() {
                   stroke="currentColor"
                   strokeWidth="2"
                   fill="currentColor"
-                  initial={{ pathLength: 0, opacity: 0.6 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+                  variants={{
+                    hidden: { pathLength: 0, opacity: 0.6 },
+                    visible: {
+                      pathLength: 1,
+                      opacity: 1,
+                      transition: {
+                        duration: 0.4,
+                        ease: "easeOut",
+                      },
+                    },
+                  }}
                 />
                 <motion.path
                   d="M9 6 L90 6"
@@ -67,12 +75,17 @@ export default function OurStory() {
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   fill="none"
-                  initial={{ pathLength: 0, opacity: 0.8 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{
-                    duration: 0.55,
-                    ease: "easeOut",
-                    delay: 0.25,
+                  variants={{
+                    hidden: { pathLength: 0, opacity: 0.8 },
+                    visible: {
+                      pathLength: 1,
+                      opacity: 1,
+                      transition: {
+                        duration: 0.55,
+                        delay: 0.25,
+                        ease: "easeOut",
+                      },
+                    },
                   }}
                 />
               </svg>
