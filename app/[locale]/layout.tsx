@@ -3,11 +3,10 @@ import { Locale, NextIntlClientProvider } from "next-intl"
 import { getMessages, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { cn } from "@heroui/theme"
-import { satoshi, ibmPlexSansArabic } from "@/assets/font"
+import { ibmPlexSansArabic, satoshi } from "@/assets/font"
 import { routing } from "@/i18n/routing"
 import "../globals.css"
 import Footer from "./_components/footer"
-import Header from "./_components/header"
 import Providers from "./providers"
 
 export const metadata: Metadata = {
