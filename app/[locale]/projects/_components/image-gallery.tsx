@@ -8,11 +8,16 @@ import { AnimatePresence, motion } from "framer-motion"
 type ProjectImage = StaticImageData | string
 
 type ImageGalleryProps = {
+  gallerySide: "left" | "right"
   title: string
   images: ProjectImage[]
 }
 
-export default function ImageGallery({ title, images }: ImageGalleryProps) {
+export default function ImageGallery({
+  gallerySide,
+  title,
+  images,
+}: ImageGalleryProps) {
   const gallery = useMemo(() => images.slice(0, 3), [images])
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [direction, setDirection] = useState(1)
@@ -36,7 +41,14 @@ export default function ImageGallery({ title, images }: ImageGalleryProps) {
   }
 
   return (
-    <div className="relative aspect-7/9 max-h-svh ltr:ml-auto rtl:mr-auto">
+    <div
+      className={cn(
+        "relative aspect-square w-full max-md:px-3 sm:aspect-video md:aspect-6/9 md:h-svh lg:aspect-7/9",
+        gallerySide === "right"
+          ? "ltr:ml-auto rtl:mr-auto"
+          : "ltr:mr-auto rtl:ml-auto"
+      )}
+    >
       <div className="relative h-full w-full overflow-hidden bg-black">
         <AnimatePresence mode="sync">
           <motion.div
@@ -65,7 +77,7 @@ export default function ImageGallery({ title, images }: ImageGalleryProps) {
         </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-0 left-0 grid w-[75%] grid-cols-3 gap-1 border-8 border-white bg-white">
+      <div className="bottom-0 left-0 grid w-full grid-cols-3 gap-1 border-t-8 border-white bg-white md:absolute md:w-[75%] md:border-r-8">
         {gallery.map((image, index) => {
           const isActive = index === selectedImageIndex
 

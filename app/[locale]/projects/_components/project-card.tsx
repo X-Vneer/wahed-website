@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl"
 import { StaticImageData } from "next/image"
 import { Button } from "@heroui/button"
+import { cn } from "@heroui/theme"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
 import ImageGallery from "./image-gallery"
@@ -22,6 +23,7 @@ type ProjectCardProps = {
   features: string[]
   specifications: ProjectSpecification[]
   ctaLabel?: string
+  gallerySide?: "left" | "right"
 }
 
 export default function ProjectCard({
@@ -32,6 +34,7 @@ export default function ProjectCard({
   features,
   specifications,
   ctaLabel,
+  gallerySide = "right",
 }: ProjectCardProps) {
   const t = useTranslations("ProjectsCard")
 
@@ -40,11 +43,22 @@ export default function ProjectCard({
   }
 
   const projectNumber = String(index + 1).padStart(2, "0")
+  const isGalleryLeft = gallerySide === "left"
 
   return (
     <section className="py-12 md:py-16">
-      <article className="flex flex-nowrap justify-between gap-10 overflow-hidden">
-        <div className="flex h-full w-full flex-col justify-between gap-4 ps-10">
+      <article
+        className={cn(
+          "flex flex-col-reverse flex-nowrap justify-between gap-6 overflow-hidden lg:gap-10",
+          isGalleryLeft ? "md:flex-row-reverse" : "md:flex-row"
+        )}
+      >
+        <div
+          className={cn(
+            "flex h-full w-full flex-col justify-between gap-3 max-md:px-3 md:gap-4",
+            isGalleryLeft ? "md:ps-5 md:pe-5 lg:pe-10" : "md:ps-10 lg:ps-30"
+          )}
+        >
           <div className="relative mb-1 min-h-20 md:min-h-28">
             <p
               className="pointer-events-none absolute inset-0 text-7xl leading-none font-bold text-[#F1F1F1] md:text-9xl"
@@ -52,7 +66,7 @@ export default function ProjectCard({
             >
               {projectNumber}
             </p>
-            <div className="relative z-10 flex min-h-28 items-center gap-3">
+            <div className="relative z-10 flex min-h-20 items-center gap-3 md:min-h-28">
               <motion.span
                 className="text-secondary block w-16 md:w-24"
                 aria-hidden
@@ -116,15 +130,15 @@ export default function ProjectCard({
           <h3 className="text-primary mb-2 text-2xl leading-tight font-bold md:mb-3 md:text-3xl">
             {title}
           </h3>
-          <p className="text-text-secondary leading-sung mb-3 text-base md:mb-4">
+          <p className="text-text-secondary leading-sung mb-3 max-w-xl text-sm md:mb-4 md:text-base">
             {description}
           </p>
 
-          <ul className="mb-6 grid grid-cols-1 gap-2 md:grid-cols-2">
+          <ul className="mb-3 grid max-w-lg grid-cols-2 gap-2 md:mb-6">
             {features.map((feature) => (
               <li
                 key={feature}
-                className="text-primary flex items-center gap-2 text-sm md:text-base"
+                className="text-primary flex items-center gap-2 text-xs md:text-base"
               >
                 <span
                   className="text-secondary flex aspect-square items-center justify-center rounded-full border border-[#E9E9E9] p-1"
@@ -137,14 +151,14 @@ export default function ProjectCard({
             ))}
           </ul>
 
-          <div className="mb-4 grid grid-cols-1 md:grid-cols-2">
+          <div className="mb-4 grid max-w-lg grid-cols-2 gap-2">
             {specifications.map((spec) => (
               <div
                 key={spec.label}
-                className="border-b border-[#e5e5e5] px-2 py-4 md:even:ps-6"
+                className="border-b border-[#e5e5e5] px-2 py-4"
               >
                 <p className="text-text-secondary mb-2">{spec.label}</p>
-                <p className="text-sm font-medium text-[#1E1E1E]">
+                <p className="text-xs font-medium text-[#1E1E1E] md:text-sm">
                   {spec.value}
                 </p>
               </div>
@@ -156,15 +170,19 @@ export default function ProjectCard({
               <Button
                 radius="none"
                 color="primary"
-                className="min-w-48 shrink-0 px-8 text-white"
+                className="min-w-48 shrink-0 px-8 text-white max-md:w-full"
               >
                 {ctaLabel}
               </Button>
             ) : null}
           </div>
         </div>
-        <div className="w-full">
-          <ImageGallery title={title} images={images} />
+        <div>
+          <ImageGallery
+            gallerySide={gallerySide}
+            title={title}
+            images={images}
+          />
         </div>
       </article>
     </section>

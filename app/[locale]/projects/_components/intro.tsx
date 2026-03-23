@@ -10,7 +10,7 @@ export default function ProjectsIntro() {
     <section className="bg-white py-12 md:py-16">
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-primary text-2xl leading-normal font-semibold md:text-4xl">
+          <p className="text-primary text-2xl leading-normal font-semibold lg:text-4xl">
             {t.rich("description", {
               highlight: (chunk) => (
                 <span className="text-secondary underline underline-offset-8">

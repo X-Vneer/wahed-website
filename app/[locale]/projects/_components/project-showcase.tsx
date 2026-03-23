@@ -78,6 +78,7 @@ export default function ProjectShowcase() {
           specifications={project.specifications}
           images={project.images}
           ctaLabel={project.ctaLabel}
+          gallerySide={index % 2 === 0 ? "left" : "right"}
         />
       ))}
     </>
