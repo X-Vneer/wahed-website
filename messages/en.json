@@ -136,5 +136,43 @@
   },
   "ProjectsIntro": {
     "description": "Wahed projects are not only construction spaces, but integrated <heart></heart> \n experiences that combine <highlight>quality and sustainability</highlight> with a modern lifestyle."
+  },
+  "ProjectsCard": {
+    "badge": "Wahed Design & Execution",
+    "title": "Al Rahmaniyah Residential Complex",
+    "description": "An engineering design that combines authenticity and modernity in spacious residential spaces. Privacy and integrated amenities create a contemporary lifestyle, with practical solutions that deliver comfort and clear quality of life.",
+    "features": [
+      "Private recreational spaces",
+      "Integrated smart home system",
+      "Landscaped green gardens",
+      "Underground parking"
+    ],
+    "specifications": [
+      {
+        "label": "Total project area",
+        "value": "25,000 m2"
+      },
+      {
+        "label": "Villas built area",
+        "value": "750 - 1,200 m2"
+      },
+      {
+        "label": "Project status",
+        "value": "Under construction (80%)"
+      },
+      {
+        "label": "Expected delivery",
+        "value": "Q4 2025"
+      },
+      {
+        "label": "Units count",
+        "value": "42 independent villas"
+      },
+      {
+        "label": "Amenities",
+        "value": "Health club and gardens"
+      }
+    ],
+    "cta": "Explore Project"
   }
 }
