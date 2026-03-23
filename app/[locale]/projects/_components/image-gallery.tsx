@@ -43,7 +43,7 @@ export default function ImageGallery({
   return (
     <div
       className={cn(
-        "relative aspect-square w-full max-md:px-3 sm:aspect-video md:aspect-6/9 md:h-svh lg:aspect-7/9",
+        "relative aspect-square w-full max-md:px-3 sm:aspect-video md:aspect-6/9 md:h-svh lg:aspect-8/9",
         gallerySide === "right"
           ? "ltr:ml-auto rtl:mr-auto"
           : "ltr:mr-auto rtl:ml-auto"

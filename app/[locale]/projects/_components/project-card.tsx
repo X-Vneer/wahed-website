@@ -55,8 +55,8 @@ export default function ProjectCard({
       >
         <div
           className={cn(
-            "flex h-full w-full flex-col justify-between gap-3 max-md:px-3 md:gap-4",
-            isGalleryLeft ? "md:ps-5 md:pe-5 lg:pe-10" : "md:ps-10 lg:ps-30"
+            "flex h-full w-full max-w-xl flex-col justify-between gap-3 max-md:px-3 md:gap-4",
+            isGalleryLeft ? "md:pe-5 lg:mr-auto" : "md:ps-5 lg:ml-auto"
           )}
         >
           <div className="relative mb-1 min-h-20 md:min-h-28">
