@@ -129,5 +129,12 @@
       "youtube": "YouTube",
       "facebook": "Facebook"
     }
+  },
+  "ProjectsHero": {
+    "title": "We develop integrated projects with a professional vision that are implemented with high quality and sustainable value",
+    "eyebrow": "A sustainable building vision"
+  },
+  "ProjectsIntro": {
+    "description": "Wahed projects are not only construction spaces, but integrated <heart></heart> \n experiences that combine <highlight>quality and sustainability</highlight> with a modern lifestyle."
   }
 }

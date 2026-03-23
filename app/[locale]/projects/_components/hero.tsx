@@ -4,13 +4,13 @@ import { useRef } from "react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { aboutHero, noise } from "@/assets"
+import { projectsHero, noise } from "@/assets"
 import { TextLinesAnimation } from "@/components/common/text-lines-animation"
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
-export default function AboutHero() {
-  const t = useTranslations("AboutHero")
+export default function ProjectsHero() {
+  const t = useTranslations("ProjectsHero")
   const sectionRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -26,7 +26,7 @@ export default function AboutHero() {
     >
       <div className="absolute inset-0">
         <Image
-          src={aboutHero}
+          src={projectsHero}
           alt=""
           fill
           className="object-cover object-center"
