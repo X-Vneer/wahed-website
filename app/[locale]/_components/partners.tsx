@@ -63,7 +63,7 @@ export default function Partners() {
         >
           {/* Text content */}
           <motion.div
-            className="text-primary flex flex-1 flex-col"
+            className="flex flex-1 flex-col text-black"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}

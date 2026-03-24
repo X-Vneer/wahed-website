@@ -63,9 +63,9 @@ export default function ContactForm() {
           fullWidth
           isInvalid={Boolean(errors.firstName)}
         >
-          <Label className="text-primary">{t("firstNameLabel")}</Label>
+          <Label className="text-black">{t("firstNameLabel")}</Label>
           <Input
-            className="text-primary"
+            className="text-black"
             placeholder={t("firstNamePlaceholder")}
             variant="secondary"
             {...register("firstName", {
@@ -82,9 +82,9 @@ export default function ContactForm() {
           fullWidth
           isInvalid={Boolean(errors.lastName)}
         >
-          <Label className="text-primary">{t("lastNameLabel")}</Label>
+          <Label className="text-black">{t("lastNameLabel")}</Label>
           <Input
-            className="text-primary"
+            className="text-black"
             placeholder={t("lastNamePlaceholder")}
             variant="secondary"
             {...register("lastName", {
@@ -105,9 +105,9 @@ export default function ContactForm() {
           fullWidth
           isInvalid={Boolean(errors.email)}
         >
-          <Label className="text-primary">{t("emailLabel")}</Label>
+          <Label className="text-black">{t("emailLabel")}</Label>
           <Input
-            className="text-primary"
+            className="text-black"
             placeholder={t("emailPlaceholder")}
             variant="secondary"
             {...register("email", {
@@ -129,9 +129,9 @@ export default function ContactForm() {
           fullWidth
           isInvalid={Boolean(errors.phone)}
         >
-          <Label className="text-primary">{t("phoneLabel")}</Label>
+          <Label className="text-black">{t("phoneLabel")}</Label>
           <Input
-            className="text-primary"
+            className="text-black"
             placeholder={t("phonePlaceholder")}
             variant="secondary"
             {...register("phone", {
@@ -154,10 +154,10 @@ export default function ContactForm() {
         fullWidth
         isInvalid={Boolean(errors.message)}
       >
-        <Label className="text-primary">{t("messageLabel")}</Label>
+        <Label className="text-black">{t("messageLabel")}</Label>
         <TextArea
           id="message"
-          className="text-primary"
+          className="text-black"
           placeholder={t("messagePlaceholder")}
           variant="secondary"
           rows={5}

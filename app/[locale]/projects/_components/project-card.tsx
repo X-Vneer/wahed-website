@@ -133,7 +133,7 @@ export default function ProjectCard({
               <p className="text-secondary">{t("badge")}</p>
             </div>
           </div>
-          <h3 className="text-primary mb-2 text-2xl leading-tight font-bold md:mb-3 md:text-3xl">
+          <h3 className="mb-2 text-2xl leading-tight font-bold text-black md:mb-3 md:text-3xl">
             {title}
           </h3>
           <p className="text-text-secondary leading-sung mb-3 max-w-xl text-sm md:mb-4 md:text-base">
@@ -144,7 +144,7 @@ export default function ProjectCard({
             {features.map((feature) => (
               <li
                 key={feature}
-                className="text-primary flex items-center gap-2 text-xs md:text-base"
+                className="flex items-center gap-2 text-xs text-black md:text-base"
               >
                 <span
                   className="text-secondary flex aspect-square items-center justify-center rounded-full border border-[#E9E9E9] p-1"

@@ -128,7 +128,7 @@ export default function BoardOfDirectors() {
             </motion.span>
           </div>
           <motion.h2
-            className="text-primary text-3xl leading-tight font-bold md:text-5xl lg:text-6xl"
+            className="text-3xl leading-tight font-bold text-black md:text-5xl lg:text-6xl"
             variants={headerVariants}
           >
             {t("title")}

@@ -59,7 +59,7 @@ export default function About() {
       <div className="container">
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
           <motion.div
-            className="text-primary"
+            className="text-black"
             style={{ y: contentY }}
             initial="hidden"
             whileInView="visible"

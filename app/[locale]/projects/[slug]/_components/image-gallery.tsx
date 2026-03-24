@@ -40,7 +40,7 @@ export default function ImageGallery({
   }
 
   return (
-    <section className="relative mt-6 mb-10 md:mt-10 md:mb-16">
+    <section className="relative mt-4 mb-6 md:mt-6 md:mb-10">
       <div className="relative container">
         <div className="md:hidden">
           <Swiper slidesPerView={1} spaceBetween={12}>
@@ -69,8 +69,8 @@ export default function ImageGallery({
           </Swiper>
         </div>
 
-        <div className="hidden gap-4 md:grid lg:grid-cols-5">
-          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-3">
+        <div className="hidden gap-4 md:grid md:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 md:col-span-3">
             {previewImages.slice(0, 4).map((image, index) => (
               <button
                 key={`${title}-preview-${index}`}
@@ -97,7 +97,7 @@ export default function ImageGallery({
           {previewImages[4] ? (
             <button
               type="button"
-              className="group relative h-104 cursor-pointer overflow-hidden bg-[#f2f2f2] text-left lg:col-span-2 lg:h-full"
+              className="group relative h-104 cursor-pointer overflow-hidden bg-[#f2f2f2] md:col-span-2 md:h-full"
               onClick={() => openSliderAt(4)}
               aria-label={t("openFeaturedImage")}
             >

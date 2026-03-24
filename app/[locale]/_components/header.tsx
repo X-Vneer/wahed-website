@@ -86,7 +86,7 @@ export default function Header({
     <header
       className={cn(
         "relative z-50 -mb-16 bg-black/30 text-white md:-mb-14 md:bg-transparent md:pt-4",
-        variant === "light" ? "text-white" : "text-primary"
+        variant === "light" ? "text-white" : "text-black"
       )}
     >
       <div className="container">
@@ -119,7 +119,7 @@ export default function Header({
                 key={item.key}
                 href={item.href}
                 className={cn(
-                  variant === "light" ? "text-white" : "text-primary"
+                  variant === "light" ? "text-white" : "text-black"
                 )}
               >
                 {t(`nav.${item.key}`)}
@@ -133,7 +133,7 @@ export default function Header({
               type="button"
               className={cn(
                 "bg-transparent hover:bg-white/10",
-                variant === "light" ? "text-white" : "text-primary"
+                variant === "light" ? "text-white" : "text-black"
               )}
               onPress={switchLocale}
               aria-label={

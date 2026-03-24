@@ -53,7 +53,7 @@ export default function ContactHero() {
 
           <TextLinesAnimation
             as="h1"
-            className="text-primary text-center text-3xl leading-snug font-medium md:text-5xl"
+            className="text-center text-3xl leading-snug font-medium text-black md:text-5xl"
             delay={0.15}
             duration={0.7}
             stagger={0.16}

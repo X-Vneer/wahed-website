@@ -45,7 +45,7 @@ export default function Statics() {
                 <Icon className="text-secondary h-7 w-7" strokeWidth={1.6} />
               </div>
               <div className="text-3xl font-semibold text-black md:text-5xl">
-                <span className="text-primary">
+                <span className="text-black">
                   <span className="text-secondary">{prefix}</span>
                   <CountUp to={value} separator="," />
                   {suffix}

@@ -34,7 +34,7 @@ export default function ProjectPageIntro({
               </span>
             </div>
 
-            <h1 className="text-primary mb-2 text-3xl font-bold md:mb-3 md:text-5xl">
+            <h1 className="mb-2 text-3xl font-bold text-black md:mb-3 md:text-5xl">
               {title}
             </h1>
 

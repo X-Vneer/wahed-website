@@ -12,7 +12,7 @@ const Contact = () => {
           <div className="flex flex-col items-start justify-start">
             <div className="w-full max-w-md space-y-4">
               <div className="space-y-2">
-                <h2 className="text-primary text-3xl font-semibold">
+                <h2 className="text-3xl font-semibold text-black">
                   {t("title")}
                 </h2>
                 <div className="bg-secondary ml-auto h-px w-full" aria-hidden />
@@ -26,12 +26,12 @@ const Contact = () => {
                 <p className="text-secondary pb-2 text-sm font-semibold">
                   {t("contactMethodsTitle")}
                 </p>
-                <p className="text-primary text-sm">
+                <p className="text-sm text-black">
                   <a href={`tel:${t("phone")}`} className="hover:underline">
                     {t("phone")}
                   </a>
                 </p>
-                <p className="text-primary text-sm">
+                <p className="text-sm text-black">
                   <a href={`mailto:${t("email")}`} className="hover:underline">
                     {t("email")}
                   </a>

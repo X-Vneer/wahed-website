@@ -194,7 +194,7 @@ export default function OurValues() {
               },
             }}
           >
-            <h2 className="text-primary relative text-3xl font-bold md:text-5xl lg:text-6xl">
+            <h2 className="relative text-3xl font-bold text-black md:text-5xl lg:text-6xl">
               {t("title")}
             </h2>
           </motion.div>

@@ -25,7 +25,7 @@ export default function OurVision() {
         <div className="grid grid-cols-1 items-center gap-8 bg-[#F4F4F4] p-6 max-md:text-center md:p-14 lg:grid-cols-[1fr_auto_1fr] lg:gap-12">
           {/* Our Vision - first in DOM for RTL/LTR */}
           <div className="flex flex-col justify-center">
-            <h3 className="text-primary mb-3 text-2xl font-bold md:text-3xl">
+            <h3 className="mb-3 text-2xl font-bold text-black md:text-3xl">
               {t("visionTitle")}
             </h3>
             <BasicLineAnimation
@@ -53,7 +53,7 @@ export default function OurVision() {
 
           {/* Our Mission */}
           <div className="flex flex-col justify-center">
-            <h3 className="text-primary mb-3 text-2xl font-bold md:text-3xl">
+            <h3 className="mb-3 text-2xl font-bold text-black md:text-3xl">
               {t("missionTitle")}
             </h3>
             <BasicLineAnimation

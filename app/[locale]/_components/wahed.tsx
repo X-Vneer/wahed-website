@@ -28,7 +28,7 @@ export default function Wahed() {
   )
 
   return (
-    <section ref={sectionRef} className="text-primary py-16 md:py-24 lg:py-32">
+    <section ref={sectionRef} className="py-16 text-black md:py-24 lg:py-32">
       <div className="container">
         <div className="relative flex flex-col items-center justify-between gap-10 lg:flex-row">
           <motion.div
