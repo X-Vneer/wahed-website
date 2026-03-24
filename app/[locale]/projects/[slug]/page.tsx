@@ -5,6 +5,7 @@ import { aboutImage, heroImage, projectImage, projectsHero } from "@/assets"
 import PageShadow from "@/components/common/page-shadow"
 import Header from "../../_components/header"
 import ImageGallery from "./_components/image-gallery"
+import ProjectLocationMap from "./_components/map"
 import ProjectContactForm from "./_components/project-contact-form"
 import ProjectDetails, {
   ProjectDetailItem,
@@ -21,6 +22,7 @@ const PROJECTS_CONTENT = {
     tag: "مجمع سكني",
     title: "مجمع الريحانة السكني",
     location: "مجمع الفيحاء - الدمام",
+    mapLocation: { lat: 26.4482, lng: 50.0614 },
     statusLabel: "حالة المشروع",
     statusValue: "متاح للحجز",
     startingPriceLabel: "الأسعار تبدأ من",
@@ -57,6 +59,7 @@ const PROJECTS_CONTENT = {
     tag: "مجمع سكني",
     title: "فلل الفيحاء الحضرية",
     location: "حي الفيحاء - الدمام",
+    mapLocation: { lat: 26.4518, lng: 50.0662 },
     statusLabel: "حالة المشروع",
     statusValue: "متاح للحجز",
     startingPriceLabel: "الأسعار تبدأ من",
@@ -111,9 +114,10 @@ export default async function ProjectDetailsPage({ params }: Props) {
         images={project.images}
         videoUrl={"videoUrl" in project ? project.videoUrl : undefined}
       />
+
       <section className="py-6 md:py-10">
         <div className="container">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-5 lg:grid-cols-3 lg:gap-12">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-5 md:gap-6 lg:grid-cols-3 lg:gap-12">
             <div className="md:col-span-3 lg:col-span-2">
               <ProjectDetails {...project.details} />
             </div>
@@ -121,6 +125,15 @@ export default async function ProjectDetailsPage({ params }: Props) {
               <ProjectContactForm />
             </div>
           </div>
+        </div>
+      </section>
+      <section className="py-6 md:py-4">
+        <div className="container">
+          <ProjectLocationMap
+            lat={project.mapLocation.lat}
+            lng={project.mapLocation.lng}
+            locationLabel={project.location}
+          />
         </div>
       </section>
     </>

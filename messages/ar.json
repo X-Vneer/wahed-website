@@ -233,5 +233,9 @@
     "nextImage": "الصورة التالية",
     "goToImage": "الانتقال إلى الصورة {index}",
     "close": "إغلاق"
+  },
+  "ProjectLocationMap": {
+    "title": "موقع المشروع",
+    "iframeTitle": "خريطة Google: {location}"
   }
 }

@@ -53,13 +53,13 @@ export default function ProjectDetails({
         {description}
       </p>
 
-      <div className="mx-auto grid max-w-4xl grid-cols-1 py-12 md:grid-cols-2">
+      <div className="mx-auto grid max-w-4xl grid-cols-2 py-6 md:py-12">
         {infoItems.map((item) => (
-          <div key={item.label} className="p-6">
+          <div key={item.label} className="p-3 md:p-6">
             <p className="text-text-secondary mb-2 text-base font-medium">
               {item.label}
             </p>
-            <p className="text-lg font-medium text-black md:text-xl lg:text-2xl">
+            <p className="text-base font-medium text-black md:text-xl lg:text-2xl">
               {item.value}
             </p>
           </div>

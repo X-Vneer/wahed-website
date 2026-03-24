@@ -1,11 +1,13 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { Button, Modal } from "@heroui/react"
-import { ImageIcon, Play } from "lucide-react"
+import { Button, cn, Modal } from "@heroui/react"
+import { ChevronLeft, ChevronRight, ImageIcon, Play } from "lucide-react"
+import type { Swiper as SwiperInstance } from "swiper"
 import "swiper/css"
+import { Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import ImageSliderModal, { type GalleryImage } from "./image-slider-modal"
 
@@ -27,8 +29,23 @@ export default function ImageGallery({
   const [isSliderOpen, setIsSliderOpen] = useState(false)
   const [isVideoOpen, setIsVideoOpen] = useState(false)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
+  const prevNavRef = useRef<HTMLButtonElement>(null)
+  const nextNavRef = useRef<HTMLButtonElement>(null)
 
   const hasVideo = Boolean(videoUrl)
+  const canNavigate = previewImages.length > 1
+
+  const onMobileSwiper = (swiper: SwiperInstance) => {
+    if (!canNavigate) return
+    queueMicrotask(() => {
+      const nav = swiper.params.navigation
+      if (!nav || typeof nav === "boolean") return
+      nav.prevEl = prevNavRef.current
+      nav.nextEl = nextNavRef.current
+      swiper.navigation.init()
+      swiper.navigation.update()
+    })
+  }
 
   if (!galleryImages.length) {
     return null
@@ -42,8 +59,14 @@ export default function ImageGallery({
   return (
     <section className="relative mt-4 mb-6 md:mt-6 md:mb-10">
       <div className="relative container">
-        <div className="md:hidden">
-          <Swiper slidesPerView={1} spaceBetween={12}>
+        <div className="relative md:hidden">
+          <Swiper
+            modules={[Navigation]}
+            slidesPerView={1}
+            spaceBetween={12}
+            loop
+            onSwiper={onMobileSwiper}
+          >
             {previewImages.map((image, index) => (
               <SwiperSlide key={`${title}-mobile-preview-${index}`}>
                 <button
@@ -67,6 +90,32 @@ export default function ImageGallery({
               </SwiperSlide>
             ))}
           </Swiper>
+          {canNavigate ? (
+            <>
+              <button
+                ref={prevNavRef}
+                type="button"
+                className={cn(
+                  "absolute top-1/2 left-2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white shadow-md backdrop-blur-sm transition hover:bg-black/55",
+                  "pointer-events-auto [&.swiper-button-disabled]:pointer-events-none [&.swiper-button-disabled]:opacity-30"
+                )}
+                aria-label={t("previousImage")}
+              >
+                <ChevronLeft className="size-6" strokeWidth={2} />
+              </button>
+              <button
+                ref={nextNavRef}
+                type="button"
+                className={cn(
+                  "absolute top-1/2 right-2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white shadow-md backdrop-blur-sm transition hover:bg-black/55",
+                  "pointer-events-auto [&.swiper-button-disabled]:pointer-events-none [&.swiper-button-disabled]:opacity-30"
+                )}
+                aria-label={t("nextImage")}
+              >
+                <ChevronRight className="size-6" strokeWidth={2} />
+              </button>
+            </>
+          ) : null}
         </div>
 
         <div className="hidden gap-4 md:grid md:grid-cols-5">
