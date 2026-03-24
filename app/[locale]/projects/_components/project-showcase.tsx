@@ -72,12 +72,7 @@ export default function ProjectShowcase() {
         <ProjectCard
           key={project.id}
           index={index}
-          title={project.title}
-          description={project.description}
-          features={project.features}
-          specifications={project.specifications}
-          images={project.images}
-          ctaLabel={project.ctaLabel}
+          {...project}
           gallerySide={index % 2 === 0 ? "left" : "right"}
         />
       ))}

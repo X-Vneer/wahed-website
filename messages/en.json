@@ -182,5 +182,19 @@
       }
     ],
     "cta": "Explore Project"
+  },
+  "ProjectGallery": {
+    "showAllImages": "Show all images",
+    "showVideo": "Show video",
+    "videoTitle": "{title} video",
+    "openImage": "Open image {index}",
+    "openFeaturedImage": "Open featured image",
+    "imageAlt": "{title} image {index}",
+    "featuredImageAlt": "{title} featured image",
+    "thumbnailAlt": "{title} thumbnail {index}",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "goToImage": "Go to image {index}",
+    "close": "Close"
   }
 }

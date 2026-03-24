@@ -182,5 +182,19 @@
       }
     ],
     "cta": "استكشف المشروع"
+  },
+  "ProjectGallery": {
+    "showAllImages": "عرض كل الصور",
+    "showVideo": "عرض الفيديو",
+    "videoTitle": "فيديو {title}",
+    "openImage": "فتح الصورة {index}",
+    "openFeaturedImage": "فتح الصورة الرئيسية",
+    "imageAlt": "صورة {title} رقم {index}",
+    "featuredImageAlt": "الصورة الرئيسية لمشروع {title}",
+    "thumbnailAlt": "صورة مصغرة {index} لمشروع {title}",
+    "previousImage": "الصورة السابقة",
+    "nextImage": "الصورة التالية",
+    "goToImage": "الانتقال إلى الصورة {index}",
+    "close": "إغلاق"
   }
 }

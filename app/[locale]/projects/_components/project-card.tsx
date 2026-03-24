@@ -6,6 +6,7 @@ import { Button } from "@heroui/button"
 import { cn } from "@heroui/theme"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
+import { Link } from "@/i18n/navigation"
 import ImageGallery from "./image-gallery"
 
 type ProjectImage = StaticImageData | string
@@ -17,6 +18,7 @@ type ProjectSpecification = {
 
 type ProjectCardProps = {
   index: number
+  id: string
   title: string
   description: string
   images: ProjectImage[]
@@ -28,6 +30,7 @@ type ProjectCardProps = {
 
 export default function ProjectCard({
   index,
+  id,
   title,
   description,
   images,
@@ -170,6 +173,8 @@ export default function ProjectCard({
           <div>
             {ctaLabel ? (
               <Button
+                as={Link}
+                href={`/projects/${id}`}
                 radius="none"
                 color="primary"
                 className="min-w-48 shrink-0 px-8 text-white max-md:w-full"
