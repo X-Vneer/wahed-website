@@ -3,15 +3,7 @@
 import { useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import {
-  Button,
-  Modal,
-  ModalBackdrop,
-  ModalBody,
-  ModalContainer,
-  ModalDialog,
-  ModalHeader,
-} from "@heroui/react"
+import { Button, Modal } from "@heroui/react"
 import { ImageIcon, Play } from "lucide-react"
 import ImageSliderModal, { type GalleryImage } from "./image-slider-modal"
 
@@ -96,21 +88,13 @@ export default function ImageGallery({
         </div>
 
         <div className="absolute bottom-1 left-5 mt-5 flex flex-wrap gap-3">
-          <Button
-            variant="secondary"
-            className="rounded-none"
-            onPress={() => openSliderAt(0)}
-          >
+          <Button variant="secondary" onPress={() => openSliderAt(0)}>
             <ImageIcon className="size-4" />
             {t("showAllImages")}
           </Button>
 
           {hasVideo ? (
-            <Button
-              variant="outline"
-              className="rounded-none"
-              onPress={() => setIsVideoOpen(true)}
-            >
+            <Button variant="secondary" onPress={() => setIsVideoOpen(true)}>
               <Play className="size-4" />
               {t("showVideo")}
             </Button>
@@ -126,32 +110,47 @@ export default function ImageGallery({
         onActiveIndexChange={setActiveImageIndex}
       />
 
-      <Modal
-        isOpen={isVideoOpen}
-        onOpenChange={setIsVideoOpen}
-      >
-        <ModalBackdrop />
-        <ModalContainer size="lg" className="rounded-none">
-          <ModalDialog>
-            <ModalHeader className="text-primary pb-2">
-              {t("videoTitle", { title })}
-            </ModalHeader>
-            <ModalBody className="p-0">
-              {videoUrl ? (
-                <div className="aspect-video w-full bg-black">
-                  <iframe
-                    src={videoUrl}
-                    title={t("videoTitle", { title })}
-                    className="h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  />
+      <Modal>
+        <Modal.Backdrop
+          isOpen={isVideoOpen}
+          onOpenChange={setIsVideoOpen}
+          variant="opaque"
+          className="bg-black/95"
+        >
+          <Modal.Container
+            size="full"
+            placement="center"
+            scroll="inside"
+            className="m-0 h-dvh max-h-dvh w-screen max-w-none overflow-hidden rounded-none border-none bg-black p-0 shadow-none"
+          >
+            <Modal.Dialog className="h-full w-full overflow-hidden rounded-none border-none bg-black shadow-none">
+              <Modal.Body className="overflow-hidden p-0">
+                <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+                  {videoUrl ? (
+                    <div className="aspect-video w-[min(90vw,1200px)] bg-black">
+                      <iframe
+                        src={videoUrl}
+                        title={t("videoTitle", { title })}
+                        className="h-full w-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
+                    </div>
+                  ) : null}
+
+                  <button
+                    type="button"
+                    className="absolute top-4 right-4 z-20 rounded-full bg-white/20 px-3 py-2 text-sm text-white backdrop-blur transition hover:bg-white/35"
+                    onClick={() => setIsVideoOpen(false)}
+                  >
+                    {t("close")}
+                  </button>
                 </div>
-              ) : null}
-            </ModalBody>
-          </ModalDialog>
-        </ModalContainer>
+              </Modal.Body>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
       </Modal>
     </section>
   )
