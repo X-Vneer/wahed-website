@@ -2,9 +2,14 @@
 
 import React, { useState } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@heroui/button"
-import { Form } from "@heroui/form"
-import { Input, Textarea } from "@heroui/input"
+import {
+  Button,
+  Form,
+  Input,
+  Label,
+  TextArea,
+  TextField,
+} from "@heroui/react"
 
 type Status = "idle" | "success" | "error"
 
@@ -43,77 +48,61 @@ export default function ContactForm() {
       className="mx-auto max-w-xl space-y-3 rounded-none bg-white md:space-y-6"
     >
       <div className="grid w-full gap-3 md:grid-cols-2 md:gap-6">
-        <Input
-          className="text-primary"
-          name="firstName"
-          label={t("firstNameLabel")}
-          fullWidth
-          placeholder={t("firstNamePlaceholder")}
-          variant="bordered"
-          radius="none"
-          isRequired
-          labelPlacement="outside"
-        />
-        <Input
-          className="text-primary"
-          name="lastName"
-          label={t("lastNameLabel")}
-          fullWidth
-          placeholder={t("lastNamePlaceholder")}
-          variant="bordered"
-          radius="none"
-          isRequired
-          labelPlacement="outside"
-        />
+        <TextField name="firstName" isRequired fullWidth>
+          <Label className="text-primary">{t("firstNameLabel")}</Label>
+          <Input
+            className="text-primary"
+            placeholder={t("firstNamePlaceholder")}
+            variant="secondary"
+          />
+        </TextField>
+        <TextField name="lastName" isRequired fullWidth>
+          <Label className="text-primary">{t("lastNameLabel")}</Label>
+          <Input
+            className="text-primary"
+            placeholder={t("lastNamePlaceholder")}
+            variant="secondary"
+          />
+        </TextField>
       </div>
 
       <div className="grid w-full gap-6 md:grid-cols-2">
-        <Input
-          className="text-primary"
-          type="email"
-          name="email"
-          label={t("emailLabel")}
-          fullWidth
-          placeholder={t("emailPlaceholder")}
-          variant="bordered"
-          radius="none"
-          isRequired
-          labelPlacement="outside"
-        />
-        <Input
-          className="text-primary"
-          type="tel"
-          name="phone"
-          label={t("phoneLabel")}
-          fullWidth
-          placeholder={t("phonePlaceholder")}
-          variant="bordered"
-          radius="none"
-          isRequired
-          labelPlacement="outside"
-        />
+        <TextField name="email" type="email" isRequired fullWidth>
+          <Label className="text-primary">{t("emailLabel")}</Label>
+          <Input
+            className="text-primary"
+            placeholder={t("emailPlaceholder")}
+            variant="secondary"
+          />
+        </TextField>
+        <TextField name="phone" type="tel" isRequired fullWidth>
+          <Label className="text-primary">{t("phoneLabel")}</Label>
+          <Input
+            className="text-primary"
+            placeholder={t("phonePlaceholder")}
+            variant="secondary"
+          />
+        </TextField>
       </div>
 
-      <Textarea
-        id="message"
-        name="message"
-        className="text-primary"
-        required
-        label={t("messageLabel")}
-        placeholder={t("messagePlaceholder")}
-        variant="bordered"
-        radius="none"
-        labelPlacement="outside"
-      />
+      <TextField name="message" isRequired fullWidth>
+        <Label className="text-primary">{t("messageLabel")}</Label>
+        <TextArea
+          id="message"
+          className="text-primary"
+          placeholder={t("messagePlaceholder")}
+          variant="secondary"
+          rows={5}
+        />
+      </TextField>
 
       <div className="w-full space-y-3 pt-2">
         <Button
           type="submit"
           size="lg"
-          radius="none"
           fullWidth
           className="h-12 bg-black text-base font-medium text-white"
-          isLoading={isSubmitting}
+          isPending={isSubmitting}
         >
           {t("submit")}
         </Button>

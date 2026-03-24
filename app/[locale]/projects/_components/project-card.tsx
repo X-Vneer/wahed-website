@@ -2,11 +2,10 @@
 
 import { useTranslations } from "next-intl"
 import { StaticImageData } from "next/image"
-import { Button } from "@heroui/button"
-import { cn } from "@heroui/theme"
+import { Button, cn } from "@heroui/react"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import { useRouter } from "@/i18n/navigation"
 import ImageGallery from "./image-gallery"
 
 type ProjectImage = StaticImageData | string
@@ -40,6 +39,7 @@ export default function ProjectCard({
   gallerySide = "right",
 }: ProjectCardProps) {
   const t = useTranslations("ProjectsCard")
+  const router = useRouter()
 
   if (images.length < 3) {
     return null
@@ -173,11 +173,10 @@ export default function ProjectCard({
           <div>
             {ctaLabel ? (
               <Button
-                as={Link}
-                href={`/projects/${id}`}
-                radius="none"
-                color="primary"
+                type="button"
+                variant="primary"
                 className="min-w-48 shrink-0 px-8 text-white max-md:w-full"
+                onPress={() => router.push(`/projects/${id}`)}
               >
                 {ctaLabel}
               </Button>

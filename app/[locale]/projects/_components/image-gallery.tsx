@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react"
 import Image, { StaticImageData } from "next/image"
-import { cn } from "@heroui/theme"
+import { cn } from "@heroui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
 type ProjectImage = StaticImageData | string

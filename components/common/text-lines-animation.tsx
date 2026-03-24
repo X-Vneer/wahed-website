@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { cn } from "@heroui/theme"
+import { cn } from "@heroui/react"
 import { motion } from "framer-motion"
 import { createRoot, type Root } from "react-dom/client"
 

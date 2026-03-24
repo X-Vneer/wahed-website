@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { Divider } from "@heroui/divider"
+import { Separator } from "@heroui/react"
 import { motion } from "framer-motion"
 import { TextLinesAnimation } from "@/components/common/text-lines-animation"
 
@@ -70,7 +70,7 @@ export default function ContactHero() {
             </>
           </TextLinesAnimation>
         </div>
-        <Divider />
+        <Separator />
       </div>
     </section>
   )

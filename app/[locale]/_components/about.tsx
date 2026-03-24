@@ -3,7 +3,7 @@
 import { useRef } from "react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { Button } from "@heroui/button"
+import { Button } from "@heroui/react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { aboutImage } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
@@ -180,10 +180,9 @@ export default function About() {
             >
               <Button
                 size="lg"
-                radius="none"
                 className="bg-primary hover:bg-primary/95 min-w-48 px-8 text-white"
-                startContent={<WhatsAppIcon />}
               >
+                <WhatsAppIcon />
                 {t("cta")}
               </Button>
             </motion.div>

@@ -2,8 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { Button } from "@heroui/button"
-import { cn } from "@heroui/theme"
+import { Button, cn } from "@heroui/react"
 import { motion } from "framer-motion"
 import { projectImage } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
@@ -246,8 +245,8 @@ export default function Projects() {
           transition={{ duration: 0.4, delay: 0.2 }}
         >
           <Button
-            radius="none"
-            className="min-w-48 bg-[#1d1d1f] px-8 text-white hover:bg-black"
+            variant="primary"
+            className="min-w-48 px-8 text-white hover:bg-black"
           >
             {t("allProjects")}
           </Button>

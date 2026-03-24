@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@heroui/button"
+import { Button } from "@heroui/react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ctaBg } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
@@ -168,10 +168,7 @@ export default function Cta() {
               }}
               className="mt-6"
             >
-              <Button
-                radius="sm"
-                className="max-w-48 bg-white px-8 text-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
-              >
+              <Button className="max-w-48 bg-white px-8 text-black transition-transform hover:scale-[1.02] active:scale-[0.98]">
                 {t("cta")}
               </Button>
             </motion.div>

@@ -1,16 +1,17 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Image from "next/image"
 import { useTranslations } from "next-intl"
-import { Button } from "@heroui/button"
+import Image from "next/image"
 import {
+  Button,
   Modal,
+  ModalBackdrop,
   ModalBody,
-  ModalContent,
-  ModalFooter,
+  ModalContainer,
+  ModalDialog,
   ModalHeader,
-} from "@heroui/modal"
+} from "@heroui/react"
 import { ImageIcon, Play } from "lucide-react"
 import ImageSliderModal, { type GalleryImage } from "./image-slider-modal"
 
@@ -45,68 +46,76 @@ export default function ImageGallery({
   }
 
   return (
-    <section className="container mt-6 mb-10 md:mt-10 md:mb-16">
-      <div className="grid gap-4 lg:grid-cols-5">
-        <div className="grid gap-3 sm:grid-cols-2 lg:col-span-3">
-          {previewImages.slice(0, 4).map((image, index) => (
+    <section className="relative mt-6 mb-10 md:mt-10 md:mb-16">
+      <div className="relative container">
+        <div className="grid gap-4 lg:grid-cols-5">
+          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-3">
+            {previewImages.slice(0, 4).map((image, index) => (
+              <button
+                key={`${title}-preview-${index}`}
+                type="button"
+                className="group relative h-52 cursor-pointer overflow-hidden bg-[#f2f2f2] text-left md:h-74"
+                onClick={() => openSliderAt(index)}
+                aria-label={t("openImage", { index: index + 1 })}
+              >
+                <Image
+                  src={image}
+                  alt={t("imageAlt", { title, index: index + 1 })}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                />
+                <span
+                  className="pointer-events-none absolute inset-0 bg-black/20 transition-colors duration-300 group-hover:bg-black/10"
+                  aria-hidden
+                />
+              </button>
+            ))}
+          </div>
+
+          {previewImages[4] ? (
             <button
-              key={`${title}-preview-${index}`}
               type="button"
-              className="group relative h-52 cursor-pointer overflow-hidden bg-[#f2f2f2] text-left md:h-74"
-              onClick={() => openSliderAt(index)}
-              aria-label={t("openImage", { index: index + 1 })}
+              className="group relative h-104 cursor-pointer overflow-hidden bg-[#f2f2f2] text-left lg:col-span-2 lg:h-full"
+              onClick={() => openSliderAt(4)}
+              aria-label={t("openFeaturedImage")}
             >
               <Image
-                src={image}
-                alt={t("imageAlt", { title, index: index + 1 })}
+                src={previewImages[4]}
+                alt={t("featuredImageAlt", { title })}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                sizes="(max-width: 1024px) 100vw, 33vw"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <span
+                className="pointer-events-none absolute inset-0 bg-black/25 transition-colors duration-300 group-hover:bg-black/15"
+                aria-hidden
               />
             </button>
-          ))}
+          ) : null}
         </div>
 
-        {previewImages[4] ? (
-          <button
-            type="button"
-            className="group relative h-104 cursor-pointer overflow-hidden bg-[#f2f2f2] text-left lg:col-span-2 lg:h-full"
-            onClick={() => openSliderAt(4)}
-            aria-label={t("openFeaturedImage")}
-          >
-            <Image
-              src={previewImages[4]}
-              alt={t("featuredImageAlt", { title })}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-            />
-          </button>
-        ) : null}
-      </div>
-
-      <div className="mt-5 flex flex-wrap gap-3">
-        <Button
-          color="primary"
-          radius="none"
-          size="lg"
-          startContent={<ImageIcon className="size-4" />}
-          onPress={() => openSliderAt(0)}
-        >
-          {t("showAllImages")}
-        </Button>
-
-        {hasVideo ? (
+        <div className="absolute bottom-1 left-5 mt-5 flex flex-wrap gap-3">
           <Button
-            radius="none"
-            size="lg"
-            variant="bordered"
-            startContent={<Play className="size-4" />}
-            onPress={() => setIsVideoOpen(true)}
+            variant="secondary"
+            className="rounded-none"
+            onPress={() => openSliderAt(0)}
           >
-            {t("showVideo")}
+            <ImageIcon className="size-4" />
+            {t("showAllImages")}
           </Button>
-        ) : null}
+
+          {hasVideo ? (
+            <Button
+              variant="outline"
+              className="rounded-none"
+              onPress={() => setIsVideoOpen(true)}
+            >
+              <Play className="size-4" />
+              {t("showVideo")}
+            </Button>
+          ) : null}
+        </div>
       </div>
       <ImageSliderModal
         title={title}
@@ -120,30 +129,29 @@ export default function ImageGallery({
       <Modal
         isOpen={isVideoOpen}
         onOpenChange={setIsVideoOpen}
-        size="5xl"
-        radius="none"
-        classNames={{ body: "p-0", header: "pb-2", footer: "hidden" }}
       >
-        <ModalContent>
-          <ModalHeader className="text-primary">
-            {t("videoTitle", { title })}
-          </ModalHeader>
-          <ModalBody>
-            {videoUrl ? (
-              <div className="aspect-video w-full bg-black">
-                <iframe
-                  src={videoUrl}
-                  title={t("videoTitle", { title })}
-                  className="h-full w-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                />
-              </div>
-            ) : null}
-          </ModalBody>
-          <ModalFooter />
-        </ModalContent>
+        <ModalBackdrop />
+        <ModalContainer size="lg" className="rounded-none">
+          <ModalDialog>
+            <ModalHeader className="text-primary pb-2">
+              {t("videoTitle", { title })}
+            </ModalHeader>
+            <ModalBody className="p-0">
+              {videoUrl ? (
+                <div className="aspect-video w-full bg-black">
+                  <iframe
+                    src={videoUrl}
+                    title={t("videoTitle", { title })}
+                    className="h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              ) : null}
+            </ModalBody>
+          </ModalDialog>
+        </ModalContainer>
       </Modal>
     </section>
   )

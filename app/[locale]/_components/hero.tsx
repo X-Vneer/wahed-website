@@ -3,8 +3,8 @@
 import { useRef } from "react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { Button } from "@heroui/button"
 import { motion, useScroll, useTransform } from "framer-motion"
+import { Ripple } from "m3-ripple"
 import { heroImage, noise } from "@/assets"
 import { TextLinesAnimation } from "@/components/common/text-lines-animation"
 import { Link } from "@/i18n/navigation"
@@ -27,10 +27,18 @@ export default function Hero() {
   // Noise layer moves at a different rate for layered depth
   const noiseY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"])
   // Content and arrow move slower than scroll = feel in front of background
-  const contentY = useTransform(scrollYProgress, [0, 0.6, 1], ["0%", "-5%", "-12%"])
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 0.6, 1],
+    ["0%", "-5%", "-12%"]
+  )
   const arrowY = useTransform(scrollYProgress, [0, 1], ["0%", "-6%"])
   // Arrow fades out as hero scrolls away (stays full until 20% scroll so initial fade-in isn’t overridden)
-  const arrowOpacity = useTransform(scrollYProgress, [0, 0.2, 0.55, 0.85], [1, 1, 0.4, 0])
+  const arrowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.55, 0.85],
+    [1, 1, 0.4, 0]
+  )
 
   return (
     <section
@@ -96,15 +104,13 @@ export default function Hero() {
                 transition={{ duration: 0.5, delay: 1.5 }}
                 className="mt-8 md:mt-12"
               >
-                <Button
-                  radius="sm"
-                  size="lg"
-                  className="w-full max-w-[250px] bg-white text-lg font-medium! text-black"
-                  as={Link}
+                <Link
                   href="/about"
+                  className="relative inline-flex h-12 w-full max-w-[250px] items-center justify-center bg-white text-lg font-medium text-black transition-colors hover:bg-white/80"
                 >
                   {t("cta")}
-                </Button>
+                  <Ripple />
+                </Link>
               </motion.div>
             </div>
           </motion.div>

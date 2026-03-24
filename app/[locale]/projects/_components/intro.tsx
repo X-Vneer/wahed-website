@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { Divider } from "@heroui/divider"
+import { Separator } from "@heroui/react"
 
 export default function ProjectsIntro() {
   const t = useTranslations("ProjectsIntro")
@@ -35,7 +35,7 @@ export default function ProjectsIntro() {
             })}
           </p>
         </div>
-        <Divider className="mt-10 md:mt-12" />
+        <Separator className="mt-10 md:mt-12" />
       </div>
     </section>
   )

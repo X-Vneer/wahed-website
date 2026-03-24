@@ -1,4 +1,4 @@
-import { Button } from "@heroui/button"
+import { Button } from "@heroui/react"
 import { BookOpenText, MapPin } from "lucide-react"
 
 type ProjectPageIntroProps = {
@@ -26,8 +26,8 @@ export default function ProjectPageIntro({
     <section className="bg-white py-8 md:py-10">
       <div className="h-30"></div>
       <div className="container">
-        <div className="flex justify-between">
-          <div className="flex flex-col gap-4">
+        <div className="flex flex-col justify-between md:flex-row">
+          <div className="flex flex-col gap-2 md:gap-4">
             <div className="mb-4 flex">
               <span className="bg-secondary px-5 py-2 font-medium text-white">
                 {tag}
@@ -44,7 +44,7 @@ export default function ProjectPageIntro({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-3 gap-6">
             <div className="flex flex-col items-center justify-center">
               <p className="mb-2 text-lg font-bold text-[#A8A8A8]">
                 {statusLabel}
@@ -61,7 +61,7 @@ export default function ProjectPageIntro({
             </div>
 
             <div className="flex items-center justify-center">
-              <Button size="lg" radius="none" color="primary">
+              <Button size="lg" variant="primary">
                 <span className="flex items-center gap-2">
                   <BookOpenText className="size-5" />
                   {guideLabel}

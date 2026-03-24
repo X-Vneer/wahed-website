@@ -1,20 +1,9 @@
 "use client"
 
+import { useState } from "react"
 import { useTranslations, useLocale } from "next-intl"
 import Image from "next/image"
-import { Button } from "@heroui/button"
-import { Divider } from "@heroui/divider"
-import { Link as HeroUILink } from "@heroui/link"
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-} from "@heroui/navbar"
-import { cn } from "@heroui/theme"
+import { Button, cn, Separator } from "@heroui/react"
 import { blackLogo, whiteLogo } from "@/assets"
 import { useRouter, usePathname, Link } from "@/i18n/navigation"
 
@@ -49,6 +38,7 @@ export default function Header({
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const menuItems = [
     { key: "home", href: "/" },
@@ -60,72 +50,63 @@ export default function Header({
   const switchLocale = () => {
     const nextLocale = locale === "ar" ? "en" : "ar"
     router.replace(pathname, { locale: nextLocale })
+    setIsMenuOpen(false)
   }
 
   const languageLabel = locale === "ar" ? t("language") : t("languageAr")
 
   return (
-    <Navbar
-      isBlurred={false}
-      isBordered={false}
+    <header
       className={cn(
-        "container -mb-16 bg-black/30 text-white md:-mb-20 md:bg-transparent md:pt-4",
+        "relative z-50 container -mb-16 bg-black/30 text-white md:-mb-20 md:bg-transparent md:pt-4",
         variant === "light" ? "text-white" : "text-primary"
       )}
-      maxWidth="full"
-      position="static"
     >
-      {/* Start: logo (right in RTL, left in LTR) */}
-      <NavbarContent justify="start">
-        <NavbarBrand>
-          <Link href="/" className="text-inherit">
-            {variant === "light" ? (
-              <Image
-                src={whiteLogo}
-                alt="Raad"
-                className="w-20 lg:w-26"
-                priority
-              />
-            ) : (
-              <Image
-                src={blackLogo}
-                alt="Raad"
-                className="w-20 lg:w-26"
-                priority
-              />
-            )}
-          </Link>
-        </NavbarBrand>
-      </NavbarContent>
+      <nav className="flex items-center justify-between py-3 md:py-0">
+        <Link
+          href="/"
+          className="text-inherit"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          {variant === "light" ? (
+            <Image
+              src={whiteLogo}
+              alt="Raad"
+              className="w-20 lg:w-26"
+              priority
+            />
+          ) : (
+            <Image
+              src={blackLogo}
+              alt="Raad"
+              className="w-20 lg:w-26"
+              priority
+            />
+          )}
+        </Link>
 
-      {/* Center: nav links */}
-      <NavbarContent justify="end" className="hidden gap-6 md:flex">
-        {menuItems.map((item) => (
-          <NavbarItem key={item.key}>
-            <HeroUILink
-              as={Link}
+        <div className="hidden items-center gap-6 md:flex">
+          {menuItems.map((item) => (
+            <Link
+              key={item.key}
               href={item.href}
               className={cn(
                 variant === "light" ? "text-white" : "text-primary"
               )}
             >
               {t(`nav.${item.key}`)}
-            </HeroUILink>
-          </NavbarItem>
-        ))}
-        <div className="h-8">
-          <Divider
+            </Link>
+          ))}
+          <Separator
             orientation="vertical"
             className={cn(variant === "light" ? "bg-white" : "bg-primary")}
           />
-        </div>
-        <NavbarItem className="flex">
           <Button
             type="button"
-            variant="light"
-            radius="sm"
-            color="primary"
-            className={cn(variant === "light" ? "text-white" : "text-primary")}
+            className={cn(
+              "bg-transparent hover:bg-white/10",
+              variant === "light" ? "text-white" : "text-primary"
+            )}
             onPress={switchLocale}
             aria-label={
               locale === "ar" ? "Switch to English" : "التبديل إلى العربية"
@@ -134,15 +115,12 @@ export default function Header({
             <GlobeIcon className="shrink-0" />
             <span>{languageLabel}</span>
           </Button>
-        </NavbarItem>
-      </NavbarContent>
-      {/* Center: nav links */}
-      <NavbarContent justify="end" className="flex gap-3 md:hidden">
-        <NavbarItem className="flex">
+        </div>
+
+        <div className="flex items-center gap-3 md:hidden">
           <Button
             type="button"
-            variant="light"
-            radius="sm"
+            variant="secondary"
             className="text-white"
             onPress={switchLocale}
             aria-label={
@@ -150,27 +128,40 @@ export default function Header({
             }
           >
             <span>{languageLabel}</span>
-            <span className="block h-5 w-px bg-white"></span>
+            <span className="block h-5 w-px bg-white" />
             <GlobeIcon className="shrink-0" />
           </Button>
-        </NavbarItem>
-        <NavbarMenuToggle className="text-white" aria-label="Toggle menu" />
-      </NavbarContent>
+          <Button
+            type="button"
+            isIconOnly
+            variant="ghost"
+            className="text-white"
+            aria-label="Toggle menu"
+            onPress={() => setIsMenuOpen((prev) => !prev)}
+          >
+            <span className="text-xl leading-none">
+              {isMenuOpen ? "×" : "☰"}
+            </span>
+          </Button>
+        </div>
+      </nav>
 
-      <NavbarMenu className="bg-black/95 pt-6">
-        {menuItems.map((item) => (
-          <NavbarMenuItem key={item.key}>
-            <HeroUILink
-              as={Link}
-              href={item.href}
-              className="w-full text-white"
-              size="lg"
-            >
-              {t(`nav.${item.key}`)}
-            </HeroUILink>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
-    </Navbar>
+      {isMenuOpen ? (
+        <div className="bg-black/95 pb-4 md:hidden">
+          <div className="flex flex-col gap-2 pt-2">
+            {menuItems.map((item) => (
+              <Link
+                key={item.key}
+                href={item.href}
+                className="w-full py-2 text-white"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t(`nav.${item.key}`)}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </header>
   )
 }
