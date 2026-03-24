@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { Button, Modal } from "@heroui/react"
 import { ImageIcon, Play } from "lucide-react"
+import "swiper/css"
+import { Swiper, SwiperSlide } from "swiper/react"
 import ImageSliderModal, { type GalleryImage } from "./image-slider-modal"
 
 type ImageGalleryProps = {
@@ -40,13 +42,40 @@ export default function ImageGallery({
   return (
     <section className="relative mt-6 mb-10 md:mt-10 md:mb-16">
       <div className="relative container">
-        <div className="grid gap-4 lg:grid-cols-5">
+        <div className="md:hidden">
+          <Swiper slidesPerView={1} spaceBetween={12}>
+            {previewImages.map((image, index) => (
+              <SwiperSlide key={`${title}-mobile-preview-${index}`}>
+                <button
+                  type="button"
+                  className="group relative h-[70svh] w-full cursor-pointer overflow-hidden bg-[#f2f2f2] text-left"
+                  onClick={() => openSliderAt(index)}
+                  aria-label={t("openImage", { index: index + 1 })}
+                >
+                  <Image
+                    src={image}
+                    alt={t("imageAlt", { title, index: index + 1 })}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    sizes="90vw"
+                  />
+                  <span
+                    className="pointer-events-none absolute inset-0 bg-black/20 transition-colors duration-300 group-hover:bg-black/10"
+                    aria-hidden
+                  />
+                </button>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        <div className="hidden gap-4 md:grid lg:grid-cols-5">
           <div className="grid gap-3 sm:grid-cols-2 lg:col-span-3">
             {previewImages.slice(0, 4).map((image, index) => (
               <button
                 key={`${title}-preview-${index}`}
                 type="button"
-                className="group relative h-52 cursor-pointer overflow-hidden bg-[#f2f2f2] text-left md:h-74"
+                className="group relative h-52 cursor-pointer overflow-hidden bg-[#f2f2f2] text-left md:h-64"
                 onClick={() => openSliderAt(index)}
                 aria-label={t("openImage", { index: index + 1 })}
               >
@@ -87,7 +116,7 @@ export default function ImageGallery({
           ) : null}
         </div>
 
-        <div className="absolute bottom-1 left-5 mt-5 flex flex-wrap gap-3">
+        <div className="absolute bottom-3 left-5 z-1 mt-5 flex flex-wrap gap-3 md:bottom-1">
           <Button variant="secondary" onPress={() => openSliderAt(0)}>
             <ImageIcon className="size-4" />
             {t("showAllImages")}
