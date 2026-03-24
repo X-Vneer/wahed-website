@@ -23,7 +23,7 @@ export default function ProjectPageIntro({
   guideLabel,
 }: ProjectPageIntroProps) {
   return (
-    <section className="bg-white py-8 md:py-10">
+    <section className="relative py-8 md:py-10">
       <div className="h-30"></div>
       <div className="container">
         <div className="flex flex-col justify-between md:flex-row">
@@ -61,11 +61,9 @@ export default function ProjectPageIntro({
             </div>
 
             <div className="flex items-center justify-center">
-              <Button size="lg" variant="primary">
-                <span className="flex items-center gap-2">
-                  <BookOpenText className="size-5" />
-                  {guideLabel}
-                </span>
+              <Button size="lg" variant="primary" className={"text-white"}>
+                <BookOpenText className="size-5" />
+                {guideLabel}
               </Button>
             </div>
           </div>

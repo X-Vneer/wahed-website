@@ -2,10 +2,10 @@
 
 import { useRef } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@heroui/react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ctaBg } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
+import { Link } from "@/i18n/navigation"
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -168,9 +168,12 @@ export default function Cta() {
               }}
               className="mt-6"
             >
-              <Button className="max-w-48 bg-white px-8 text-black transition-transform hover:scale-[1.02] active:scale-[0.98]">
+              <Link
+                href="/contact"
+                className="max-w-48 bg-white px-8 py-2 text-black transition-transform duration-300 hover:bg-white/80"
+              >
                 {t("cta")}
-              </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>

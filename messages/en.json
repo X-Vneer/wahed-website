@@ -117,7 +117,17 @@
     "messagePlaceholder": "Enter your message details",
     "submit": "Send",
     "success": "Your message has been sent.",
-    "error": "Something went wrong. Please try again."
+    "error": "Something went wrong. Please try again.",
+    "errors": {
+      "firstNameRequired": "First name is required.",
+      "lastNameRequired": "Last name is required.",
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Please enter a valid email address.",
+      "phoneRequired": "Phone number is required.",
+      "phoneInvalid": "Please enter a valid phone number.",
+      "messageRequired": "Message is required.",
+      "messageMinLength": "Message must be at least 10 characters."
+    }
   },
   "ContactSection": {
     "title": "Let’s start the conversation",

@@ -5,6 +5,7 @@ import { StaticImageData } from "next/image"
 import { Button, cn } from "@heroui/react"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
+import { Ripple } from "m3-ripple"
 import { useRouter } from "@/i18n/navigation"
 import ImageGallery from "./image-gallery"
 
@@ -174,11 +175,13 @@ export default function ProjectCard({
             {ctaLabel ? (
               <Button
                 type="button"
-                variant="primary"
-                className="min-w-48 shrink-0 px-8 text-white max-md:w-full"
+                // variant="primary"
+                variant="secondary"
+                className="min-w-48 shrink-0 max-md:w-full"
                 onPress={() => router.push(`/projects/${id}`)}
               >
                 {ctaLabel}
+                <Ripple />
               </Button>
             ) : null}
           </div>
