@@ -28,7 +28,7 @@ export default function Projects() {
       <div
         ref={lineTrackRef}
         aria-hidden
-        className="pointer-events-none absolute top-64 right-16 bottom-0 z-0 w-px md:w-0.5"
+        className="pointer-events-none absolute inset-s-8 bottom-0 z-0 hidden w-px md:top-56 md:block md:w-0.5 lg:top-60 lg:right-16 xl:top-64"
       >
         <span className="bg-secondary absolute top-0 right-px z-10 size-3 translate-x-1/2 rotate-45">
           {" "}
@@ -39,7 +39,7 @@ export default function Projects() {
         />
       </div>
       <div className="relative z-10">
-        <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:gap-10">
+        <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:gap-6 lg:gap-10">
           <div className="space-y-4 max-md:px-4 md:ps-6 md:pt-4 lg:ps-10 xl:ps-16">
             <h2 className="text-2xl font-medium text-black md:text-3xl lg:text-4xl">
               مجمع الرحمانية السكني
@@ -47,7 +47,7 @@ export default function Projects() {
             <p className="leading-sung text-text-secondary text-sm font-medium md:text-base lg:text-lg">
               مجمع سكني متكامل صُمم ليمنحك أسلوب حياة أكثر راحة وجودة
             </p>
-            <div className="mt-6 max-w-sm space-y-5 pt-1 md:mt-9 md:ps-12 lg:mt-20 lg:ps-20">
+            <div className="mt-6 max-w-sm space-y-5 pt-1 md:mt-9 md:ps-10 lg:mt-20 lg:ps-20">
               <p className="text-text-secondary flex items-center gap-2 text-sm font-medium md:text-base">
                 <MapPin
                   className="text-secondary size-5 shrink-0"
@@ -67,7 +67,7 @@ export default function Projects() {
               </Link>
             </div>
           </div>
-          <div className="relative aspect-square w-full md:aspect-4/6 md:max-w-md lg:max-w-lg xl:aspect-4/5 xl:max-w-xl">
+          <div className="relative aspect-square w-full md:aspect-4/6 md:max-w-md md:max-[800px]:max-w-sm lg:max-w-lg xl:aspect-4/5 xl:max-w-xl">
             <div
               dir="ltr"
               className="absolute top-5 right-5 z-10 flex flex-wrap items-center gap-2"
@@ -85,7 +85,7 @@ export default function Projects() {
               fill
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-e-4/6 top-5/6 z-1 hidden aspect-5/4 w-full max-w-sm bg-red-500 md:block lg:max-w-md">
+            <div className="absolute inset-e-4/6 top-7/8 z-1 hidden aspect-5/4 w-full max-w-sm bg-red-500 md:block lg:top-5/6 lg:max-w-md">
               <div className="bg-secondary absolute inset-e-0 top-0 z-1 size-10 -translate-x-1/2 -translate-y-1/2 rotate-45"></div>
               <Image
                 src={heroImage}
