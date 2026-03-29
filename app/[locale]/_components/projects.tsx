@@ -1,17 +1,44 @@
 "use client"
 
+import { useRef } from "react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
+import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 import { MapPin } from "lucide-react"
 import { projectImage, heroImage, projectsHero } from "@/assets"
 import { Link } from "@/i18n/navigation"
 
 export default function Projects() {
   const t = useTranslations("ProjectsSection")
+  const lineTrackRef = useRef<HTMLDivElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: lineTrackRef,
+    offset: ["start end", "end start"],
+  })
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 220,
+    damping: 28,
+    mass: 0.35,
+  })
+  const lineScaleY = useTransform(smoothProgress, [0, 1], [0, 1])
 
   return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="">
+    <section className="relative overflow-x-clip bg-white py-16 md:py-20">
+      <div
+        ref={lineTrackRef}
+        aria-hidden
+        className="pointer-events-none absolute top-64 right-16 bottom-0 z-0 w-px md:w-0.5"
+      >
+        <span className="bg-secondary absolute top-0 right-px z-10 size-3 translate-x-1/2 rotate-45">
+          {" "}
+        </span>
+        <motion.div
+          className="bg-secondary h-full w-full origin-top"
+          style={{ scaleY: lineScaleY }}
+        />
+      </div>
+      <div className="relative z-10">
         <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:gap-10">
           <div className="space-y-4 max-md:px-4 md:ps-6 md:pt-4 lg:ps-10 xl:ps-16">
             <h2 className="text-2xl font-medium text-black md:text-3xl lg:text-4xl">
