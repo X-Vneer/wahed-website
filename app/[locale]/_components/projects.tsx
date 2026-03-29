@@ -2,255 +2,136 @@
 
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { Button, cn } from "@heroui/react"
-import { motion } from "framer-motion"
-import { projectImage } from "@/assets"
-import { BasicLineAnimation } from "@/components/common/text-lines-animation"
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.05,
-    },
-  },
-}
-
-const easeOut = [0.25, 0.46, 0.45, 0.94] as const
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: easeOut },
-  },
-}
-
-const headerVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: easeOut },
-  },
-}
+import { MapPin } from "lucide-react"
+import { projectImage, heroImage, projectsHero } from "@/assets"
+import { Link } from "@/i18n/navigation"
 
 export default function Projects() {
   const t = useTranslations("ProjectsSection")
 
   return (
-    <section className="bg-white py-16 md:py-26">
-      <div className="container">
-        {/* Header: description left, title right */}
-        <motion.div
-          className="mb-10 flex flex-col gap-8 md:mb-14 lg:flex-row lg:items-center lg:justify-between"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-            },
-          }}
-        >
-          <div className="flex shrink-0 flex-col">
-            <motion.div
-              className="mb-2 flex items-center gap-2"
-              variants={headerVariants}
-            >
-              <span className="text-secondary text-lg font-medium lg:text-2xl">
-                {t("subtitle")}
-              </span>
-              <motion.span
-                className="text-secondary block w-16 md:w-20"
-                aria-hidden
-                variants={{
-                  hidden: {},
-                  visible: {
-                    transition: {
-                      staggerChildren: 0.15,
-                      delayChildren: 0.15,
-                    },
-                  },
-                }}
+    <section className="bg-white py-16 md:py-20">
+      <div className="">
+        <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:gap-10">
+          <div className="space-y-4 max-md:px-4 md:ps-6 md:pt-4 lg:ps-10 xl:ps-16">
+            <h2 className="text-2xl font-medium text-black md:text-3xl lg:text-4xl">
+              مجمع الرحمانية السكني
+            </h2>
+            <p className="leading-sung text-text-secondary text-sm font-medium md:text-base lg:text-lg">
+              مجمع سكني متكامل صُمم ليمنحك أسلوب حياة أكثر راحة وجودة
+            </p>
+            <div className="mt-6 max-w-sm space-y-5 pt-1 md:mt-9 md:ps-12 lg:mt-20 lg:ps-20">
+              <p className="text-text-secondary flex items-center gap-2 text-sm font-medium md:text-base">
+                <MapPin
+                  className="text-secondary size-5 shrink-0"
+                  strokeWidth={1.5}
+                  aria-hidden
+                />
+                <span>{t("featuredLocation")}</span>
+              </p>
+              <p className="border-secondary text-start text-base leading-[1.7] text-black max-md:border-s-2 max-md:ps-6 lg:text-lg">
+                {t("featuredDetailDescription")}
+              </p>
+              <Link
+                href="/projects/al-rahmaniyah"
+                className="mt-6 inline-block bg-black px-10 py-2.5 text-center text-sm font-medium text-white hover:bg-black/90 md:text-base lg:mt-12"
               >
-                <svg
-                  viewBox="0 0 90 12"
-                  className="h-3 w-full ltr:rotate-180"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                >
-                  <motion.path
-                    d="M6 1 L11 6 L6 11 L1 6 Z"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    fill="currentColor"
-                    variants={{
-                      hidden: { pathLength: 0, opacity: 0.6 },
-                      visible: {
-                        pathLength: 1,
-                        opacity: 1,
-                        transition: {
-                          duration: 0.4,
-                          ease: "easeOut",
-                        },
-                      },
-                    }}
-                  />
-                  <motion.path
-                    d="M9 6 L90 6"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    variants={{
-                      hidden: { pathLength: 0, opacity: 0.8 },
-                      visible: {
-                        pathLength: 1,
-                        opacity: 1,
-                        transition: {
-                          duration: 0.55,
-                          delay: 0.25,
-                          ease: "easeOut",
-                        },
-                      },
-                    }}
-                  />
-                </svg>
-              </motion.span>
-            </motion.div>
-            <motion.h2
-              className="text-4xl leading-tight font-bold text-black lg:text-6xl"
-              variants={headerVariants}
-            >
-              {t("title")}
-            </motion.h2>
+                {t("exploreProject")}
+              </Link>
+            </div>
           </div>
-          <BasicLineAnimation
-            className="text-text-secondary sm:border-s-text-secondary w-full max-w-md text-sm leading-7 sm:border-s-2 sm:ps-4 md:text-base"
-            delay={0.4}
-            duration={0.7}
-            stagger={0.12}
-            as="p"
-          >
-            {t("description")}
-          </BasicLineAnimation>
-        </motion.div>
-
-        {/* 2x2 project grid */}
-        <motion.div
-          className="grid grid-cols-1 gap-4 sm:grid-cols-5"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          {[
-            { id: 1, colSpan: 2 },
-            { id: 2, colSpan: 3 },
-            { id: 3, colSpan: 3 },
-            { id: 4, colSpan: 2 },
-          ].map(({ id, colSpan }) => (
-            <motion.a
-              key={id}
-              href="#"
-              variants={cardVariants}
-              className={cn(
-                "group relative h-55 overflow-hidden md:h-75",
-                colSpan === 2 ? "sm:col-span-2" : "sm:col-span-3"
-              )}
+          <div className="relative aspect-square w-full md:aspect-4/6 md:max-w-md lg:max-w-lg xl:aspect-4/5 xl:max-w-xl">
+            <div
+              dir="ltr"
+              className="absolute top-5 right-5 z-10 flex flex-wrap items-center gap-2"
             >
+              <span className="bg-[#6C9FB8] px-3 py-1 text-sm font-medium text-white md:text-base">
+                {t("projectOneAccentBadge")}
+              </span>
+              <span className="bg-secondary px-3 py-1 text-sm font-medium text-white md:text-base">
+                {t("projectOneTopBadge")}
+              </span>
+            </div>
+            <Image
+              src={projectsHero}
+              alt={t("projectAlt", { name: t("projectName") })}
+              fill
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-e-4/6 top-5/6 z-1 hidden aspect-5/4 w-full max-w-sm bg-red-500 md:block lg:max-w-md">
+              <div className="bg-secondary absolute inset-e-0 top-0 z-1 size-10 -translate-x-1/2 -translate-y-1/2 rotate-45"></div>
+              <Image
+                src={heroImage}
+                alt={t("projectAlt", { name: t("projectName") })}
+                fill
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="h-12 md:h-70 lg:h-80" aria-hidden />
+
+        <div className="flex flex-col gap-8 md:gap-10 md:ps-18 md:pe-10 lg:ps-30 xl:ps-36">
+          <header className="hidden space-y-4 pe-6 pt-4 md:block md:pe-10">
+            <h2 className="text-2xl font-medium text-black md:text-3xl lg:text-4xl">
+              {t("projectTwoTitle")}
+            </h2>
+            <p className="text-text-secondary text-sm leading-snug font-medium md:text-base lg:text-lg">
+              {t("projectTwoTagline")}
+            </p>
+          </header>
+
+          <div className="flex flex-col gap-6 md:flex-row md:gap-10 lg:items-center lg:gap-16">
+            <div className="relative aspect-square w-full md:aspect-5/4 md:max-w-sm md:shrink-0 lg:max-w-xl xl:max-w-2xl">
               <Image
                 src={projectImage}
-                alt={t("projectAlt", { name: t("projectName") })}
-                className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, 50vw"
+                alt={t("projectAlt", { name: t("projectTwoTitle") })}
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 42rem, 100vw"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent transition duration-300 group-hover:from-black/70 group-hover:via-black/30" />
-              <div className="absolute right-0 bottom-0 left-0 flex flex-col gap-3 p-4 text-white">
-                <span className="text-lg font-medium md:text-2xl">
-                  {t("projectName")}
+              <div
+                dir="ltr"
+                className="absolute top-4 right-4 z-1 flex flex-wrap items-center gap-2"
+              >
+                <span className="rounded-md bg-[#00d2be] px-3 py-1 text-xs font-medium text-white md:text-sm">
+                  {t("projectTwoAccentBadge")}
                 </span>
-                <motion.span
-                  className="text-secondary block w-fit"
-                  aria-hidden
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.15,
-                        delayChildren: 0.15,
-                      },
-                    },
-                  }}
-                >
-                  <svg
-                    viewBox="0 0 40 12"
-                    className="h-3 w-full transition-transform duration-300 group-hover:translate-x-1 ltr:rotate-180"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                  >
-                    <motion.path
-                      d="M1 6 L6 1 L11 6 L6 11 Z"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      fill="currentColor"
-                      variants={{
-                        hidden: { pathLength: 0, opacity: 0.6 },
-                        visible: {
-                          pathLength: 1,
-                          opacity: 1,
-                          transition: {
-                            duration: 0.4,
-                            ease: "easeOut",
-                          },
-                        },
-                      }}
-                    />
-                    <motion.path
-                      d="M9 6 L40 6"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      fill="none"
-                      variants={{
-                        hidden: { pathLength: 0, opacity: 0.8 },
-                        visible: {
-                          pathLength: 1,
-                          opacity: 1,
-                          transition: {
-                            duration: 0.55,
-                            delay: 0.25,
-                            ease: "easeOut",
-                          },
-                        },
-                      }}
-                    />
-                  </svg>
-                </motion.span>
+                <span className="rounded-md bg-[#2ecc71] px-3 py-1 text-xs font-medium text-white md:text-sm">
+                  {t("projectTwoTopBadge")}
+                </span>
               </div>
-            </motion.a>
-          ))}
-        </motion.div>
+            </div>
+            <header className="space-y-4 px-4 md:hidden">
+              <h2 className="text-2xl font-medium text-black md:text-3xl lg:text-4xl">
+                {t("projectTwoTitle")}
+              </h2>
+              <p className="text-text-secondary text-sm leading-snug font-medium md:text-base lg:text-lg">
+                {t("projectTwoTagline")}
+              </p>
+            </header>
 
-        {/* All projects CTA */}
-        <motion.div
-          className="mt-10 flex justify-center md:mt-14"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-        >
-          <Button
-            variant="primary"
-            className="min-w-48 px-8 text-white hover:bg-black"
-          >
-            {t("allProjects")}
-          </Button>
-        </motion.div>
+            <div className="flex flex-col gap-4 max-md:px-4 md:max-w-sm lg:max-w-md">
+              <p className="text-text-secondary flex items-center gap-2 text-sm font-medium md:text-base">
+                <MapPin
+                  className="size-5 shrink-0 text-[#FF8C42]"
+                  strokeWidth={1.5}
+                  aria-hidden
+                />
+                <span>{t("featuredLocation")}</span>
+              </p>
+              <p className="border-secondary text-justify text-base leading-[1.7] text-black max-md:border-s-2 max-md:ps-6 lg:text-lg">
+                {t("featuredTwoDetailDescription")}
+              </p>
+              <Link
+                href="/projects"
+                className="mt-6 inline-block w-fit bg-[#222222] px-10 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-black/90 md:text-base lg:mt-12"
+              >
+                {t("exploreProject")}
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )

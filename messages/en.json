@@ -85,12 +85,17 @@
     "projectOneTopBadge": "Move-in Ready",
     "projectOneAccentBadge": "Residential",
     "projectTwoTitle": "Durar Al Khaleej Investment Villas",
+    "projectTwoTagline": "An integrated residential complex designed to give you a more comfortable, higher-quality lifestyle.",
     "projectTwoDescription": "An integrated villa community that reflects urban excellence in a secure modern environment, with carefully crafted architecture supporting comfort, sustainability, and investment value.",
-    "projectTwoTopBadge": "Available",
-    "projectTwoAccentBadge": "Villas",
+    "projectTwoTopBadge": "Completed",
+    "projectTwoAccentBadge": "Apartments",
+    "featuredTwoDetailDescription": "The Durar Al Khaleej Investment project is a comprehensive real estate development with residential and investment units in contemporary designs within a thoughtful urban layout. It offers modern amenities and organized spaces that enhance quality of life and meet residential and investment aspirations, in an integrated environment that combines comfort and distinction.",
     "projectName": "Al-Fayhaa Residential Project",
     "projectAlt": "Project image: {name}",
-    "allProjects": "All Projects"
+    "allProjects": "All Projects",
+    "featuredLocation": "Riyadh - Al Zahraa District",
+    "featuredDetailDescription": "An integrated residential community of 42 standalone villas with modern designs and built-up areas from 750 to 1,200 m² on a total plot of 25,000 m², offering premium amenities including panoramic gardens, an infinity pool, a health club, and underground parking, with handover expected in Q4 2026.",
+    "exploreProject": "Explore the project"
   },
   "PartnersSection": {
     "subtitle": "Communication Gateway",
