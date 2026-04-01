@@ -1,8 +1,8 @@
 "use client"
 
-import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
+import type { AboutValuesSection } from "@/lib/website-cms"
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -103,20 +103,33 @@ function SustainabilityIcon() {
 
 const cardIcons = [QualityIcon, InnovationIcon, SustainabilityIcon]
 
-export default function OurValues() {
-  const t = useTranslations("OurValues")
+type OurValuesProps = {
+  content: AboutValuesSection
+}
+
+export default function OurValues({ content }: OurValuesProps) {
+  const {
+    eyebrow,
+    title,
+    qualityTitle,
+    qualityDescription,
+    innovationTitle,
+    innovationDescription,
+    sustainabilityTitle,
+    sustainabilityDescription,
+  } = content
 
   const cards = [
-    { key: "quality", titleKey: "qualityTitle", descKey: "qualityDescription" },
+    { key: "quality", title: qualityTitle, description: qualityDescription },
     {
       key: "innovation",
-      titleKey: "innovationTitle",
-      descKey: "innovationDescription",
+      title: innovationTitle,
+      description: innovationDescription,
     },
     {
       key: "sustainability",
-      titleKey: "sustainabilityTitle",
-      descKey: "sustainabilityDescription",
+      title: sustainabilityTitle,
+      description: sustainabilityDescription,
     },
   ] as const
 
@@ -146,7 +159,7 @@ export default function OurValues() {
               },
             }}
           >
-            <span>{t("eyebrow")}</span>
+            <span>{eyebrow}</span>
             <span className="block w-16 md:w-20" aria-hidden>
               <svg
                 viewBox="0 0 90 12"
@@ -195,7 +208,7 @@ export default function OurValues() {
             }}
           >
             <h2 className="relative text-3xl font-bold text-black md:text-5xl lg:text-6xl">
-              {t("title")}
+              {title}
             </h2>
           </motion.div>
         </motion.div>
@@ -235,12 +248,12 @@ export default function OurValues() {
                   <IconComponent />
                 </div>
                 <h3 className="text-secondary mb-2 text-xl font-medium md:text-2xl">
-                  {t(card.titleKey)}
+                  {card.title}
                 </h3>
                 <BasicLineAnimation
                   as="p"
                   className="text-text-secondary w-full text-sm leading-relaxed"
-                  text={t(card.descKey)}
+                  text={card.description}
                   delay={0.1}
                   duration={0.5}
                   stagger={0.08}
