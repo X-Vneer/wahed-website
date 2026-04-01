@@ -1,11 +1,11 @@
 "use client"
 
 import { useRef } from "react"
-import { useTranslations } from "next-intl"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ctaBg } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
 import { Link } from "@/i18n/navigation"
+import type { HomeContactSection } from "@/lib/website-cms"
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -18,8 +18,12 @@ const headerVariants = {
   },
 }
 
-export default function Cta() {
-  const t = useTranslations("CtaSection")
+type CtaProps = {
+  content: HomeContactSection
+}
+
+export default function Cta({ content }: CtaProps) {
+  const { eyebrowTitle, title, description, ctaLabel } = content
   const sectionRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -62,7 +66,7 @@ export default function Cta() {
                 className="text-secondary text-lg font-medium md:text-xl"
                 variants={headerVariants}
               >
-                {t("subtitle")}
+                {eyebrowTitle}
               </motion.span>
               <motion.span
                 className="text-secondary block w-16 md:w-20"
@@ -127,7 +131,7 @@ export default function Cta() {
               className="text-4xl leading-tight font-bold text-white md:text-5xl lg:text-6xl"
               variants={headerVariants}
             >
-              {t("title")}
+              {title}
             </motion.h2>
           </motion.div>
 
@@ -151,7 +155,7 @@ export default function Cta() {
               duration={0.6}
               stagger={0.1}
             >
-              {t("description")}
+              {description}
             </BasicLineAnimation>
             <motion.div
               variants={{
@@ -172,7 +176,7 @@ export default function Cta() {
                 href="/contact"
                 className="max-w-48 bg-white px-8 py-2 text-black transition-transform duration-300 hover:bg-white/80"
               >
-                {t("cta")}
+                {ctaLabel}
               </Link>
             </motion.div>
           </motion.div>

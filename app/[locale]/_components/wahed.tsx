@@ -1,14 +1,17 @@
 "use client"
 
 import { useRef } from "react"
-import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { blackLogo } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
+import type { HomeBriefSection } from "@/lib/website-cms"
 
-export default function Wahed() {
-  const t = useTranslations("About")
+type WahedProps = {
+  content: HomeBriefSection
+}
+
+export default function Wahed({ content }: WahedProps) {
+  const { content: description, image } = content
   const sectionRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -40,10 +43,13 @@ export default function Wahed() {
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <Image
-              src={blackLogo}
-              alt={t("logoAlt")}
+              src={image}
+              alt="logo image"
               className="w-44 md:w-72"
-              priority={false}
+              sizes="(max-width: 767px) 176px, 288px"
+              width={300}
+              height={100}
+              unoptimized
             />
           </motion.div>
           <motion.div
@@ -151,7 +157,7 @@ export default function Wahed() {
               as="p"
               className="w-full text-[#4B5563] max-lg:text-center lg:text-lg"
             >
-              {t("description")}
+              {description}
             </BasicLineAnimation>
           </motion.div>
         </div>

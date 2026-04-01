@@ -1,5 +1,7 @@
-import { Locale } from "next-intl"
+import { type Locale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
+import { notFound } from "next/navigation"
+import { getHomePageContent } from "@/lib/website-cms"
 import About from "./_components/about"
 import Cta from "./_components/cta"
 import Header from "./_components/header"
@@ -16,16 +18,23 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale as Locale)
 
+  const homeContent = await getHomePageContent(locale)
+  console.log("🚀 ~ HomePage ~ homeContent:", homeContent)
+
+  if (!homeContent?.heroSection) {
+    notFound()
+  }
+
   return (
     <>
       <Header />
-      <Hero />
-      <Wahed />
-      <About />
+      <Hero content={homeContent.heroSection} />
+      <Wahed content={homeContent.briefSection} />
+      <About content={homeContent.aboutSection} />
       <Statics />
       <Projects />
-      <Partners />
-      <Cta />
+      <Partners content={homeContent.partnersSection} />
+      <Cta content={homeContent.contactSection} />
     </>
   )
 }
