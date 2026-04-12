@@ -1,53 +1,54 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { StaticImageData } from "next/image"
 import { Button, cn } from "@heroui/react"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
 import { Ripple } from "m3-ripple"
 import { useRouter } from "@/i18n/navigation"
+import type { PublicProject } from "@/lib/website-cms"
 import ImageGallery from "./image-gallery"
-
-type ProjectImage = StaticImageData | string
-
-type ProjectSpecification = {
-  label: string
-  value: string
-}
 
 type ProjectCardProps = {
   index: number
-  id: string
-  title: string
-  description: string
-  images: ProjectImage[]
-  features: string[]
-  specifications: ProjectSpecification[]
-  ctaLabel?: string
+  project: PublicProject
   gallerySide?: "left" | "right"
 }
 
 export default function ProjectCard({
   index,
-  id,
-  title,
-  description,
-  images,
-  features,
-  specifications,
-  ctaLabel,
+  project,
   gallerySide = "right",
 }: ProjectCardProps) {
   const t = useTranslations("ProjectsCard")
+  const tDetail = useTranslations("ProjectDetail")
   const router = useRouter()
 
-  if (images.length < 3) {
+  if (project.images.length < 3) {
     return null
   }
 
   const projectNumber = String(index + 1).padStart(2, "0")
   const isGalleryLeft = gallerySide === "left"
+
+  const infoItems = [
+    {
+      label: tDetail("areaLabel"),
+      value: project.area ? `${project.area.toLocaleString()} m²` : "",
+    },
+    {
+      label: tDetail("statusLabel"),
+      value: tDetail(`status.${project.status}`),
+    },
+    {
+      label: tDetail("sectorLabel"),
+      value: project.category ?? "",
+    },
+    {
+      label: tDetail("deedNumberLabel"),
+      value: project.deedNumber ?? "",
+    },
+  ].filter((item) => item.value)
 
   return (
     <section className="py-12 md:py-16">
@@ -134,63 +135,66 @@ export default function ProjectCard({
             </div>
           </div>
           <h3 className="mb-2 text-2xl leading-tight font-bold text-black md:mb-3 md:text-3xl">
-            {title}
+            {project.title}
           </h3>
           <p className="text-text-secondary leading-sung mb-3 max-w-xl text-sm md:mb-4 md:text-base">
-            {description}
+            {project.shortDescription ?? project.description}
           </p>
 
-          <ul className="mb-3 grid max-w-lg grid-cols-2 gap-2 md:mb-6">
-            {features.map((feature) => (
-              <li
-                key={feature}
-                className="flex items-center gap-2 text-xs text-black md:text-base"
-              >
-                <span
-                  className="text-secondary flex aspect-square items-center justify-center rounded-full border border-[#E9E9E9] p-1"
-                  aria-hidden
+          {project.features.length > 0 && (
+            <ul className="mb-3 grid max-w-lg grid-cols-2 gap-2 md:mb-4">
+              {project.features.map((feature) => (
+                <li
+                  key={feature.id}
+                  className="flex items-center gap-2 text-xs text-black md:text-base"
                 >
-                  <Check className="size-3" />
-                </span>
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mb-4 grid max-w-lg grid-cols-2 gap-2">
-            {specifications.map((spec) => (
-              <div
-                key={spec.label}
-                className="border-b border-[#e5e5e5] px-2 py-4"
-              >
-                <p className="text-text-secondary mb-2">{spec.label}</p>
-                <p className="text-xs font-medium text-[#1E1E1E] md:text-sm">
-                  {spec.value}
-                </p>
-              </div>
-            ))}
-          </div>
-
+                  <span
+                    className="text-secondary flex aspect-square items-center justify-center rounded-full border border-[#E9E9E9] p-1"
+                    aria-hidden
+                  >
+                    <Check className="size-3" />
+                  </span>
+                  <span>
+                    {feature.label}: {feature.value}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {infoItems.length > 0 && (
+            <div className="mb-4 grid max-w-lg grid-cols-2">
+              {infoItems.map((item) => (
+                <div
+                  key={item.label}
+                  className="border-b border-[#E9E9E9] px-2 py-3 md:px-3 md:py-4"
+                >
+                  <p className="text-text-secondary mb-1 text-xs md:text-sm">
+                    {item.label}
+                  </p>
+                  <p className="text-sm font-medium text-black md:text-base lg:text-lg">
+                    {item.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
           <div>
-            {ctaLabel ? (
-              <Button
-                type="button"
-                // variant="primary"
-                variant="secondary"
-                className="min-w-48 shrink-0 max-md:w-full"
-                onPress={() => router.push(`/projects/${id}`)}
-              >
-                {ctaLabel}
-                <Ripple />
-              </Button>
-            ) : null}
+            <Button
+              type="button"
+              variant="secondary"
+              className="min-w-48 shrink-0 max-md:w-full"
+              onPress={() => router.push(`/projects/${project.slug}`)}
+            >
+              {t("cta")}
+              <Ripple />
+            </Button>
           </div>
         </div>
         <div>
           <ImageGallery
             gallerySide={gallerySide}
-            title={title}
-            images={images}
+            title={project.title}
+            images={project.images}
           />
         </div>
       </article>

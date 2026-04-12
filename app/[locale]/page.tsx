@@ -19,7 +19,6 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale as Locale)
 
   const homeContent = await getHomePageContent(locale)
-  console.log("🚀 ~ HomePage ~ homeContent:", homeContent)
 
   if (!homeContent?.heroSection) {
     notFound()
@@ -31,9 +30,13 @@ export default async function HomePage({ params }: Props) {
       <Hero content={homeContent.heroSection} />
       <Wahed content={homeContent.briefSection} />
       <About content={homeContent.aboutSection} />
-      <Statics />
+      {homeContent.statsSection.isActive && (
+        <Statics content={homeContent.statsSection} />
+      )}
       <Projects />
-      <Partners content={homeContent.partnersSection} />
+      {homeContent.partnersSection.isActive && (
+        <Partners content={homeContent.partnersSection} />
+      )}
       <Cta content={homeContent.contactSection} />
     </>
   )

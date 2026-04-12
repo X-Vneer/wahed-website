@@ -243,5 +243,22 @@
   "ProjectLocationMap": {
     "title": "موقع المشروع",
     "iframeTitle": "خريطة Google: {location}"
+  },
+  "ProjectDetail": {
+    "statusLabel": "حالة المشروع",
+    "startingPriceLabel": "الأسعار تبدأ من",
+    "guideLabel": "دليل المشروع",
+    "developerLabel": "المطور والمستثمر",
+    "developerValue": "شركة وهد",
+    "sectorLabel": "القطاع",
+    "areaLabel": "مساحة المشروع",
+    "deedNumberLabel": "رقم الصك",
+    "status": {
+      "PLANNING": "مخطط",
+      "IN_PROGRESS": "قيد التنفيذ",
+      "ON_HOLD": "متوقف",
+      "COMPLETED": "مكتمل",
+      "CANCELLED": "ملغي"
+    }
   }
 }

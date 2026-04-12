@@ -243,5 +243,22 @@
   "ProjectLocationMap": {
     "title": "Project location",
     "iframeTitle": "Google Map: {location}"
+  },
+  "ProjectDetail": {
+    "statusLabel": "Project Status",
+    "startingPriceLabel": "Starting Price",
+    "guideLabel": "Project Guide",
+    "developerLabel": "Developer & Investor",
+    "developerValue": "Wahed",
+    "sectorLabel": "Sector",
+    "areaLabel": "Project Area",
+    "deedNumberLabel": "Deed Number",
+    "status": {
+      "PLANNING": "Planning",
+      "IN_PROGRESS": "In Progress",
+      "ON_HOLD": "On Hold",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled"
+    }
   }
 }

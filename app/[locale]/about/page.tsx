@@ -16,7 +16,7 @@ export default async function AboutPage({ params }: Props) {
   setRequestLocale(locale as Locale)
 
   const aboutContent = await getAboutPageContent(locale)
-  console.log("🚀 ~ AboutPage ~ aboutContent:", aboutContent)
+
   if (!aboutContent?.heroSection) {
     notFound()
   }
@@ -28,7 +28,9 @@ export default async function AboutPage({ params }: Props) {
       <OurStory content={aboutContent.storySection} />
       <OurVision content={aboutContent.visionSection} />
       <OurValues content={aboutContent.valuesSection} />
-      <BoardOfDirectors content={aboutContent.boardSection} />
+      {aboutContent.boardSection.isActive && (
+        <BoardOfDirectors content={aboutContent.boardSection} />
+      )}
     </>
   )
 }
