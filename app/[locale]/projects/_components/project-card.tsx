@@ -1,9 +1,9 @@
 "use client"
 
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { Button, cn } from "@heroui/react"
 import { motion } from "framer-motion"
-import { Check } from "lucide-react"
+import { Check, SaudiRiyal } from "lucide-react"
 import { Ripple } from "m3-ripple"
 import { useRouter } from "@/i18n/navigation"
 import type { PublicProject } from "@/lib/website-cms"
@@ -20,6 +20,7 @@ export default function ProjectCard({
   project,
   gallerySide = "right",
 }: ProjectCardProps) {
+  const locale = useLocale()
   const t = useTranslations("ProjectsCard")
   const tDetail = useTranslations("ProjectDetail")
   const router = useRouter()
@@ -32,6 +33,11 @@ export default function ProjectCard({
   const isGalleryLeft = gallerySide === "left"
 
   const infoItems = [
+    {
+      label: tDetail("locationLabel"),
+      value: project.location ?? `${project.cityName}, ${project.regionName}`,
+    },
+
     {
       label: tDetail("areaLabel"),
       value: project.area ? `${project.area.toLocaleString()} m²` : "",
@@ -47,6 +53,13 @@ export default function ProjectCard({
     {
       label: tDetail("deedNumberLabel"),
       value: project.deedNumber ?? "",
+    },
+    {
+      label: tDetail("startingPriceLabel"),
+      value: project.startingPrice
+        ? project.startingPrice.toLocaleString(locale)
+        : "",
+      icon: SaudiRiyal,
     },
   ].filter((item) => item.value)
 
@@ -163,16 +176,16 @@ export default function ProjectCard({
           )}
           {infoItems.length > 0 && (
             <div className="mb-4 grid max-w-lg grid-cols-2">
-              {infoItems.map((item) => (
+              {infoItems.map((Item) => (
                 <div
-                  key={item.label}
+                  key={Item.label}
                   className="border-b border-[#E9E9E9] px-2 py-3 md:px-3 md:py-4"
                 >
                   <p className="text-text-secondary mb-1 text-xs md:text-sm">
-                    {item.label}
+                    {Item.label}
                   </p>
-                  <p className="text-sm font-medium text-black md:text-base lg:text-lg">
-                    {item.value}
+                  <p className="flex items-center gap-1 text-sm font-medium text-black md:text-base lg:text-lg">
+                    {Item.value} {Item.icon && <Item.icon />}
                   </p>
                 </div>
               ))}

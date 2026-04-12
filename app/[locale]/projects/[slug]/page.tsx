@@ -1,6 +1,7 @@
 import { Locale } from "next-intl"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
+import { SaudiRiyal } from "lucide-react"
 import PageShadow from "@/components/common/page-shadow"
 import { getPublicProject } from "@/lib/website-cms"
 import Header from "../../_components/header"
@@ -33,7 +34,9 @@ export default async function ProjectDetailsPage({ params }: Props) {
       <ProjectPageIntro
         tag={project.category ?? ""}
         title={project.title}
-        location={project.location ?? `${project.cityName}, ${project.regionName}`}
+        location={
+          project.location ?? `${project.cityName}, ${project.regionName}`
+        }
         statusLabel={t("statusLabel")}
         statusValue={t(`status.${project.status}`)}
         startingPriceLabel={t("startingPriceLabel")}
@@ -60,6 +63,7 @@ export default async function ProjectDetailsPage({ params }: Props) {
                     label: t("developerLabel"),
                     value: t("developerValue"),
                   },
+
                   {
                     label: t("sectorLabel"),
                     value: project.category ?? "",
@@ -73,6 +77,13 @@ export default async function ProjectDetailsPage({ params }: Props) {
                     value: project.area
                       ? `${project.area.toLocaleString(locale)} m²`
                       : "",
+                  },
+                  {
+                    label: t("startingPriceLabel"),
+                    value: project.startingPrice
+                      ? project.startingPrice.toLocaleString(locale)
+                      : "",
+                    icon: SaudiRiyal,
                   },
                 ].filter((item) => item.value)}
               />
@@ -89,8 +100,7 @@ export default async function ProjectDetailsPage({ params }: Props) {
             <ProjectLocationMap
               googleMapsAddress={project.googleMapsAddress}
               locationLabel={
-                project.location ??
-                `${project.cityName}, ${project.regionName}`
+                project.location ?? `${project.cityName}, ${project.regionName}`
               }
             />
           </div>

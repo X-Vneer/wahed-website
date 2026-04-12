@@ -246,6 +246,7 @@
   },
   "ProjectDetail": {
     "statusLabel": "حالة المشروع",
+    "locationLabel": "الموقع",
     "startingPriceLabel": "الأسعار تبدأ من",
     "guideLabel": "دليل المشروع",
     "developerLabel": "المطور والمستثمر",

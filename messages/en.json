@@ -246,6 +246,7 @@
   },
   "ProjectDetail": {
     "statusLabel": "Project Status",
+    "locationLabel": "Location",
     "startingPriceLabel": "Starting Price",
     "guideLabel": "Project Guide",
     "developerLabel": "Developer & Investor",
