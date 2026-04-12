@@ -6,18 +6,24 @@ import { cn } from "@heroui/react"
 import "m3-ripple/ripple.css"
 import { ibmPlexSansArabic, satoshi } from "@/assets/font"
 import { routing } from "@/i18n/routing"
+import { buildMetadataFromSeo, getSiteSettings } from "@/lib/website-cms"
 import "../globals.css"
 import Footer from "./_components/footer"
 import Providers from "./providers"
 
-export const metadata: Metadata = {
-  title: "Wahed",
-  description: "Wahed",
-}
-
 type Props = {
   children: React.ReactNode
   params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const settings = await getSiteSettings(locale)
+  return buildMetadataFromSeo(null, settings) as Metadata
 }
 
 export default async function LocaleLayout({ children, params }: Props) {

@@ -531,3 +531,209 @@ export async function getPublicProject(
 ): Promise<PublicProject | null> {
   return fetchPublicProjectBySlug(slug, locale)
 }
+
+// ──────────────────────────────────────────────
+// SEO & Site Settings
+// ──────────────────────────────────────────────
+
+export type PageSeo = {
+  metaTitle: string
+  metaDescription: string
+  keywords: string
+  canonicalUrl: string
+  ogImageUrl: string
+  twitterHandle: string
+  robotsAllowIndex: boolean
+}
+
+export type SiteSettings = {
+  seo: {
+    defaultMetaTitle: string
+    defaultMetaDescription: string
+    ogImageUrl: string
+    siteUrl: string
+    twitterSite: string
+    robotsAllowIndex: boolean
+    keywords: string
+  }
+  faviconUrl: string
+  googleAnalyticsMeasurementId: string
+}
+
+function normalizeSeo(raw: unknown): PageSeo | null {
+  const obj = asRecord(raw)
+  if (!obj) return null
+  return {
+    metaTitle: str(obj.metaTitle),
+    metaDescription: str(obj.metaDescription),
+    keywords: str(obj.keywords),
+    canonicalUrl: str(obj.canonicalUrl),
+    ogImageUrl: str(obj.ogImageUrl),
+    twitterHandle: str(obj.twitterHandle),
+    robotsAllowIndex: obj.robotsAllowIndex !== false,
+  }
+}
+
+const fetchPageSeo = cache(
+  async (slug: string, locale: string): Promise<PageSeo | null> => {
+    const base = process.env.WEBSITE_CMS_API_BASE
+    if (!base) return null
+
+    const url = `${base}/api/public/website/seo/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`
+
+    try {
+      const res = await fetch(url, {
+        next: { revalidate: REVALIDATE_SECONDS },
+        headers: { Accept: "application/json" },
+      })
+      if (!res.ok) return null
+      const data = (await res.json()) as { seo?: unknown }
+      return normalizeSeo(data.seo)
+    } catch {
+      return null
+    }
+  }
+)
+
+const fetchProjectSeo = cache(
+  async (slug: string, locale: string): Promise<PageSeo | null> => {
+    const base = process.env.WEBSITE_CMS_API_BASE
+    if (!base) return null
+
+    const url = `${base}/api/public/website/projects/${encodeURIComponent(slug)}/seo?locale=${encodeURIComponent(locale)}`
+
+    try {
+      const res = await fetch(url, {
+        next: { revalidate: REVALIDATE_SECONDS },
+        headers: { Accept: "application/json" },
+      })
+      if (!res.ok) return null
+      const data = (await res.json()) as { seo?: unknown }
+      return normalizeSeo(data.seo)
+    } catch {
+      return null
+    }
+  }
+)
+
+const fetchSiteSettings = cache(
+  async (locale: string): Promise<SiteSettings | null> => {
+    const base = process.env.WEBSITE_CMS_API_BASE
+    if (!base) return null
+
+    const url = `${base}/api/public/website/settings?locale=${encodeURIComponent(locale)}`
+
+    try {
+      const res = await fetch(url, {
+        next: { revalidate: REVALIDATE_SECONDS },
+        headers: { Accept: "application/json" },
+      })
+      if (!res.ok) return null
+      const data = (await res.json()) as Record<string, unknown>
+      const seoRaw = asRecord(data.seo) ?? {}
+      return {
+        seo: {
+          defaultMetaTitle: str(seoRaw.defaultMetaTitle),
+          defaultMetaDescription: str(seoRaw.defaultMetaDescription),
+          ogImageUrl: str(seoRaw.ogImageUrl),
+          siteUrl: str(seoRaw.siteUrl),
+          twitterSite: str(seoRaw.twitterSite),
+          robotsAllowIndex: seoRaw.robotsAllowIndex !== false,
+          keywords: str(seoRaw.keywords),
+        },
+        faviconUrl: str(data.faviconUrl),
+        googleAnalyticsMeasurementId: str(data.googleAnalyticsMeasurementId),
+      }
+    } catch {
+      return null
+    }
+  }
+)
+
+export async function getPageSeo(
+  slug: string,
+  locale: string
+): Promise<PageSeo | null> {
+  return fetchPageSeo(slug, locale)
+}
+
+export async function getProjectSeo(
+  slug: string,
+  locale: string
+): Promise<PageSeo | null> {
+  return fetchProjectSeo(slug, locale)
+}
+
+export async function getSiteSettings(
+  locale: string
+): Promise<SiteSettings | null> {
+  return fetchSiteSettings(locale)
+}
+
+type MetadataLike = {
+  title?: string
+  description?: string
+  keywords?: string
+  alternates?: { canonical?: string }
+  openGraph?: {
+    title?: string
+    description?: string
+    url?: string
+    images?: string[]
+  }
+  twitter?: {
+    card: "summary_large_image"
+    site?: string
+    title?: string
+    description?: string
+    images?: string[]
+  }
+  robots?: { index: boolean; follow: boolean }
+  icons?: { icon: string }
+}
+
+export function buildMetadataFromSeo(
+  seo: PageSeo | null,
+  settings: SiteSettings | null
+): MetadataLike {
+  const title =
+    seo?.metaTitle || settings?.seo.defaultMetaTitle || undefined
+  const description =
+    seo?.metaDescription || settings?.seo.defaultMetaDescription || undefined
+  const keywords = seo?.keywords || settings?.seo.keywords || undefined
+  const canonical = seo?.canonicalUrl || settings?.seo.siteUrl || undefined
+  const ogImage = seo?.ogImageUrl || settings?.seo.ogImageUrl || undefined
+  const twitterSite = seo?.twitterHandle || settings?.seo.twitterSite || undefined
+  const allowIndex =
+    seo?.robotsAllowIndex !== false && settings?.seo.robotsAllowIndex !== false
+
+  const metadata: MetadataLike = {}
+  if (title) metadata.title = title
+  if (description) metadata.description = description
+  if (keywords) metadata.keywords = keywords
+  if (canonical) metadata.alternates = { canonical }
+
+  const og: NonNullable<MetadataLike["openGraph"]> = {}
+  if (title) og.title = title
+  if (description) og.description = description
+  if (canonical) og.url = canonical
+  if (ogImage) og.images = [ogImage]
+  if (Object.keys(og).length > 0) metadata.openGraph = og
+
+  const twitter: NonNullable<MetadataLike["twitter"]> = {
+    card: "summary_large_image",
+  }
+  if (twitterSite) twitter.site = twitterSite
+  if (title) twitter.title = title
+  if (description) twitter.description = description
+  if (ogImage) twitter.images = [ogImage]
+  metadata.twitter = twitter
+
+  metadata.robots = allowIndex
+    ? { index: true, follow: true }
+    : { index: false, follow: false }
+
+  if (settings?.faviconUrl) metadata.icons = { icon: settings.faviconUrl }
+
+  return metadata
+}

@@ -1,9 +1,15 @@
+import type { Metadata } from "next"
 import { Locale } from "next-intl"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { SaudiRiyal } from "lucide-react"
 import PageShadow from "@/components/common/page-shadow"
-import { getPublicProject } from "@/lib/website-cms"
+import {
+  buildMetadataFromSeo,
+  getProjectSeo,
+  getPublicProject,
+  getSiteSettings,
+} from "@/lib/website-cms"
 import Header from "../../_components/header"
 import ImageGallery from "./_components/image-gallery"
 import ProjectLocationMap from "./_components/map"
@@ -13,6 +19,15 @@ import ProjectPageIntro from "./_components/project-page-intro"
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params
+  const [seo, settings] = await Promise.all([
+    getProjectSeo(slug, locale),
+    getSiteSettings(locale),
+  ])
+  return buildMetadataFromSeo(seo, settings) as Metadata
 }
 
 export default async function ProjectDetailsPage({ params }: Props) {

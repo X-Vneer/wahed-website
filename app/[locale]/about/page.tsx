@@ -1,7 +1,13 @@
+import type { Metadata } from "next"
 import { type Locale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
-import { getAboutPageContent } from "@/lib/website-cms"
+import {
+  buildMetadataFromSeo,
+  getAboutPageContent,
+  getPageSeo,
+  getSiteSettings,
+} from "@/lib/website-cms"
 import Header from "../_components/header"
 import BoardOfDirectors from "./_components/board-of-directors"
 import AboutHero from "./_components/hero"
@@ -10,6 +16,15 @@ import OurValues from "./_components/our-values"
 import OurVision from "./_components/our-vision"
 
 type Props = { params: Promise<{ locale: string }> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  const [seo, settings] = await Promise.all([
+    getPageSeo("about", locale),
+    getSiteSettings(locale),
+  ])
+  return buildMetadataFromSeo(seo, settings) as Metadata
+}
 
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params
