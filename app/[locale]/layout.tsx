@@ -6,7 +6,11 @@ import { cn } from "@heroui/react"
 import "m3-ripple/ripple.css"
 import { ibmPlexSansArabic, satoshi } from "@/assets/font"
 import { routing } from "@/i18n/routing"
-import { buildMetadataFromSeo, getSiteSettings } from "@/lib/website-cms"
+import {
+  buildMetadataFromSeo,
+  DEFAULT_THEME,
+  getSiteSettings,
+} from "@/lib/website-cms"
 import "../globals.css"
 import Footer from "./_components/footer"
 import Providers from "./providers"
@@ -33,10 +37,27 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
   setRequestLocale(locale as Locale)
 
-  const messages = await getMessages()
+  const [messages, settings] = await Promise.all([
+    getMessages(),
+    getSiteSettings(locale),
+  ])
+
+  const theme = settings?.theme ?? DEFAULT_THEME
+  const logos = settings?.logos ?? {
+    forDarkBackground: "",
+    forLightBackground: "",
+  }
+
+  const themeCss = `:root,.light,.default,[data-theme="light"],[data-theme="default"]{--primary:${theme.primaryColor};--black:${theme.blackColor};--secondary:${theme.accentColor};--text-secondary:${theme.secondaryTextColor};--accent:${theme.accentColor};--focus:${theme.accentColor};}`
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className="light">
+      <head>
+        <style
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: themeCss }}
+        />
+      </head>
       <body>
         <div
           className={cn(
@@ -45,7 +66,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           )}
         >
           <NextIntlClientProvider messages={messages}>
-            <Providers>
+            <Providers siteSettings={{ theme, logos }}>
               {children}
               <Footer />
             </Providers>

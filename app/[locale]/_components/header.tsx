@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useEffect, useState } from "react"
@@ -8,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { blackLogo, whiteLogo } from "@/assets"
 import { useRouter, usePathname, Link } from "@/i18n/navigation"
+import { useSiteSettings } from "./site-settings-context"
 
 function GlobeIcon({ className }: { className?: string }) {
   return (
@@ -40,7 +42,15 @@ export default function Header({
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
+  const { logos } = useSiteSettings()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  // variant "light" = light text on dark background → use logo for dark bg (white logo)
+  // variant "dark"  = dark text on light background → use logo for light bg (black logo)
+  const logoSrc =
+    variant === "light"
+      ? logos.forDarkBackground || whiteLogo
+      : logos.forLightBackground || blackLogo
 
   const menuItems = [
     { key: "home", href: "/" },
@@ -85,7 +95,7 @@ export default function Header({
   return (
     <header
       className={cn(
-        "relative z-50 -mb-16 bg-black/30 text-white md:-mb-14 md:bg-transparent md:pt-4",
+        "relative z-50 -mb-16 bg-black/30 text-white md:-mb-15 md:bg-transparent md:pt-4",
         variant === "light" ? "text-white" : "text-black"
       )}
     >
@@ -96,21 +106,7 @@ export default function Header({
             className="text-inherit"
             onClick={() => setIsMenuOpen(false)}
           >
-            {variant === "light" ? (
-              <Image
-                src={whiteLogo}
-                alt="Raad"
-                className="w-20 lg:w-26"
-                priority
-              />
-            ) : (
-              <Image
-                src={blackLogo}
-                alt="Raad"
-                className="w-20 lg:w-26"
-                priority
-              />
-            )}
+            <img src={logoSrc} alt="logo" className="h-11 w-auto" />
           </Link>
 
           <div className="hidden items-center gap-6 md:flex">

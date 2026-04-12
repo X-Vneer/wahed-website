@@ -4,7 +4,8 @@
       "Bash(xargs grep:*)",
       "Bash(ls -la /d/work/wahed/website/app/[locale]/_components/)",
       "Bash(npx tsc:*)",
-      "Bash(git --version)"
+      "Bash(git --version)",
+      "Bash(ls -la D:/work/wahed/website/*.*)"
     ]
   }
 }

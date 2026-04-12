@@ -546,6 +546,18 @@ export type PageSeo = {
   robotsAllowIndex: boolean
 }
 
+export type SiteTheme = {
+  primaryColor: string
+  accentColor: string
+  blackColor: string
+  secondaryTextColor: string
+}
+
+export type SiteLogos = {
+  forDarkBackground: string
+  forLightBackground: string
+}
+
 export type SiteSettings = {
   seo: {
     defaultMetaTitle: string
@@ -556,8 +568,17 @@ export type SiteSettings = {
     robotsAllowIndex: boolean
     keywords: string
   }
+  theme: SiteTheme
+  logos: SiteLogos
   faviconUrl: string
   googleAnalyticsMeasurementId: string
+}
+
+export const DEFAULT_THEME: SiteTheme = {
+  primaryColor: "#1e1e1e",
+  accentColor: "#fe5f27",
+  blackColor: "#171717",
+  secondaryTextColor: "#4b5563",
 }
 
 function normalizeSeo(raw: unknown): PageSeo | null {
@@ -631,6 +652,8 @@ const fetchSiteSettings = cache(
       if (!res.ok) return null
       const data = (await res.json()) as Record<string, unknown>
       const seoRaw = asRecord(data.seo) ?? {}
+      const themeRaw = asRecord(data.theme) ?? {}
+      const logosRaw = asRecord(data.logos) ?? {}
       return {
         seo: {
           defaultMetaTitle: str(seoRaw.defaultMetaTitle),
@@ -640,6 +663,19 @@ const fetchSiteSettings = cache(
           twitterSite: str(seoRaw.twitterSite),
           robotsAllowIndex: seoRaw.robotsAllowIndex !== false,
           keywords: str(seoRaw.keywords),
+        },
+        theme: {
+          primaryColor:
+            str(themeRaw.primaryColor) || DEFAULT_THEME.primaryColor,
+          accentColor: str(themeRaw.accentColor) || DEFAULT_THEME.accentColor,
+          blackColor: str(themeRaw.blackColor) || DEFAULT_THEME.blackColor,
+          secondaryTextColor:
+            str(themeRaw.secondaryTextColor) ||
+            DEFAULT_THEME.secondaryTextColor,
+        },
+        logos: {
+          forDarkBackground: str(logosRaw.forDarkBackground),
+          forLightBackground: str(logosRaw.forLightBackground),
         },
         faviconUrl: str(data.faviconUrl),
         googleAnalyticsMeasurementId: str(data.googleAnalyticsMeasurementId),
