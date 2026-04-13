@@ -3,6 +3,7 @@ import { Locale, NextIntlClientProvider } from "next-intl"
 import { getMessages, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { cn } from "@heroui/react"
+import { GoogleAnalytics } from "@next/third-parties/google"
 import "m3-ripple/ripple.css"
 import { ibmPlexSansArabic, satoshi } from "@/assets/font"
 import { routing } from "@/i18n/routing"
@@ -47,17 +48,16 @@ export default async function LocaleLayout({ children, params }: Props) {
     forDarkBackground: "",
     forLightBackground: "",
   }
+  const gaId = settings?.googleAnalyticsMeasurementId || ""
 
   const themeCss = `:root,.light,.default,[data-theme="light"],[data-theme="default"]{--primary:${theme.primaryColor};--black:${theme.blackColor};--secondary:${theme.accentColor};--text-secondary:${theme.secondaryTextColor};--accent:${theme.accentColor};--focus:${theme.accentColor};}`
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className="light">
       <head>
-        <style
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: themeCss }}
-        />
+        <style dangerouslySetInnerHTML={{ __html: themeCss }} />
       </head>
+      {gaId && <GoogleAnalytics gaId={gaId} />}
       <body>
         <div
           className={cn(

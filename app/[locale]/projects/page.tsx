@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server"
 import {
   buildMetadataFromSeo,
   getPageSeo,
+  getProjectsPageContent,
   getPublicProjects,
   getSiteSettings,
 } from "@/lib/website-cms"
@@ -27,14 +28,20 @@ export default async function ProjectsPage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale as Locale)
 
-  const projects = await getPublicProjects(locale)
-  console.log(projects)
+  const [projects, content] = await Promise.all([
+    getPublicProjects(locale),
+    getProjectsPageContent(locale),
+  ])
 
   return (
     <>
       <Header />
-      <ProjectsHero />
-      <ProjectsIntro />
+      {content?.heroSection && (
+        <ProjectsHero content={content.heroSection} />
+      )}
+      {content?.introSection && (
+        <ProjectsIntro content={content.introSection} />
+      )}
       <ProjectShowcase projects={projects} />
     </>
   )

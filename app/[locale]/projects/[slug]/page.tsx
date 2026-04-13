@@ -15,6 +15,7 @@ import ImageGallery from "./_components/image-gallery"
 import ProjectLocationMap from "./_components/map"
 import ProjectContactForm from "./_components/project-contact-form"
 import ProjectDetails from "./_components/project-details"
+import ProjectDocuments from "./_components/project-documents"
 import ProjectPageIntro from "./_components/project-page-intro"
 
 type Props = {
@@ -36,6 +37,7 @@ export default async function ProjectDetailsPage({ params }: Props) {
 
   const project = await getPublicProject(slug, locale)
   const t = await getTranslations("ProjectDetail")
+  const tDocs = await getTranslations("ProjectDocuments")
 
   if (!project) {
     notFound()
@@ -117,6 +119,16 @@ export default async function ProjectDetailsPage({ params }: Props) {
               locationLabel={
                 project.location ?? `${project.cityName}, ${project.regionName}`
               }
+            />
+          </div>
+        </section>
+      )}
+      {project.attachments && project.attachments.length > 0 && (
+        <section className="py-6 md:py-10">
+          <div className="container">
+            <ProjectDocuments
+              title={tDocs("title")}
+              documents={project.attachments}
             />
           </div>
         </section>

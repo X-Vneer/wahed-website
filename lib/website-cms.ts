@@ -414,6 +414,53 @@ export async function getContactPageContent(
 }
 
 // ──────────────────────────────────────────────
+// Projects listing page
+// ──────────────────────────────────────────────
+
+export type ProjectsHeroSection = {
+  backgroundImage: string
+  eyebrow: string
+  title: string
+}
+
+export type ProjectsIntroSection = {
+  content: string
+}
+
+/** CMS JSON shape for the `projects` page (`slug === "projects"`). */
+export type ProjectsPageContent = {
+  heroSection: ProjectsHeroSection
+  introSection: ProjectsIntroSection
+}
+
+function normalizeProjectsPageContent(
+  raw: Record<string, unknown> | null
+): ProjectsPageContent | null {
+  if (!raw) return null
+
+  const heroRaw = asRecord(raw.heroSection)
+  const heroSection: ProjectsHeroSection = {
+    backgroundImage: str(heroRaw?.backgroundImage),
+    eyebrow: str(heroRaw?.eyebrow ?? heroRaw?.eyebrowTitle),
+    title: str(heroRaw?.title),
+  }
+
+  const introRaw = asRecord(raw.introSection)
+  const introSection: ProjectsIntroSection = {
+    content: str(introRaw?.content),
+  }
+
+  return { heroSection, introSection }
+}
+
+export async function getProjectsPageContent(
+  locale: string
+): Promise<ProjectsPageContent | null> {
+  const raw = await fetchWebsitePageContent("projects", locale)
+  return normalizeProjectsPageContent(raw)
+}
+
+// ──────────────────────────────────────────────
 // Public Projects
 // ──────────────────────────────────────────────
 
@@ -437,6 +484,14 @@ export type ProjectFeature = {
   icon: string
 }
 
+export type ProjectAttachment = {
+  fileUrl: string
+  fileName: string | null
+  fileType: string | null
+  fileSize: number | null
+  additionalInfo: Record<string, unknown> | null
+}
+
 export type PublicProject = {
   id: string
   slug: string
@@ -457,6 +512,7 @@ export type PublicProject = {
   category: string | null
   badges: ProjectBadge[]
   features: ProjectFeature[]
+  attachments?: ProjectAttachment[]
   createdAt: string
 }
 

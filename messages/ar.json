@@ -188,6 +188,9 @@
   "ProjectsIntro": {
     "description": "مشاريع وهد ليست مساحات إنشائية فقط. بل تجارب <heart></heart> \n متكاملة تجمع بين <highlight>الجودة والاستدامة</highlight> وأسلوب الحياة العصري."
   },
+  "ProjectShowcase": {
+    "empty": "لا توجد مشاريع متاحة حالياً."
+  },
   "ProjectsCard": {
     "badge": "تصميم وتنفيذ وهد",
     "title": "مجمع الرحمانية السكني",
@@ -239,6 +242,9 @@
     "nextImage": "الصورة التالية",
     "goToImage": "الانتقال إلى الصورة {index}",
     "close": "إغلاق"
+  },
+  "ProjectDocuments": {
+    "title": "مستندات المشروع"
   },
   "ProjectLocationMap": {
     "title": "موقع المشروع",

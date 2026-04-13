@@ -188,6 +188,9 @@
   "ProjectsIntro": {
     "description": "Wahed projects are not only construction spaces, but integrated <heart></heart> \n experiences that combine <highlight>quality and sustainability</highlight> with a modern lifestyle."
   },
+  "ProjectShowcase": {
+    "empty": "No projects available at the moment."
+  },
   "ProjectsCard": {
     "badge": "Wahed Design & Execution",
     "title": "Al Rahmaniyah Residential Complex",
@@ -239,6 +242,9 @@
     "nextImage": "Next image",
     "goToImage": "Go to image {index}",
     "close": "Close"
+  },
+  "ProjectDocuments": {
+    "title": "Project Documents"
   },
   "ProjectLocationMap": {
     "title": "Project location",

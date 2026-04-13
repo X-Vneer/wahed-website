@@ -324,11 +324,27 @@ Page content is managed in the CMS admin and stored as flexible JSON per page pe
 
 ```json
 {
+  "heroSection": {
+    "backgroundImage": "",
+    "eyebrowTitle": "رؤية بناء مستدام",
+    "title": "نطوّر مشاريع متكاملة برؤية احترافية تنفَّذ بجودة عالية وقيمة مستدامة"
+  },
+  "introSection": {
+    "content": "مشاريع وهد ليست مساحات إنشائية فقط، بل تجارب متكاملة تجمع بين الجودة والاستدامة وأسلوب الحياة العصري."
+  },
   "cards": []
 }
 ```
 
-This page primarily displays `PublicProject` records (see below).
+| Field | Type | Description |
+|-------|------|-------------|
+| `heroSection.backgroundImage` | `string` | URL of the hero banner background image |
+| `heroSection.eyebrowTitle` | `string` | Small label above the main title |
+| `heroSection.title` | `string` | Main hero heading text |
+| `introSection.content` | `string` | Descriptive paragraph shown below the hero |
+| `cards` | `array` | Reserved — project cards come from `PublicProject` records (see below) |
+
+This page primarily displays `PublicProject` records (see below). The `heroSection` and `introSection` provide the page-level banner and introductory text above the project cards.
 
 ---
 
