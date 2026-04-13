@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import {
   buildMetadataFromSeo,
+  getFeaturedProjects,
   getHomePageContent,
   getPageSeo,
   getSiteSettings,
@@ -33,7 +34,10 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale as Locale)
 
-  const homeContent = await getHomePageContent(locale)
+  const [homeContent, featuredProjects] = await Promise.all([
+    getHomePageContent(locale),
+    getFeaturedProjects(locale),
+  ])
 
   if (!homeContent?.heroSection) {
     notFound()
@@ -48,7 +52,9 @@ export default async function HomePage({ params }: Props) {
       {homeContent.statsSection.isActive && (
         <Statics content={homeContent.statsSection} />
       )}
-      <Projects />
+      {featuredProjects.length > 0 && (
+        <Projects projects={featuredProjects} />
+      )}
       {homeContent.partnersSection.isActive && (
         <Partners content={homeContent.partnersSection} />
       )}

@@ -513,6 +513,8 @@ export type PublicProject = {
   badges: ProjectBadge[]
   features: ProjectFeature[]
   attachments?: ProjectAttachment[]
+  isFeatured: boolean
+  projectGuide: string | null
   createdAt: string
 }
 
@@ -583,6 +585,36 @@ export async function getPublicProject(
   locale: string
 ): Promise<PublicProject | null> {
   return fetchPublicProjectBySlug(slug, locale)
+}
+
+const fetchFeaturedProjects = cache(
+  async (locale: string): Promise<PublicProject[]> => {
+    const base = process.env.WEBSITE_CMS_API_BASE
+    if (!base) return []
+
+    const url = `${base}/api/public/projects?locale=${encodeURIComponent(locale)}&featured=true`
+
+    try {
+      const res = await fetch(url, {
+        next: { revalidate: REVALIDATE_SECONDS },
+        headers: { Accept: "application/json" },
+      })
+
+      if (!res.ok) return []
+
+      const data = (await res.json()) as PublicProjectsResponse
+      if (!Array.isArray(data.projects)) return []
+      return data.projects.filter((p) => p.isActive)
+    } catch {
+      return []
+    }
+  }
+)
+
+export async function getFeaturedProjects(
+  locale: string
+): Promise<PublicProject[]> {
+  return fetchFeaturedProjects(locale)
 }
 
 // ──────────────────────────────────────────────
