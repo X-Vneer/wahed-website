@@ -106,7 +106,7 @@ export default async function ProjectDetailsPage({ params }: Props) {
               />
             </div>
             <div className="md:col-span-2 lg:col-span-1">
-              <ProjectContactForm />
+              <ProjectContactForm projectSlug={project.slug} />
             </div>
           </div>
         </div>

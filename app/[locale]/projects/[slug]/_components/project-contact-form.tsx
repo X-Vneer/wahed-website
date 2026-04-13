@@ -17,7 +17,8 @@ const WHATSAPP_URL = "https://wa.me/96658241563"
 
 type Status = "idle" | "success" | "error"
 type ContactFormValues = {
-  fullName: string
+  firstName: string
+  lastName: string
   email: string
   phone: string
   message: string
@@ -68,7 +69,11 @@ function ContactMark({ title }: { title: string }) {
 const fieldClass =
   "rounded border border-[#e0e0e0] bg-white shadow-none [&::placeholder]:text-[#9ca3af]"
 
-export default function ProjectContactForm() {
+export default function ProjectContactForm({
+  projectSlug,
+}: {
+  projectSlug?: string
+}) {
   const t = useTranslations("ProjectContactForm")
   const [status, setStatus] = useState<Status>("idle")
   const {
@@ -85,11 +90,15 @@ export default function ProjectContactForm() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_WEBSITE_CMS_API_BASE}/api/public/website/contact`,
+        `${process.env.NEXT_PUBLIC_WEBSITE_CMS_API_BASE}/api/public/contact`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            ...data,
+            source: "project",
+            ...(projectSlug ? { projectSlug } : {}),
+          }),
         }
       )
 
@@ -153,28 +162,52 @@ export default function ProjectContactForm() {
           </FieldError>
         </TextField>
 
-        <TextField
-          name="fullName"
-          isRequired
-          fullWidth
-          isInvalid={Boolean(errors.fullName)}
-          className="w-full"
-        >
-          <Label className="mb-1.5 block text-start text-sm font-medium text-black">
-            {t("fullNameLabel")}
-          </Label>
-          <Input
-            className={`text-black ${fieldClass}`}
-            placeholder={t("fullNamePlaceholder")}
-            variant="secondary"
-            {...register("fullName", {
-              required: t("errors.fullNameRequired"),
-            })}
-          />
-          <FieldError className="mt-1 text-start text-sm text-red-600">
-            {errors.fullName?.message}
-          </FieldError>
-        </TextField>
+        <div className="grid w-full gap-6 sm:grid-cols-2">
+          <TextField
+            name="firstName"
+            isRequired
+            fullWidth
+            isInvalid={Boolean(errors.firstName)}
+            className="w-full"
+          >
+            <Label className="mb-1.5 block text-start text-sm font-medium text-black">
+              {t("firstNameLabel")}
+            </Label>
+            <Input
+              className={`text-black ${fieldClass}`}
+              placeholder={t("firstNamePlaceholder")}
+              variant="secondary"
+              {...register("firstName", {
+                required: t("errors.firstNameRequired"),
+              })}
+            />
+            <FieldError className="mt-1 text-start text-sm text-red-600">
+              {errors.firstName?.message}
+            </FieldError>
+          </TextField>
+          <TextField
+            name="lastName"
+            isRequired
+            fullWidth
+            isInvalid={Boolean(errors.lastName)}
+            className="w-full"
+          >
+            <Label className="mb-1.5 block text-start text-sm font-medium text-black">
+              {t("lastNameLabel")}
+            </Label>
+            <Input
+              className={`text-black ${fieldClass}`}
+              placeholder={t("lastNamePlaceholder")}
+              variant="secondary"
+              {...register("lastName", {
+                required: t("errors.lastNameRequired"),
+              })}
+            />
+            <FieldError className="mt-1 text-start text-sm text-red-600">
+              {errors.lastName?.message}
+            </FieldError>
+          </TextField>
+        </div>
 
         <TextField
           name="phone"

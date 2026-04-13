@@ -42,7 +42,7 @@ export default function ContactForm() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_WEBSITE_CMS_API_BASE}/api/website/contact`,
+        `${process.env.NEXT_PUBLIC_WEBSITE_CMS_API_BASE}/api/public/contact`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
