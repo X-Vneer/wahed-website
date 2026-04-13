@@ -84,8 +84,16 @@ export default function ProjectContactForm() {
     setStatus("idle")
 
     try {
-      // TODO: wire up to backend or email service
-      console.log("Project contact form submission", data)
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_WEBSITE_CMS_API_BASE}/api/public/website/contact`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      )
+
+      if (!res.ok) throw new Error("Failed to submit")
 
       reset()
       setStatus("success")

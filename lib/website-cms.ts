@@ -48,7 +48,6 @@ export type HomeContactSection = {
   ctaLabel: string
 }
 
-
 /** CMS JSON shape for the `home` page (`slug === "home"`). */
 export type HomePageContent = {
   heroSection: HomeHeroSection
@@ -95,7 +94,7 @@ const fetchWebsitePageContent = cache(
     const base = process.env.WEBSITE_CMS_API_BASE
     if (!base) return null
 
-    const url = `${base}/api/public/website/content/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`
+    const url = `${base}/api/public/content/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`
 
     try {
       const res = await fetch(url, {
@@ -302,9 +301,7 @@ function normalizeAboutPageContent(
     qualityDescription: str(
       valuesRaw?.qualityDescription ?? valuesRaw?.firstContent
     ),
-    innovationTitle: str(
-      valuesRaw?.innovationTitle ?? valuesRaw?.secondTitle
-    ),
+    innovationTitle: str(valuesRaw?.innovationTitle ?? valuesRaw?.secondTitle),
     innovationDescription: str(
       valuesRaw?.innovationDescription ?? valuesRaw?.secondContent
     ),
@@ -476,7 +473,7 @@ const fetchPublicProjects = cache(
     const base = process.env.WEBSITE_CMS_API_BASE
     if (!base) return []
 
-    const url = `${base}/api/public/website/projects?locale=${encodeURIComponent(locale)}`
+    const url = `${base}/api/public/projects?locale=${encodeURIComponent(locale)}`
 
     try {
       const res = await fetch(url, {
@@ -500,7 +497,7 @@ const fetchPublicProjectBySlug = cache(
     const base = process.env.WEBSITE_CMS_API_BASE
     if (!base) return null
 
-    const url = `${base}/api/public/website/projects/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`
+    const url = `${base}/api/public/projects/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`
 
     try {
       const res = await fetch(url, {
@@ -600,7 +597,7 @@ const fetchPageSeo = cache(
     const base = process.env.WEBSITE_CMS_API_BASE
     if (!base) return null
 
-    const url = `${base}/api/public/website/seo/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`
+    const url = `${base}/api/public/seo/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`
 
     try {
       const res = await fetch(url, {
@@ -621,7 +618,7 @@ const fetchProjectSeo = cache(
     const base = process.env.WEBSITE_CMS_API_BASE
     if (!base) return null
 
-    const url = `${base}/api/public/website/projects/${encodeURIComponent(slug)}/seo?locale=${encodeURIComponent(locale)}`
+    const url = `${base}/api/public/projects/${encodeURIComponent(slug)}/seo?locale=${encodeURIComponent(locale)}`
 
     try {
       const res = await fetch(url, {
@@ -642,7 +639,7 @@ const fetchSiteSettings = cache(
     const base = process.env.WEBSITE_CMS_API_BASE
     if (!base) return null
 
-    const url = `${base}/api/public/website/settings?locale=${encodeURIComponent(locale)}`
+    const url = `${base}/api/public/settings?locale=${encodeURIComponent(locale)}`
 
     try {
       const res = await fetch(url, {
@@ -732,14 +729,14 @@ export function buildMetadataFromSeo(
   seo: PageSeo | null,
   settings: SiteSettings | null
 ): MetadataLike {
-  const title =
-    seo?.metaTitle || settings?.seo.defaultMetaTitle || undefined
+  const title = seo?.metaTitle || settings?.seo.defaultMetaTitle || undefined
   const description =
     seo?.metaDescription || settings?.seo.defaultMetaDescription || undefined
   const keywords = seo?.keywords || settings?.seo.keywords || undefined
   const canonical = seo?.canonicalUrl || settings?.seo.siteUrl || undefined
   const ogImage = seo?.ogImageUrl || settings?.seo.ogImageUrl || undefined
-  const twitterSite = seo?.twitterHandle || settings?.seo.twitterSite || undefined
+  const twitterSite =
+    seo?.twitterHandle || settings?.seo.twitterSite || undefined
   const allowIndex =
     seo?.robotsAllowIndex !== false && settings?.seo.robotsAllowIndex !== false
 

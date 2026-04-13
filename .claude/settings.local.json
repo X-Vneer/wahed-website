@@ -5,7 +5,9 @@
       "Bash(ls -la /d/work/wahed/website/app/[locale]/_components/)",
       "Bash(npx tsc:*)",
       "Bash(git --version)",
-      "Bash(ls -la D:/work/wahed/website/*.*)"
+      "Bash(ls -la D:/work/wahed/website/*.*)",
+      "Bash(grep -E \"^-.*\\\\.\\(ts|js|json|env\\)$|^d\")",
+      "Bash(xargs cat:*)"
     ]
   }
 }

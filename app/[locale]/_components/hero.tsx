@@ -110,7 +110,7 @@ export default function Hero({ content }: HeroProps) {
               >
                 <Link
                   href="/about"
-                  className="relative inline-flex h-12 w-full max-w-[250px] items-center justify-center bg-white text-lg font-medium text-black transition-colors hover:bg-white/80"
+                  className="relative inline-flex h-12 w-full max-w-63 items-center justify-center bg-white text-lg font-medium text-black transition-colors hover:bg-white/80"
                 >
                   {ctaLabel}
                   <Ripple />
