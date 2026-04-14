@@ -1,11 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { StaticImageData } from "next/image"
 import { cn } from "@heroui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
-type ProjectImage = StaticImageData | string
+type ProjectImage = string
 
 type ImageGalleryProps = {
   gallerySide: "left" | "right"
@@ -69,7 +68,6 @@ export default function ImageGallery({
               src={selectedImage}
               alt={title}
               className="h-full w-full object-cover"
-              priority={selectedImageIndex === 0}
             />
           </motion.div>
         </AnimatePresence>

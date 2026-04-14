@@ -2,11 +2,10 @@
 /** eslint-disable @next/next/no-img-element */
 import { useMemo } from "react"
 import { useTranslations } from "next-intl"
-import { StaticImageData } from "next/image"
 import { cn, Modal } from "@heroui/react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-export type GalleryImage = StaticImageData | string
+export type GalleryImage = string
 
 type ImageSliderModalProps = {
   title: string
