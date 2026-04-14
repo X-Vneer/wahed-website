@@ -3,16 +3,18 @@ services:
     image: ghcr.io/x-vneer/wahed-website:latest
     container_name: wahed-website
     restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3001}:3000"
     environment:
+      - NODE_ENV=production
       - WEBSITE_CMS_API_BASE=${WEBSITE_CMS_API_BASE}
       - NEXT_PUBLIC_WEBSITE_CMS_API_BASE=${NEXT_PUBLIC_WEBSITE_CMS_API_BASE}
-    expose:
-      - "3000"
-    networks:
-      - traefik-network
+      - NEXT_TELEMETRY_DISABLED=1
     labels:
       - traefik.enable=true
-      - traefik.http.services.website.loadbalancer.server.port=3000
+      - traefik.http.services.wahed-website.loadbalancer.server.port=3000
+    networks:
+      - traefik-proxy
 networks:
-  traefik-network:
+  traefik-proxy:
     external: true
