@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import { useState } from "react"
 import { useTranslations } from "next-intl"
 import {
   Button,
@@ -22,6 +22,9 @@ type ContactFormValues = {
   message: string
 }
 
+const fieldClass =
+  "rounded border border-[#e0e0e0] bg-white shadow-none [&::placeholder]:text-[#9ca3af]"
+
 export default function ContactForm() {
   const t = useTranslations("ContactForm")
   const [status, setStatus] = useState<Status>("idle")
@@ -38,9 +41,16 @@ export default function ContactForm() {
     setStatus("idle")
 
     try {
-      // TODO: wire up to backend or email service
-      // Keeping this as a placeholder for now.
-      console.log("Contact form submission", data)
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_WEBSITE_CMS_API_BASE}/api/public/contact`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      )
+
+      if (!res.ok) throw new Error("Failed to submit")
 
       reset()
       setStatus("success")
@@ -54,25 +64,28 @@ export default function ContactForm() {
     <Form
       onSubmit={handleSubmit(onSubmit)}
       validationBehavior="aria"
-      className="mx-auto max-w-xl space-y-3 rounded-none bg-white md:space-y-6"
+      className="mx-auto max-w-xl space-y-6 rounded-none bg-white"
     >
-      <div className="grid w-full gap-3 md:grid-cols-2 md:gap-6">
+      <div className="grid w-full gap-6 md:grid-cols-2">
         <TextField
           name="firstName"
           isRequired
           fullWidth
           isInvalid={Boolean(errors.firstName)}
+          className="w-full"
         >
-          <Label className="text-black">{t("firstNameLabel")}</Label>
+          <Label className="mb-1.5 block text-start text-sm font-medium text-black">
+            {t("firstNameLabel")}
+          </Label>
           <Input
-            className="text-black"
+            className={`text-black ${fieldClass}`}
             placeholder={t("firstNamePlaceholder")}
             variant="secondary"
             {...register("firstName", {
               required: t("errors.firstNameRequired"),
             })}
           />
-          <FieldError className="mt-1 text-sm text-red-600">
+          <FieldError className="mt-1 text-start text-sm text-red-600">
             {errors.firstName?.message}
           </FieldError>
         </TextField>
@@ -81,17 +94,20 @@ export default function ContactForm() {
           isRequired
           fullWidth
           isInvalid={Boolean(errors.lastName)}
+          className="w-full"
         >
-          <Label className="text-black">{t("lastNameLabel")}</Label>
+          <Label className="mb-1.5 block text-start text-sm font-medium text-black">
+            {t("lastNameLabel")}
+          </Label>
           <Input
-            className="text-black"
+            className={`text-black ${fieldClass}`}
             placeholder={t("lastNamePlaceholder")}
             variant="secondary"
             {...register("lastName", {
               required: t("errors.lastNameRequired"),
             })}
           />
-          <FieldError className="mt-1 text-sm text-red-600">
+          <FieldError className="mt-1 text-start text-sm text-red-600">
             {errors.lastName?.message}
           </FieldError>
         </TextField>
@@ -104,10 +120,13 @@ export default function ContactForm() {
           isRequired
           fullWidth
           isInvalid={Boolean(errors.email)}
+          className="w-full"
         >
-          <Label className="text-black">{t("emailLabel")}</Label>
+          <Label className="mb-1.5 block text-start text-sm font-medium text-black">
+            {t("emailLabel")}
+          </Label>
           <Input
-            className="text-black"
+            className={`text-black ${fieldClass}`}
             placeholder={t("emailPlaceholder")}
             variant="secondary"
             {...register("email", {
@@ -118,7 +137,7 @@ export default function ContactForm() {
               },
             })}
           />
-          <FieldError className="mt-1 text-sm text-red-600">
+          <FieldError className="mt-1 text-start text-sm text-red-600">
             {errors.email?.message}
           </FieldError>
         </TextField>
@@ -128,10 +147,13 @@ export default function ContactForm() {
           isRequired
           fullWidth
           isInvalid={Boolean(errors.phone)}
+          className="w-full"
         >
-          <Label className="text-black">{t("phoneLabel")}</Label>
+          <Label className="mb-1.5 block text-start text-sm font-medium text-black">
+            {t("phoneLabel")}
+          </Label>
           <Input
-            className="text-black"
+            className={`text-black ${fieldClass}`}
             placeholder={t("phonePlaceholder")}
             variant="secondary"
             {...register("phone", {
@@ -142,7 +164,7 @@ export default function ContactForm() {
               },
             })}
           />
-          <FieldError className="mt-1 text-sm text-red-600">
+          <FieldError className="mt-1 text-start text-sm text-red-600">
             {errors.phone?.message}
           </FieldError>
         </TextField>
@@ -153,14 +175,17 @@ export default function ContactForm() {
         isRequired
         fullWidth
         isInvalid={Boolean(errors.message)}
+        className="w-full"
       >
-        <Label className="text-black">{t("messageLabel")}</Label>
+        <Label className="mb-1.5 block text-start text-sm font-medium text-black">
+          {t("messageLabel")}
+        </Label>
         <TextArea
           id="message"
-          className="text-black"
+          className={`min-h-36 text-black ${fieldClass}`}
           placeholder={t("messagePlaceholder")}
           variant="secondary"
-          rows={5}
+          rows={6}
           {...register("message", {
             required: t("errors.messageRequired"),
             minLength: {
@@ -169,7 +194,7 @@ export default function ContactForm() {
             },
           })}
         />
-        <FieldError className="mt-1 text-sm text-red-600">
+        <FieldError className="mt-1 text-start text-sm text-red-600">
           {errors.message?.message}
         </FieldError>
       </TextField>

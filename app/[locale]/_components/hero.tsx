@@ -1,16 +1,20 @@
 "use client"
 
 import { useRef } from "react"
-import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Ripple } from "m3-ripple"
-import { heroImage, noise } from "@/assets"
+import { noise } from "@/assets"
 import { TextLinesAnimation } from "@/components/common/text-lines-animation"
 import { Link } from "@/i18n/navigation"
+import type { HomeHeroSection } from "@/lib/website-cms"
 
-export default function Hero() {
-  const t = useTranslations("Hero")
+type HeroProps = {
+  content: HomeHeroSection
+}
+
+export default function Hero({ content }: HeroProps) {
+  const { title, description, ctaLabel, backgroundImage } = content
   const sectionRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -23,7 +27,7 @@ export default function Hero() {
     [0, 0.5, 1],
     ["0%", "-10%", "-20%"]
   )
-  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.08])
+  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.02])
   // Noise layer moves at a different rate for layered depth
   const noiseY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"])
   // Content and arrow move slower than scroll = feel in front of background
@@ -55,8 +59,8 @@ export default function Hero() {
           }}
         >
           <Image
-            src={heroImage}
-            alt=""
+            src={backgroundImage}
+            alt="background"
             fill
             className="object-cover object-center"
             priority
@@ -69,7 +73,7 @@ export default function Hero() {
         >
           <Image
             src={noise}
-            alt=""
+            alt="noise"
             fill
             className="h-full w-full object-cover object-center opacity-25"
           />
@@ -88,7 +92,7 @@ export default function Hero() {
             <div className="max-w-3xl">
               <TextLinesAnimation
                 as="h1"
-                text={t("title")}
+                text={title}
                 className="text-3xl leading-tight font-medium md:text-4xl lg:text-5xl"
               />
               <TextLinesAnimation
@@ -96,7 +100,7 @@ export default function Hero() {
                 as="p"
                 className="mt-4 max-w-md font-medium max-md:mx-auto lg:text-lg"
               >
-                {t("description")}
+                {description}
               </TextLinesAnimation>
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -106,9 +110,9 @@ export default function Hero() {
               >
                 <Link
                   href="/about"
-                  className="relative inline-flex h-12 w-full max-w-[250px] items-center justify-center bg-white text-lg font-medium text-black transition-colors hover:bg-white/80"
+                  className="relative inline-flex h-12 w-full max-w-63 items-center justify-center bg-white text-lg font-medium text-black transition-colors hover:bg-white/80"
                 >
-                  {t("cta")}
+                  {ctaLabel}
                   <Ripple />
                 </Link>
               </motion.div>

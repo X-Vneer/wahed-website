@@ -1,5 +1,13 @@
-import { Locale } from "next-intl"
+import type { Metadata } from "next"
+import { type Locale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
+import { notFound } from "next/navigation"
+import {
+  buildMetadataFromSeo,
+  getAboutPageContent,
+  getPageSeo,
+  getSiteSettings,
+} from "@/lib/website-cms"
 import Header from "../_components/header"
 import BoardOfDirectors from "./_components/board-of-directors"
 import AboutHero from "./_components/hero"
@@ -9,18 +17,35 @@ import OurVision from "./_components/our-vision"
 
 type Props = { params: Promise<{ locale: string }> }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  const [seo, settings] = await Promise.all([
+    getPageSeo("about", locale),
+    getSiteSettings(locale),
+  ])
+  return buildMetadataFromSeo(seo, settings) as Metadata
+}
+
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale as Locale)
 
+  const aboutContent = await getAboutPageContent(locale)
+
+  if (!aboutContent?.heroSection) {
+    notFound()
+  }
+
   return (
     <>
       <Header />
-      <AboutHero />
-      <OurStory />
-      <OurVision />
-      <OurValues />
-      <BoardOfDirectors />
+      <AboutHero content={aboutContent.heroSection} />
+      <OurStory content={aboutContent.storySection} />
+      <OurVision content={aboutContent.visionSection} />
+      <OurValues content={aboutContent.valuesSection} />
+      {aboutContent.boardSection.isActive && (
+        <BoardOfDirectors content={aboutContent.boardSection} />
+      )}
     </>
   )
 }

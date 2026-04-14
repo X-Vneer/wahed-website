@@ -1,16 +1,19 @@
 "use client"
 
 import { useRef } from "react"
-import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { projectsHero, noise } from "@/assets"
+import { noise } from "@/assets"
 import { TextLinesAnimation } from "@/components/common/text-lines-animation"
+import { type ProjectsHeroSection } from "@/lib/website-cms"
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
-export default function ProjectsHero() {
-  const t = useTranslations("ProjectsHero")
+type Props = {
+  content: ProjectsHeroSection
+}
+
+export default function ProjectsHero({ content }: Props) {
   const sectionRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -26,7 +29,7 @@ export default function ProjectsHero() {
     >
       <div className="absolute inset-0">
         <Image
-          src={projectsHero}
+          src={content.backgroundImage}
           alt=""
           fill
           className="object-cover object-center"
@@ -63,7 +66,7 @@ export default function ProjectsHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: easeOut }}
             >
-              <span>{t("eyebrow")}</span>
+              <span>{content.eyebrow}</span>
               <span className="block w-16 md:w-20" aria-hidden>
                 <svg
                   viewBox="0 0 90 12"
@@ -99,7 +102,7 @@ export default function ProjectsHero() {
             </motion.div>
             <TextLinesAnimation
               as="h1"
-              text={t("title")}
+              text={content.title}
               className="text-2xl leading-snug font-medium text-white md:text-3xl lg:text-4xl lg:leading-snug"
               delay={0.35}
               duration={0.6}

@@ -1,9 +1,8 @@
 "use client"
 
-import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { workSpace } from "@/assets"
+import type { AboutBoardSection } from "@/lib/website-cms"
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -35,21 +34,16 @@ const cardVariants = {
   },
 }
 
-// Placeholder: replace with board1, board2, board3, board4 when assets are available
-const BOARD_MEMBERS = [
-  { id: 1, src: workSpace },
-  { id: 2, src: workSpace },
-  { id: 3, src: workSpace },
-  { id: 4, src: workSpace },
-] as const
+type BoardOfDirectorsProps = {
+  content: AboutBoardSection
+}
 
-export default function BoardOfDirectors() {
-  const t = useTranslations("BoardOfDirectors")
+export default function BoardOfDirectors({ content }: BoardOfDirectorsProps) {
+  const { eyebrow, title, members } = content
 
   return (
     <section className="relative bg-white py-16 md:py-24">
       <div className="container">
-        {/* Header: subtitle (eyebrow) + orange line + title — aligned to end for RTL */}
         <motion.div
           className="flex flex-col gap-2"
           initial="hidden"
@@ -67,7 +61,7 @@ export default function BoardOfDirectors() {
               className="text-secondary text-lg font-medium md:text-2xl"
               variants={headerVariants}
             >
-              {t("eyebrow")}
+              {eyebrow}
             </motion.span>
             <motion.span
               className="text-secondary block w-16 shrink-0 md:w-20"
@@ -131,11 +125,10 @@ export default function BoardOfDirectors() {
             className="text-3xl leading-tight font-bold text-black md:text-5xl lg:text-6xl"
             variants={headerVariants}
           >
-            {t("title")}
+            {title}
           </motion.h2>
         </motion.div>
 
-        {/* Board members grid: 4 portrait cards */}
         <motion.div
           className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 md:mt-14 md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-8"
           variants={containerVariants}
@@ -143,19 +136,19 @@ export default function BoardOfDirectors() {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
         >
-          {BOARD_MEMBERS.map(({ id, src }) => (
+          {members.map((member, index) => (
             <motion.div
-              key={id}
-              className="group relative aspect-[3/4] overflow-hidden rounded-lg"
+              key={`${member.image}-${index}`}
+              className="group relative aspect-3/4 overflow-hidden rounded-lg"
               variants={cardVariants}
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3, ease: easeOut }}
             >
               <Image
-                src={src}
-                alt={t("memberAlt", { index: id })}
+                src={member.image}
+                alt={member.name?.trim() || `Board member ${index + 1}`}
                 fill
-                sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, 25vw"
+                sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="object-cover object-top transition duration-300 group-hover:scale-105"
               />
             </motion.div>

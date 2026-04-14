@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { blackLogo } from "@/assets"
 import { Link } from "@/i18n/navigation"
+import { useSiteSettings } from "./site-settings-context"
 
 const NAV_ITEMS = [
   { key: "home", href: "/" },
@@ -93,6 +94,9 @@ const SOCIAL_LINKS = [
 export default function Footer() {
   const t = useTranslations("Header")
   const tFooter = useTranslations("Footer")
+  const { logos } = useSiteSettings()
+  // Footer has a light (white) background → use the logo for light backgrounds
+  const logoSrc = logos.forLightBackground || blackLogo
 
   return (
     <footer className="bg-white">
@@ -102,11 +106,12 @@ export default function Footer() {
           <div className="flex flex-col text-center max-md:items-center">
             <Link href="/" className="inline-block">
               <Image
-                src={blackLogo}
+                src={logoSrc}
                 alt={tFooter("logoAlt")}
                 className="w-20 lg:w-24"
                 width={96}
                 height={40}
+                unoptimized={typeof logoSrc === "string"}
               />
             </Link>
             <p className="mt-4 text-sm text-[#4B5563]">{tFooter("tagline")}</p>

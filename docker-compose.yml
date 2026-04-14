@@ -1,0 +1,22 @@
+services:
+  website:
+    image: ${DOCKERHUB_USERNAME}/wahed-website:latest
+    container_name: wahed-website
+    restart: unless-stopped
+    environment:
+      - WEBSITE_CMS_API_BASE=${WEBSITE_CMS_API_BASE}
+      - NEXT_PUBLIC_WEBSITE_CMS_API_BASE=${NEXT_PUBLIC_WEBSITE_CMS_API_BASE}
+    expose:
+      - "3000"
+    networks:
+      - traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.website.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.website.entrypoints=websecure"
+      - "traefik.http.routers.website.tls.certresolver=letsencrypt"
+      - "traefik.http.services.website.loadbalancer.server.port=3000"
+
+networks:
+  traefik-network:
+    external: true

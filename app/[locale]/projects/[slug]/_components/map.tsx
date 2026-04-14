@@ -3,19 +3,17 @@
 import { useLocale, useTranslations } from "next-intl"
 
 type ProjectLocationMapProps = {
-  lat: number
-  lng: number
+  googleMapsAddress: string
   locationLabel: string
 }
 
 export default function ProjectLocationMap({
-  lat,
-  lng,
+  googleMapsAddress,
   locationLabel,
 }: ProjectLocationMapProps) {
   const t = useTranslations("ProjectLocationMap")
   const locale = useLocale()
-  const src = `https://maps.google.com/maps?q=${lat},${lng}&z=15&hl=${locale}&output=embed`
+  const src = `https://maps.google.com/maps?q=${encodeURIComponent(googleMapsAddress)}&z=15&hl=${locale}&output=embed`
 
   return (
     <div>

@@ -1,15 +1,17 @@
 "use client"
 
-import { useTranslations } from "next-intl"
 import { Separator } from "@heroui/react"
 import { motion } from "framer-motion"
 import { TextLinesAnimation } from "@/components/common/text-lines-animation"
+import { type ContactHeroSection } from "@/lib/website-cms"
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
-export default function ContactHero() {
-  const t = useTranslations("ContactHero")
+type Props = {
+  content: ContactHeroSection
+}
 
+export default function ContactHero({ content }: Props) {
   return (
     <section className="relative z-10 flex min-h-[60vh] items-center py-16 md:pt-24 md:pb-16">
       <div className="container">
@@ -20,7 +22,7 @@ export default function ContactHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: easeOut }}
           >
-            <span>{t("eyebrow")}</span>
+            <span>{content.eyebrow}</span>
             <span className="block w-16 md:w-20" aria-hidden>
               <svg
                 viewBox="0 0 90 12"
@@ -58,16 +60,7 @@ export default function ContactHero() {
             duration={0.7}
             stagger={0.16}
           >
-            <>
-              {
-                t.rich("title", {
-                  span: (chunk) => (
-                    <span className="text-secondary">{chunk}</span>
-                  ),
-                })
-                // ensure it renders as React nodes
-              }
-            </>
+            <>{content.title}</>
           </TextLinesAnimation>
         </div>
         <Separator />

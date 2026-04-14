@@ -1,11 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Image, { StaticImageData } from "next/image"
 import { cn } from "@heroui/react"
 import { AnimatePresence, motion } from "framer-motion"
 
-type ProjectImage = StaticImageData | string
+type ProjectImage = string
 
 type ImageGalleryProps = {
   gallerySide: "left" | "right"
@@ -65,13 +64,10 @@ export default function ImageGallery({
             }}
             className="absolute inset-0"
           >
-            <Image
+            <img
               src={selectedImage}
               alt={title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority={selectedImageIndex === 0}
+              className="h-full w-full object-cover"
             />
           </motion.div>
         </AnimatePresence>
@@ -99,15 +95,16 @@ export default function ImageGallery({
               aria-label={`Show image ${index + 1}`}
               aria-pressed={isActive}
             >
-              <Image
+              <img
                 src={image}
                 alt={title}
-                fill
-                className={cn("object-cover transition duration-300", {
-                  "scale-[1.01]": isActive,
-                  "scale-100": !isActive,
-                })}
-                sizes="(max-width: 1024px) 33vw, 15vw"
+                className={cn(
+                  "h-full w-full object-cover transition duration-300",
+                  {
+                    "scale-[1.01]": isActive,
+                    "scale-100": !isActive,
+                  }
+                )}
               />
             </button>
           )

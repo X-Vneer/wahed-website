@@ -1,15 +1,47 @@
 "use client"
 
-import { useTranslations } from "next-intl"
+import type { StaticImageData } from "next/image"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { shape } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
+import type { AboutStorySection } from "@/lib/website-cms"
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
-export default function OurStory() {
-  const t = useTranslations("OurStory")
+type OurStoryProps = {
+  content: AboutStorySection
+}
+
+function DecorativeImage({ src }: { src: string | StaticImageData }) {
+  if (typeof src === "string") {
+    return (
+      <div className="relative h-[200px] w-48 md:h-[220px] md:w-64 lg:h-[240px] lg:w-72">
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 288px"
+          className="object-contain object-center opacity-90"
+        />
+      </div>
+    )
+  }
+  return (
+    <Image
+      src={src}
+      alt=""
+      width={302}
+      height={250}
+      sizes="(max-width: 768px) 192px, (max-width: 1024px) 256px, 288px"
+      className="h-auto w-48 opacity-90 md:w-64 lg:w-72"
+    />
+  )
+}
+
+export default function OurStory({ content }: OurStoryProps) {
+  const { eyebrow, title, description, decorativeImage } = content
+  const imageSrc = decorativeImage?.trim() ? decorativeImage : shape
 
   return (
     <section className="relative bg-white py-16 md:py-24">
@@ -18,13 +50,7 @@ export default function OurStory() {
           className="absolute inset-0 flex items-center justify-center"
           aria-hidden
         >
-          <Image
-            src={shape}
-            alt=""
-            width={302}
-            height={250}
-            className="h-auto w-48 opacity-90 md:w-64 lg:w-72"
-          />
+          <DecorativeImage src={imageSrc} />
         </div>
         <motion.div
           className="relative mx-auto flex max-w-3xl flex-col items-center gap-4 text-center"
@@ -44,7 +70,7 @@ export default function OurStory() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: easeOut }}
           >
-            <span>{t("eyebrow")}</span>
+            <span>{eyebrow}</span>
             <span className="block w-16 md:w-20" aria-hidden>
               <svg
                 viewBox="0 0 90 12"
@@ -104,13 +130,13 @@ export default function OurStory() {
             }}
           >
             <h2 className="relative text-3xl font-bold text-black md:text-5xl lg:text-6xl">
-              {t("title")}
+              {title}
             </h2>
           </motion.div>
 
           <BasicLineAnimation
             as="p"
-            text={t("description")}
+            text={description}
             className="text-text-secondary w-full max-w-2xl [text-align:inherit] text-base leading-relaxed font-medium md:text-lg lg:text-lg"
             delay={0.35}
             duration={0.6}

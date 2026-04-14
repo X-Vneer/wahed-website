@@ -1,103 +1,43 @@
+import type { Metadata } from "next"
 import { Locale } from "next-intl"
-import { setRequestLocale } from "next-intl/server"
+import { getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
-import { aboutImage, heroImage, projectImage, projectsHero } from "@/assets"
+import { SaudiRiyal } from "lucide-react"
 import PageShadow from "@/components/common/page-shadow"
+import {
+  buildMetadataFromSeo,
+  getProjectSeo,
+  getPublicProject,
+  getSiteSettings,
+} from "@/lib/website-cms"
 import Header from "../../_components/header"
 import ImageGallery from "./_components/image-gallery"
 import ProjectLocationMap from "./_components/map"
 import ProjectContactForm from "./_components/project-contact-form"
-import ProjectDetails, {
-  ProjectDetailItem,
-  ProjectFeature,
-} from "./_components/project-details"
+import ProjectDetails from "./_components/project-details"
+import ProjectDocuments from "./_components/project-documents"
 import ProjectPageIntro from "./_components/project-page-intro"
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>
 }
 
-const PROJECTS_CONTENT = {
-  "al-rahmaniyah": {
-    tag: "مجمع سكني",
-    title: "مجمع الريحانة السكني",
-    location: "مجمع الفيحاء - الدمام",
-    mapLocation: { lat: 26.4482, lng: 50.0614 },
-    statusLabel: "حالة المشروع",
-    statusValue: "متاح للحجز",
-    startingPriceLabel: "الأسعار تبدأ من",
-    startingPriceValue: "20.000$",
-    guideLabel: "دليل المشروع",
-    images: [projectsHero, projectImage, aboutImage, heroImage, projectsHero],
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    details: {
-      title: "حياة بتوازن مثالي",
-      description:
-        "يجسد مشروع الرحمانية السكني رؤية شركة وهد للاستثمار العقاري في تقديم تجربة سكنية متكاملة تجمع بين جودة التصميم وخصوصية العيش والقيمة المستدامة. تم تطوير المشروع بعناية ليلائم احتياجات الأسرة الحديثة، مع مراعاة عناصر الراحة والهوية المعمارية التي تعزز من جودة الحياة وتضمن استثمارا طويل الأمد.",
-      infoItems: [
-        { label: "المطور والمستثمر", value: "شركة وهد" },
-        { label: "القطاع", value: "التطوير السكني" },
-        { label: "الخدمات المقدمة", value: "إشراف، تخطيط، تسويق" },
-        { label: "مساحة المشروع", value: "120,000 م²" },
-      ] satisfies ProjectDetailItem[],
-      featuresTitle: "الميزات الرئيسية",
-      features: [
-        {
-          icon: "location",
-          title: "موقع العقار",
-          value: "حي الصحابة - الدمام",
-        },
-        { icon: "price", title: "السعر يبدأ", value: "20000$" },
-        { icon: "bedrooms", title: "غرف نوم", value: "3 غرف" },
-        { icon: "bathrooms", title: "دورة مياه", value: "3 دورات" },
-        { icon: "parking", title: "موقف سيارات", value: "موقف" },
-        { icon: "size", title: "مسطح", value: "1 مسطح" },
-      ] satisfies ProjectFeature[],
-    },
-  },
-  "al-fayhaa": {
-    tag: "مجمع سكني",
-    title: "فلل الفيحاء الحضرية",
-    location: "حي الفيحاء - الدمام",
-    mapLocation: { lat: 26.4518, lng: 50.0662 },
-    statusLabel: "حالة المشروع",
-    statusValue: "متاح للحجز",
-    startingPriceLabel: "الأسعار تبدأ من",
-    startingPriceValue: "18.500$",
-    guideLabel: "دليل المشروع",
-    images: [aboutImage, heroImage, projectImage, projectsHero, aboutImage],
-    details: {
-      title: "تفاصيل المشروع",
-      description:
-        "يقدم مشروع الفيحاء تجربة سكنية عملية تجمع بين المساحات المدروسة وحلول التخطيط الذكي بما يحقق توازنا بين جودة المعيشة والعائد الاستثماري. تم تصميم وحدات المشروع لتلائم احتياجات العائلات الباحثة عن الاستقرار ضمن بيئة حضرية متكاملة.",
-      infoItems: [
-        { label: "المطور والمستثمر", value: "شركة وهد" },
-        { label: "القطاع", value: "فلل سكنية" },
-        { label: "الخدمات المقدمة", value: "تطوير، تسويق، إدارة" },
-        { label: "مساحة المشروع", value: "95,000 م²" },
-      ] satisfies ProjectDetailItem[],
-      featuresTitle: "أبرز الميزات",
-      features: [
-        {
-          icon: "location",
-          title: "موقع العقار",
-          value: "حي الفيحاء - الدمام",
-        },
-        { icon: "price", title: "السعر يبدأ", value: "18500$" },
-        { icon: "bedrooms", title: "غرف نوم", value: "4 غرف" },
-        { icon: "bathrooms", title: "دورة مياه", value: "4 دورات" },
-        { icon: "parking", title: "موقف سيارات", value: "2 موقف" },
-        { icon: "size", title: "مسطح", value: "2 مسطح" },
-      ] satisfies ProjectFeature[],
-    },
-  },
-} as const
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params
+  const [seo, settings] = await Promise.all([
+    getProjectSeo(slug, locale),
+    getSiteSettings(locale),
+  ])
+  return buildMetadataFromSeo(seo, settings) as Metadata
+}
 
 export default async function ProjectDetailsPage({ params }: Props) {
   const { locale, slug } = await params
   setRequestLocale(locale as Locale)
 
-  const project = PROJECTS_CONTENT[slug as keyof typeof PROJECTS_CONTENT]
+  const project = await getPublicProject(slug, locale)
+  const t = await getTranslations("ProjectDetail")
+  const tDocs = await getTranslations("ProjectDocuments")
 
   if (!project) {
     notFound()
@@ -108,34 +48,91 @@ export default async function ProjectDetailsPage({ params }: Props) {
       <Header variant="dark" />
       <PageShadow />
 
-      <ProjectPageIntro {...project} />
-      <ImageGallery
+      <ProjectPageIntro
+        tag={project.category ?? ""}
         title={project.title}
-        images={project.images}
-        videoUrl={"videoUrl" in project ? project.videoUrl : undefined}
+        location={
+          project.location ?? `${project.cityName}, ${project.regionName}`
+        }
+        statusLabel={t("statusLabel")}
+        statusValue={t(`status.${project.status}`)}
+        startingPriceLabel={t("startingPriceLabel")}
+        startingPriceValue={
+          project.startingPrice
+            ? project.startingPrice.toLocaleString(locale)
+            : ""
+        }
+        guideLabel={t("guideLabel")}
+        badges={project.badges}
       />
+      <ImageGallery title={project.title} images={project.images} />
 
       <section className="py-6 md:py-10">
         <div className="container">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-5 md:gap-6 lg:grid-cols-3 lg:gap-12">
             <div className="md:col-span-3 lg:col-span-2">
-              <ProjectDetails {...project.details} />
+              <ProjectDetails
+                title={project.title}
+                description={project.description ?? ""}
+                features={project.features}
+                infoItems={[
+                  {
+                    label: t("developerLabel"),
+                    value: t("developerValue"),
+                  },
+
+                  {
+                    label: t("sectorLabel"),
+                    value: project.category ?? "",
+                  },
+                  {
+                    label: t("deedNumberLabel"),
+                    value: project.deedNumber ?? "",
+                  },
+                  {
+                    label: t("areaLabel"),
+                    value: project.area
+                      ? `${project.area.toLocaleString(locale)} m²`
+                      : "",
+                  },
+                  {
+                    label: t("startingPriceLabel"),
+                    value: project.startingPrice
+                      ? project.startingPrice.toLocaleString(locale)
+                      : "",
+                    icon: SaudiRiyal,
+                  },
+                ].filter((item) => item.value)}
+              />
             </div>
             <div className="md:col-span-2 lg:col-span-1">
-              <ProjectContactForm />
+              <ProjectContactForm projectSlug={project.slug} />
             </div>
           </div>
         </div>
       </section>
-      <section className="py-6 md:py-4">
-        <div className="container">
-          <ProjectLocationMap
-            lat={project.mapLocation.lat}
-            lng={project.mapLocation.lng}
-            locationLabel={project.location}
-          />
-        </div>
-      </section>
+      {project.googleMapsAddress && (
+        <section className="py-6 md:py-4">
+          <div className="container">
+            <ProjectLocationMap
+              googleMapsAddress={project.googleMapsAddress}
+              locationLabel={
+                project.location ?? `${project.cityName}, ${project.regionName}`
+              }
+            />
+          </div>
+        </section>
+      )}
+      {project.attachments && project.attachments.length > 0 && (
+        <section className="py-6 md:py-10">
+          <div className="container">
+            <ProjectDocuments
+              title={tDocs("title")}
+              documents={project.attachments}
+            />
+          </div>
+        </section>
+      )}
     </>
   )
 }

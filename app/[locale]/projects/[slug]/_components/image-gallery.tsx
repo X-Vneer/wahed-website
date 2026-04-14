@@ -1,3 +1,4 @@
+/** eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useMemo, useRef, useState } from "react"
@@ -128,12 +129,11 @@ export default function ImageGallery({
                 onClick={() => openSliderAt(index)}
                 aria-label={t("openImage", { index: index + 1 })}
               >
-                <Image
+                <img
                   src={image}
                   alt={t("imageAlt", { title, index: index + 1 })}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  loading="lazy"
                 />
                 <span
                   className="pointer-events-none absolute inset-0 bg-black/20 transition-colors duration-300 group-hover:bg-black/10"
@@ -150,12 +150,11 @@ export default function ImageGallery({
               onClick={() => openSliderAt(4)}
               aria-label={t("openFeaturedImage")}
             >
-              <Image
+              <img
                 src={previewImages[4]}
                 alt={t("featuredImageAlt", { title })}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                loading="lazy"
               />
               <span
                 className="pointer-events-none absolute inset-0 bg-black/25 transition-colors duration-300 group-hover:bg-black/15"

@@ -1,12 +1,11 @@
 "use client"
-
+/** eslint-disable @next/next/no-img-element */
 import { useMemo } from "react"
 import { useTranslations } from "next-intl"
-import Image, { StaticImageData } from "next/image"
 import { cn, Modal } from "@heroui/react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-export type GalleryImage = StaticImageData | string
+export type GalleryImage = string
 
 type ImageSliderModalProps = {
   title: string
@@ -62,64 +61,59 @@ export default function ImageSliderModal({
           size="full"
           placement="center"
           scroll="inside"
-          className="m-0 h-dvh max-h-dvh w-screen max-w-none p-0 overflow-hidden"
+          className="m-0 h-dvh max-h-dvh w-screen max-w-none overflow-hidden p-0"
         >
           <Modal.Dialog className="h-full w-full overflow-hidden rounded-none border-none bg-black shadow-none">
             <Modal.Body className="overflow-hidden p-0">
               <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
-          {currentImage ? (
-            <Image
-              src={currentImage}
-              alt={t("imageAlt", { title, index: activeImageIndex + 1 })}
-              fill
-              className="object-contain"
-              sizes="100vw"
-              priority
-            />
-          ) : null}
+                {currentImage ? (
+                  <img
+                    src={currentImage}
+                    alt={t("imageAlt", { title, index: activeImageIndex + 1 })}
+                    className="h-full w-full object-contain"
+                  />
+                ) : null}
 
-          <button
-            type="button"
-            className="absolute top-1/2 left-4 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/35"
-            onClick={showPrevious}
-            aria-label={t("previousImage")}
-          >
-            <ChevronLeft className="size-6" />
-          </button>
+                <button
+                  type="button"
+                  className="absolute top-1/2 left-4 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/35"
+                  onClick={showPrevious}
+                  aria-label={t("previousImage")}
+                >
+                  <ChevronLeft className="size-6" />
+                </button>
 
-          <button
-            type="button"
-            className="absolute top-1/2 right-4 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/35"
-            onClick={showNext}
-            aria-label={t("nextImage")}
-          >
-            <ChevronRight className="size-6" />
-          </button>
+                <button
+                  type="button"
+                  className="absolute top-1/2 right-4 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/35"
+                  onClick={showNext}
+                  aria-label={t("nextImage")}
+                >
+                  <ChevronRight className="size-6" />
+                </button>
 
                 <div className="absolute bottom-3 left-1/2 z-20 flex w-[min(92vw,980px)] -translate-x-1/2 flex-wrap justify-center gap-2 overflow-hidden rounded-sm bg-black/35 p-2 backdrop-blur">
-            {galleryImages.map((image, index) => (
-              <button
-                key={`${title}-thumb-${index}`}
-                type="button"
-                onClick={() => onActiveIndexChange(index)}
-                className={cn(
-                  "relative h-14 w-20 shrink-0 overflow-hidden border",
-                  index === activeImageIndex
-                    ? "border-white"
-                    : "border-white/20 opacity-75"
-                )}
-                aria-label={t("goToImage", { index: index + 1 })}
-              >
-                <Image
-                  src={image}
-                  alt={t("thumbnailAlt", { title, index: index + 1 })}
-                  fill
-                  className="object-cover"
-                  sizes="120px"
-                />
-              </button>
-            ))}
-          </div>
+                  {galleryImages.map((image, index) => (
+                    <button
+                      key={`${title}-thumb-${index}`}
+                      type="button"
+                      onClick={() => onActiveIndexChange(index)}
+                      className={cn(
+                        "relative h-14 w-20 shrink-0 overflow-hidden border",
+                        index === activeImageIndex
+                          ? "border-white"
+                          : "border-white/20 opacity-75"
+                      )}
+                      aria-label={t("goToImage", { index: index + 1 })}
+                    >
+                      <img
+                        src={image}
+                        alt={t("thumbnailAlt", { title, index: index + 1 })}
+                        className="h-full w-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
 
                 <button
                   type="button"

@@ -1,12 +1,11 @@
 "use client"
 
 import { useRef } from "react"
-import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { Button } from "@heroui/react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { aboutImage } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
+import { HomeAboutSection } from "@/lib/website-cms"
 
 function WhatsAppIcon() {
   return (
@@ -30,8 +29,18 @@ function WhatsAppIcon() {
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
-export default function About() {
-  const t = useTranslations("AboutSection")
+type AboutProps = {
+  content: HomeAboutSection
+}
+
+export default function About({ content }: AboutProps) {
+  const {
+    titlePartOne,
+    titlePartTwo,
+    description,
+    ctaLabel,
+    image: backgroundImage,
+  } = content
   const sectionRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -83,7 +92,7 @@ export default function About() {
                   },
                 }}
               >
-                {t("prefix")}
+                {titlePartOne}
               </motion.span>
               <motion.span
                 className="text-secondary block w-24 md:w-32"
@@ -154,7 +163,7 @@ export default function About() {
                 },
               }}
             >
-              {t("title")}
+              {titlePartTwo}
             </motion.h2>
 
             <BasicLineAnimation
@@ -164,7 +173,7 @@ export default function About() {
               duration={0.7}
               stagger={0.12}
             >
-              {t("description")}
+              {description}
             </BasicLineAnimation>
 
             <motion.div
@@ -183,7 +192,7 @@ export default function About() {
                 className="bg-primary hover:bg-primary/95 min-w-48 px-8 text-white"
               >
                 <WhatsAppIcon />
-                {t("cta")}
+                {ctaLabel}
               </Button>
             </motion.div>
           </motion.div>
@@ -194,10 +203,12 @@ export default function About() {
             transition={{ duration: 0.8, ease: easeOut }}
           >
             <Image
-              src={aboutImage}
-              alt={t("imageAlt")}
+              src={backgroundImage}
+              alt="about image"
               className="h-full w-full object-cover"
               sizes="(max-width: 768px) 100vw, 460px"
+              width={200}
+              height={500}
             />
           </motion.div>
         </div>

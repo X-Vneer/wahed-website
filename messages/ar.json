@@ -19,7 +19,8 @@
   "Hero": {
     "title": "اكتشف مساحتك التي تستحقها، حيث يبدأ أسلوب حياتك الجديد",
     "description": "ابدأ رحلتك نحو العقار المناسب من خلال خيارات متنوعة وتجربة بحث بسيطة وواضحة واكتشف رحلتك بأمان",
-    "cta": "تعرف أكثر"
+    "cta": "تعرف أكثر",
+    "backgroundImage": ""
   },
   "AboutHero": {
     "eyebrow": "قصة ثقة ورؤية",
@@ -140,8 +141,10 @@
     "logoAlt": "وهد",
     "emailLabel": "البريد الإلكتروني",
     "emailPlaceholder": "البريد الإلكتروني",
-    "fullNameLabel": "الإسم كاملاً",
-    "fullNamePlaceholder": "ادخل اسمك بالكامل",
+    "firstNameLabel": "الاسم الأول",
+    "firstNamePlaceholder": "ادخل الاسم الأول",
+    "lastNameLabel": "الاسم الثاني",
+    "lastNamePlaceholder": "ادخل الاسم الثاني",
     "phoneLabel": "رقم الهاتف",
     "phonePlaceholder": "ادخل رقم الهاتف",
     "messageLabel": "تفاصيل الرسالة",
@@ -152,7 +155,8 @@
     "success": "تم إرسال رسالتك بنجاح.",
     "error": "حدث خطأ ما، الرجاء المحاولة مرة أخرى.",
     "errors": {
-      "fullNameRequired": "الاسم الكامل مطلوب.",
+      "firstNameRequired": "الاسم الأول مطلوب.",
+      "lastNameRequired": "الاسم الثاني مطلوب.",
       "emailRequired": "البريد الإلكتروني مطلوب.",
       "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح.",
       "phoneRequired": "رقم الهاتف مطلوب.",
@@ -186,6 +190,9 @@
   },
   "ProjectsIntro": {
     "description": "مشاريع وهد ليست مساحات إنشائية فقط. بل تجارب <heart></heart> \n متكاملة تجمع بين <highlight>الجودة والاستدامة</highlight> وأسلوب الحياة العصري."
+  },
+  "ProjectShowcase": {
+    "empty": "لا توجد مشاريع متاحة حالياً."
   },
   "ProjectsCard": {
     "badge": "تصميم وتنفيذ وهد",
@@ -239,8 +246,29 @@
     "goToImage": "الانتقال إلى الصورة {index}",
     "close": "إغلاق"
   },
+  "ProjectDocuments": {
+    "title": "مستندات المشروع"
+  },
   "ProjectLocationMap": {
     "title": "موقع المشروع",
     "iframeTitle": "خريطة Google: {location}"
+  },
+  "ProjectDetail": {
+    "statusLabel": "حالة المشروع",
+    "locationLabel": "الموقع",
+    "startingPriceLabel": "الأسعار تبدأ من",
+    "guideLabel": "دليل المشروع",
+    "developerLabel": "المطور والمستثمر",
+    "developerValue": "شركة وهد",
+    "sectorLabel": "القطاع",
+    "areaLabel": "مساحة المشروع",
+    "deedNumberLabel": "رقم الصك",
+    "status": {
+      "PLANNING": "مخطط",
+      "IN_PROGRESS": "قيد التنفيذ",
+      "ON_HOLD": "متوقف",
+      "COMPLETED": "مكتمل",
+      "CANCELLED": "ملغي"
+    }
   }
 }

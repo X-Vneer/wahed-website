@@ -1,6 +1,5 @@
 "use client"
 
-import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import {
@@ -12,6 +11,7 @@ import {
   partner6,
 } from "@/assets"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
+import { HomePartnersSection } from "@/lib/website-cms"
 
 const PARTNER_LOGOS = [
   { id: 1, src: partner1 },
@@ -52,8 +52,12 @@ const logoVariants = {
   },
 }
 
-export default function Partners() {
-  const t = useTranslations("PartnersSection")
+type PartnersProps = {
+  content: HomePartnersSection
+}
+
+export default function Partners({ content }: PartnersProps) {
+  const { eyebrowTitle, title, description, logos } = content
 
   return (
     <section className="bg-[#efefef] py-14 md:py-20">
@@ -79,7 +83,7 @@ export default function Partners() {
                 className="text-secondary text-lg font-medium md:text-xl"
                 variants={headerVariants}
               >
-                {t("subtitle")}
+                {eyebrowTitle}
               </motion.span>
               <motion.span
                 className="text-secondary block w-16 md:w-20"
@@ -143,7 +147,7 @@ export default function Partners() {
               className="text-4xl leading-tight font-bold md:text-5xl lg:text-6xl"
               variants={headerVariants}
             >
-              {t("title")}
+              {title}
             </motion.h2>
             <BasicLineAnimation
               as="p"
@@ -152,7 +156,7 @@ export default function Partners() {
               duration={0.7}
               stagger={0.12}
             >
-              {t("description")}
+              {description}
             </BasicLineAnimation>
           </motion.div>
           {/* Logo grid */}
@@ -172,7 +176,7 @@ export default function Partners() {
                 >
                   <Image
                     src={src}
-                    alt={t("logoAlt", { index: id })}
+                    alt={`partner ${id}`}
                     className="h-full w-full object-contain"
                     sizes="(max-width: 768px) 33vw, 140px"
                     width={140}
