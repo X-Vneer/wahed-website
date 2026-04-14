@@ -1,6 +1,6 @@
 services:
   website:
-    image: ${DOCKERHUB_USERNAME}/wahed-website:latest
+    image: ghcr.io/x-vneer/wahed-website:latest
     container_name: wahed-website
     restart: unless-stopped
     environment:
