@@ -12,7 +12,17 @@ services:
       - NEXT_TELEMETRY_DISABLED=1
     labels:
       - traefik.enable=true
+      # HTTPS router
+      - traefik.http.routers.wahed-website.rule=Host(`wahdomrania.sa`) || Host(`www.wahdomrania.sa`)
+      - traefik.http.routers.wahed-website.entrypoints=websecure
+      - traefik.http.routers.wahed-website.tls.certresolver=letsencrypt
       - traefik.http.services.wahed-website.loadbalancer.server.port=3000
+      # HTTP → HTTPS redirect
+      - traefik.http.routers.wahed-website-http.rule=Host(`wahdomrania.sa`) || Host(`www.wahdomrania.sa`)
+      - traefik.http.routers.wahed-website-http.entrypoints=web
+      - traefik.http.routers.wahed-website-http.middlewares=wahed-website-redirect
+      - traefik.http.middlewares.wahed-website-redirect.redirectscheme.scheme=https
+      - traefik.http.middlewares.wahed-website-redirect.redirectscheme.permanent=true
     networks:
       - traefik-proxy
 networks:
