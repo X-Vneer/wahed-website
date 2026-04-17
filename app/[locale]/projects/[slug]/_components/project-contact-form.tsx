@@ -288,30 +288,29 @@ export default function ProjectContactForm({
         </div>
       </Form>
 
-      {whatsappUrl && (
-        <>
-          <div
-            className="text-text-secondary relative my-6 flex items-center gap-3"
-            role="separator"
-          >
-            <div className="grow border-t border-[#b8d4e8]" />
-            <span className="shrink-0 px-1 text-sm">{t("divider")}</span>
-            <div className="grow border-t border-[#b8d4e8]" />
-          </div>
+      <div
+        className="text-text-secondary relative my-6 flex items-center gap-3"
+        role="separator"
+      >
+        <div className="grow border-t border-[#b8d4e8]" />
+        <span className="shrink-0 px-1 text-sm">{t("divider")}</span>
+        <div className="grow border-t border-[#b8d4e8]" />
+      </div>
 
-          <Button
-            size="lg"
-            fullWidth
-            type="button"
-            variant="outline"
-            className="border-secondary text-secondary"
-            onPress={() => window.open(whatsappUrl, "_blank")}
-          >
-            <WhatsAppGlyph />
-            {t("whatsapp")}
-          </Button>
-        </>
-      )}
+      <Button
+        size="lg"
+        fullWidth
+        type="button"
+        variant="outline"
+        className="border-secondary text-secondary"
+        isDisabled={!whatsappUrl}
+        onPress={() => {
+          if (whatsappUrl) window.open(whatsappUrl, "_blank")
+        }}
+      >
+        <WhatsAppGlyph />
+        {t("whatsapp")}
+      </Button>
     </div>
   )
 }

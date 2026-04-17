@@ -1,7 +1,6 @@
-import { Button } from "@heroui/react"
-import { span } from "framer-motion/client"
-import { BookOpenText, MapPin, SaudiRiyal } from "lucide-react"
 import type { ProjectBadge } from "@/lib/website-cms"
+import { Button } from "@heroui/react"
+import { BookOpenText, MapPin, SaudiRiyal } from "lucide-react"
 
 type ProjectPageIntroProps = {
   tag: string
@@ -12,6 +11,7 @@ type ProjectPageIntroProps = {
   startingPriceLabel: string
   startingPriceValue: string
   guideLabel: string
+  guideUrl?: string | null
   badges?: ProjectBadge[]
 }
 
@@ -24,6 +24,7 @@ export default function ProjectPageIntro({
   startingPriceLabel,
   startingPriceValue,
   guideLabel,
+  guideUrl,
   badges,
 }: ProjectPageIntroProps) {
   return (
@@ -81,18 +82,28 @@ export default function ProjectPageIntro({
               </p>
             </div>
 
-            <div className="flex items-center justify-center max-sm:col-span-2">
-              <Button
-                size="lg"
-                variant="primary"
-                className={
-                  "bg-primary hover:bg-primary/90 text-white max-md:w-full"
-                }
-              >
-                <BookOpenText className="size-5" />
-                {guideLabel}
-              </Button>
-            </div>
+            {guideUrl && (
+              <div className="flex items-center justify-center max-sm:col-span-2">
+                <a
+                  href={guideUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="max-md:w-full"
+                >
+                  <Button
+                    size="lg"
+                    variant="primary"
+                    className={
+                      "bg-primary hover:bg-primary/90 text-white max-md:w-full"
+                    }
+                  >
+                    <BookOpenText className="size-5" />
+                    {guideLabel}
+                  </Button>
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

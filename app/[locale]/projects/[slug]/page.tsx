@@ -36,7 +36,6 @@ export default async function ProjectDetailsPage({ params }: Props) {
   setRequestLocale(locale as Locale)
 
   const project = await getPublicProject(slug, locale)
-  console.log(project)
   const t = await getTranslations("ProjectDetail")
   const tDocs = await getTranslations("ProjectDocuments")
 
@@ -64,6 +63,7 @@ export default async function ProjectDetailsPage({ params }: Props) {
             : ""
         }
         guideLabel={t("guideLabel")}
+        guideUrl={project.projectGuide}
         badges={project.badges}
       />
       <ImageGallery title={project.title} images={project.images} />
