@@ -1,19 +1,63 @@
-"use client"
-
-import { useLocale, useTranslations } from "next-intl"
+import { getLocale, getTranslations } from "next-intl/server"
 
 type ProjectLocationMapProps = {
   googleMapsAddress: string
   locationLabel: string
 }
 
-export default function ProjectLocationMap({
+function extractCoords(url: string): { lat: string; lng: string } | null {
+  const patterns = [
+    /!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/,
+    /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
+    /[?&]q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
+    /[?&]ll=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
+  ]
+  for (const pattern of patterns) {
+    const match = url.match(pattern)
+    if (match) return { lat: match[1], lng: match[2] }
+  }
+  return null
+}
+
+async function resolveShortUrl(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      redirect: "follow",
+      headers: { "User-Agent": "Mozilla/5.0" },
+      next: { revalidate: 60 * 60 * 24 * 7 },
+    })
+    return res.url || url
+  } catch {
+    return url
+  }
+}
+
+async function toEmbedSrc(input: string, locale: string): Promise<string> {
+  let value = input.trim()
+
+  if (value.includes("/maps/embed")) {
+    return value
+  }
+
+  if (/(?:maps\.app\.goo\.gl|goo\.gl\/maps)/.test(value)) {
+    value = await resolveShortUrl(value)
+  }
+
+  const coords = extractCoords(value)
+  if (coords) {
+    return `https://maps.google.com/maps?q=${coords.lat},${coords.lng}&z=15&hl=${locale}&output=embed`
+  }
+
+  return `https://maps.google.com/maps?q=${encodeURIComponent(value)}&z=15&hl=${locale}&output=embed`
+}
+
+export default async function ProjectLocationMap({
   googleMapsAddress,
   locationLabel,
 }: ProjectLocationMapProps) {
-  const t = useTranslations("ProjectLocationMap")
-  const locale = useLocale()
-  const src = `https://maps.google.com/maps?q=${encodeURIComponent(googleMapsAddress)}&z=15&hl=${locale}&output=embed`
+  const t = await getTranslations("ProjectLocationMap")
+  const locale = await getLocale()
+  const src = await toEmbedSrc(googleMapsAddress, locale)
 
   return (
     <div>

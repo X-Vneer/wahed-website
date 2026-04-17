@@ -2,13 +2,12 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useTranslations, useLocale } from "next-intl"
-import Image from "next/image"
+import { useLocale, useTranslations } from "next-intl"
 import { Button, cn, Separator } from "@heroui/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { blackLogo, whiteLogo } from "@/assets"
-import { useRouter, usePathname, Link } from "@/i18n/navigation"
+import { Link, usePathname, useRouter } from "@/i18n/navigation"
 import { useSiteSettings } from "./site-settings-context"
 
 function GlobeIcon({ className }: { className?: string }) {

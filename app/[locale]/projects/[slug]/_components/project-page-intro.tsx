@@ -1,4 +1,5 @@
 import { Button } from "@heroui/react"
+import { span } from "framer-motion/client"
 import { BookOpenText, MapPin, SaudiRiyal } from "lucide-react"
 import type { ProjectBadge } from "@/lib/website-cms"
 
@@ -26,7 +27,7 @@ export default function ProjectPageIntro({
   badges,
 }: ProjectPageIntroProps) {
   return (
-    <section className="relative py-8 md:py-10">
+    <section className="relative pt-8 md:pt-10">
       <div className="h-30"></div>
       <div className="container">
         <div className="flex w-full flex-col justify-between max-md:gap-10 md:flex-row md:items-center">
@@ -59,15 +60,7 @@ export default function ProjectPageIntro({
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-6">
-            <div className="flex flex-col">
-              <p className="mb-2 text-lg font-bold text-[#A8A8A8]">
-                {statusLabel}
-              </p>
-              <p className="text-success text-base font-medium md:text-xl">
-                {statusValue}
-              </p>
-            </div>
-            {startingPriceValue && (
+            {startingPriceValue ? (
               <div className="flex flex-col">
                 <p className="mb-2 text-lg font-bold text-[#A8A8A8]">
                   {startingPriceLabel}
@@ -76,7 +69,17 @@ export default function ProjectPageIntro({
                   {startingPriceValue} <SaudiRiyal />
                 </p>
               </div>
+            ) : (
+              <span></span>
             )}
+            <div className="flex flex-col">
+              <p className="mb-2 text-lg font-bold text-[#A8A8A8]">
+                {statusLabel}
+              </p>
+              <p className="text-success text-base font-medium md:text-xl">
+                {statusValue}
+              </p>
+            </div>
 
             <div className="flex items-center justify-center max-sm:col-span-2">
               <Button

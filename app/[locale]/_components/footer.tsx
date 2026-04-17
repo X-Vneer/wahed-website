@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useTranslations } from "next-intl"
-import Image from "next/image"
 import { blackLogo } from "@/assets"
 import { Link } from "@/i18n/navigation"
 import { useSiteSettings } from "./site-settings-context"
@@ -105,13 +105,10 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-8 py-10 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col text-center max-md:items-center">
             <Link href="/" className="inline-block">
-              <Image
+              <img
                 src={logoSrc}
                 alt={tFooter("logoAlt")}
-                className="w-20 lg:w-24"
-                width={96}
-                height={40}
-                unoptimized={typeof logoSrc === "string"}
+                className="h-11 w-auto"
               />
             </Link>
             <p className="mt-4 text-sm text-[#4B5563]">{tFooter("tagline")}</p>

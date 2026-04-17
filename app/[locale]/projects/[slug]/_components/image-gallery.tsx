@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /** eslint-disable @next/next/no-img-element */
 "use client"
 
@@ -39,7 +40,7 @@ export default function ImageGallery({
   const onMobileSwiper = (swiper: SwiperInstance) => {
     if (!canNavigate) return
     queueMicrotask(() => {
-      const nav = swiper.params.navigation
+      const nav = swiper.params?.navigation
       if (!nav || typeof nav === "boolean") return
       nav.prevEl = prevNavRef.current
       nav.nextEl = nextNavRef.current
