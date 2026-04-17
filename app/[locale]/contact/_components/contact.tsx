@@ -1,10 +1,28 @@
 import React from "react"
-import { type ContactInfoSection } from "@/lib/website-cms"
+import { getLocale } from "next-intl/server"
+import {
+  type ContactFormSection,
+  type ContactInfoSection,
+  getSiteSettings,
+} from "@/lib/website-cms"
 import ContactForm from "./contact-form"
 
 type Props = {
   content: ContactInfoSection
+  formContent: ContactFormSection
 }
+
+const WhatsAppIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="size-5"
+    aria-hidden
+  >
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.04 2C6.507 2 2 6.505 2 12.05c0 1.959.511 3.87 1.482 5.55L2 22l4.52-1.474A9.946 9.946 0 0 0 12.04 22c5.533 0 10.04-4.505 10.04-10.05C22.08 6.505 17.573 2 12.04 2z" />
+  </svg>
+)
 
 const LinkedInIcon = () => (
   <svg
@@ -36,7 +54,16 @@ const InstagramIcon = () => (
   </svg>
 )
 
-const Contact = ({ content }: Props) => {
+const Contact = async ({ content, formContent }: Props) => {
+  const locale = await getLocale()
+  const settings = await getSiteSettings(locale)
+  const phone = content.phone || settings?.contact.phone || ""
+  const email = content.email || settings?.contact.email || ""
+  const whatsapp = settings?.contact.whatsapp || ""
+  const whatsappDigits = whatsapp.replace(/[^\d]/g, "")
+  const whatsappUrl = whatsappDigits ? `https://wa.me/${whatsappDigits}` : ""
+  const instagramUrl = content.instagram || settings?.socialMedia.instagram || ""
+
   return (
     <section className="relative pb-10">
       <div className="container">
@@ -58,19 +85,32 @@ const Contact = ({ content }: Props) => {
                 <p className="text-secondary pb-2 text-sm font-semibold">
                   {content.channelsTitle}
                 </p>
-                <p className="text-sm text-black">
-                  <a href={`tel:${content.phone}`} className="hover:underline">
-                    {content.phone}
-                  </a>
-                </p>
-                <p className="text-sm text-black">
-                  <a
-                    href={`mailto:${content.email}`}
-                    className="hover:underline"
-                  >
-                    {content.email}
-                  </a>
-                </p>
+                {phone && (
+                  <p className="text-sm text-black">
+                    <a href={`tel:${phone}`} className="hover:underline">
+                      {phone}
+                    </a>
+                  </p>
+                )}
+                {email && (
+                  <p className="text-sm text-black">
+                    <a href={`mailto:${email}`} className="hover:underline">
+                      {email}
+                    </a>
+                  </p>
+                )}
+                {whatsappUrl && (
+                  <p className="text-sm text-black">
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {whatsapp}
+                    </a>
+                  </p>
+                )}
                 <div className="mt-2 flex items-center gap-2">
                   {content.linkedin && (
                     <p className="text-sm text-black">
@@ -85,10 +125,10 @@ const Contact = ({ content }: Props) => {
                       </a>
                     </p>
                   )}
-                  {content.instagram && (
+                  {instagramUrl && (
                     <p className="text-sm text-black">
                       <a
-                        href={content.instagram}
+                        href={instagramUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center transition-opacity hover:opacity-70"
@@ -98,12 +138,25 @@ const Contact = ({ content }: Props) => {
                       </a>
                     </p>
                   )}
+                  {whatsappUrl && (
+                    <p className="text-sm text-black">
+                      <a
+                        href={whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center transition-opacity hover:opacity-70"
+                        aria-label="WhatsApp"
+                      >
+                        <WhatsAppIcon />
+                      </a>
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <ContactForm />
+            <ContactForm content={formContent} />
           </div>
         </div>
       </div>

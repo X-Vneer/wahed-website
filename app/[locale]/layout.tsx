@@ -48,6 +48,15 @@ export default async function LocaleLayout({ children, params }: Props) {
     forDarkBackground: "",
     forLightBackground: "",
   }
+  const contact = settings?.contact ?? { email: "", phone: "", whatsapp: "" }
+  const socialMedia = settings?.socialMedia ?? {
+    facebook: "",
+    instagram: "",
+    youtube: "",
+    x: "",
+  }
+  const siteName = settings?.siteName ?? ""
+  const footerDescription = settings?.footerDescription ?? ""
   const gaId = settings?.googleAnalyticsMeasurementId || ""
 
   const themeCss = `:root,.light,.default,[data-theme="light"],[data-theme="default"]{--primary:${theme.primaryColor};--black:${theme.blackColor};--secondary:${theme.accentColor};--text-secondary:${theme.secondaryTextColor};--accent:${theme.accentColor};--focus:${theme.accentColor};}`
@@ -66,7 +75,16 @@ export default async function LocaleLayout({ children, params }: Props) {
           )}
         >
           <NextIntlClientProvider messages={messages}>
-            <Providers siteSettings={{ theme, logos }}>
+            <Providers
+              siteSettings={{
+                siteName,
+                footerDescription,
+                theme,
+                logos,
+                contact,
+                socialMedia,
+              }}
+            >
               {children}
               <Footer />
             </Providers>

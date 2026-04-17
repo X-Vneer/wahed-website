@@ -375,10 +375,21 @@ export type ContactInfoSection = {
   instagram: string
 }
 
+export type ContactFormSection = {
+  sectionTitle: string
+  sectionSubtitle: string
+  avatarImage: string
+  submitLabel: string
+  orText: string
+  whatsappLabel: string
+  whatsappNumber: string
+}
+
 /** CMS JSON shape for the `contact` page (`slug === "contact"`). */
 export type ContactPageContent = {
   heroSection: ContactHeroSection
   infoSection: ContactInfoSection
+  formSection: ContactFormSection
 }
 
 function normalizeContactPageContent(
@@ -403,7 +414,18 @@ function normalizeContactPageContent(
     instagram: str(infoRaw?.instagram),
   }
 
-  return { heroSection, infoSection }
+  const formRaw = asRecord(raw.formSection)
+  const formSection: ContactFormSection = {
+    sectionTitle: str(formRaw?.sectionTitle),
+    sectionSubtitle: str(formRaw?.sectionSubtitle),
+    avatarImage: str(formRaw?.avatarImage),
+    submitLabel: str(formRaw?.submitLabel),
+    orText: str(formRaw?.orText),
+    whatsappLabel: str(formRaw?.whatsappLabel),
+    whatsappNumber: str(formRaw?.whatsappNumber),
+  }
+
+  return { heroSection, infoSection, formSection }
 }
 
 export async function getContactPageContent(
@@ -643,7 +665,22 @@ export type SiteLogos = {
   forLightBackground: string
 }
 
+export type SiteContact = {
+  email: string
+  phone: string
+  whatsapp: string
+}
+
+export type SiteSocialMedia = {
+  facebook: string
+  instagram: string
+  youtube: string
+  x: string
+}
+
 export type SiteSettings = {
+  siteName: string
+  footerDescription: string
   seo: {
     defaultMetaTitle: string
     defaultMetaDescription: string
@@ -655,6 +692,8 @@ export type SiteSettings = {
   }
   theme: SiteTheme
   logos: SiteLogos
+  contact: SiteContact
+  socialMedia: SiteSocialMedia
   faviconUrl: string
   googleAnalyticsMeasurementId: string
 }
@@ -739,7 +778,11 @@ const fetchSiteSettings = cache(
       const seoRaw = asRecord(data.seo) ?? {}
       const themeRaw = asRecord(data.theme) ?? {}
       const logosRaw = asRecord(data.logos) ?? {}
+      const contactRaw = asRecord(data.contact) ?? {}
+      const socialRaw = asRecord(data.socialMedia) ?? {}
       return {
+        siteName: str(data.siteName),
+        footerDescription: str(data.footerDescription),
         seo: {
           defaultMetaTitle: str(seoRaw.defaultMetaTitle),
           defaultMetaDescription: str(seoRaw.defaultMetaDescription),
@@ -761,6 +804,17 @@ const fetchSiteSettings = cache(
         logos: {
           forDarkBackground: str(logosRaw.forDarkBackground),
           forLightBackground: str(logosRaw.forLightBackground),
+        },
+        contact: {
+          email: str(contactRaw.email),
+          phone: str(contactRaw.phone),
+          whatsapp: str(contactRaw.whatsapp),
+        },
+        socialMedia: {
+          facebook: str(socialRaw.facebook),
+          instagram: str(socialRaw.instagram),
+          youtube: str(socialRaw.youtube),
+          x: str(socialRaw.x),
         },
         faviconUrl: str(data.faviconUrl),
         googleAnalyticsMeasurementId: str(data.googleAnalyticsMeasurementId),

@@ -41,7 +41,7 @@ export default function Header({
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
-  const { logos } = useSiteSettings()
+  const { logos, siteName } = useSiteSettings()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   // variant "light" = light text on dark background → use logo for dark bg (white logo)
@@ -105,7 +105,11 @@ export default function Header({
             className="text-inherit"
             onClick={() => setIsMenuOpen(false)}
           >
-            <img src={logoSrc} alt="logo" className="h-11 w-auto" />
+            <img
+              src={logoSrc}
+              alt={siteName || "logo"}
+              className="h-11 w-auto"
+            />
           </Link>
 
           <div className="hidden items-center gap-6 md:flex">

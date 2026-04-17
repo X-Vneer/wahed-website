@@ -39,7 +39,10 @@ export default async function ContactPage({ params }: Props) {
       <Header variant="dark" />
       <PageShadow />
       <ContactHero content={contactContent.heroSection} />
-      <Contact content={contactContent.infoSection} />
+      <Contact
+        content={contactContent.infoSection}
+        formContent={contactContent.formSection}
+      />
     </>
   )
 }
