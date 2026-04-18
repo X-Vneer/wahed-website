@@ -33,7 +33,7 @@ export default function Wahed({ content }: WahedProps) {
   return (
     <section ref={sectionRef} className="py-16 text-black md:py-24 lg:py-32">
       <div className="container">
-        <div className="relative flex flex-col items-center justify-between gap-10 lg:flex-row">
+        <div className="relative flex flex-col items-center justify-between gap-6 md:gap-10 lg:flex-row">
           <motion.div
             className=""
             style={{ y: logoY }}
@@ -54,7 +54,7 @@ export default function Wahed({ content }: WahedProps) {
           </motion.div>
           <motion.div
             aria-hidden
-            className="text-secondary mt-10 block lg:hidden"
+            className="text-secondary block lg:hidden"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}

@@ -185,7 +185,7 @@ export default function About({ content }: AboutProps) {
                   transition: { duration: 0.5, delay: 0.5, ease: easeOut },
                 },
               }}
-              className="mt-12 md:mt-20"
+              className="mt-8 md:mt-20"
             >
               <Button
                 size="lg"
@@ -198,7 +198,7 @@ export default function About({ content }: AboutProps) {
           </motion.div>
 
           <motion.div
-            className="h-[85svh] w-full origin-center overflow-hidden md:max-w-[400px]"
+            className="aspect-[4/5] w-full max-w-sm origin-center overflow-hidden md:aspect-auto md:h-[85svh] md:max-w-[400px]"
             style={{ y: imageY, scale: imageScale }}
             transition={{ duration: 0.8, ease: easeOut }}
           >
