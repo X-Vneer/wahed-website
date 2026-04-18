@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useRef } from "react"
 import { useLocale, useTranslations } from "next-intl"
-import Image from "next/image"
 import {
   motion,
   useReducedMotion,
@@ -10,9 +10,15 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion"
-import { MapPin } from "lucide-react"
+import { MapPin, SaudiRiyal } from "lucide-react"
 import { Link } from "@/i18n/navigation"
 import type { PublicProject } from "@/lib/website-cms"
+
+type InfoItem = {
+  label: string
+  value: string
+  showRiyal?: boolean
+}
 
 const easeOut = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -59,8 +65,41 @@ type ProjectsProps = {
 
 export default function Projects({ projects }: ProjectsProps) {
   const t = useTranslations("ProjectsSection")
+  const tDetail = useTranslations("ProjectDetail")
   const locale = useLocale()
   const isRtl = locale === "ar"
+
+  const buildInfoItems = (project: PublicProject): InfoItem[] => {
+    const items: InfoItem[] = [
+      {
+        label: tDetail("statusLabel"),
+        value: tDetail(`status.${project.status}`),
+      },
+    ]
+    if (project.area) {
+      items.push({
+        label: tDetail("areaLabel"),
+        value: `${project.area.toLocaleString(locale)} m²`,
+      })
+    }
+    if (project.category) {
+      items.push({
+        label: tDetail("sectorLabel"),
+        value: project.category,
+      })
+    }
+    if (project.startingPrice) {
+      items.push({
+        label: tDetail("startingPriceLabel"),
+        value: project.startingPrice.toLocaleString(locale),
+        showRiyal: true,
+      })
+    }
+    return items
+  }
+
+  const firstInfoItems = buildInfoItems(projects[0])
+  const secondInfoItems = projects[1] ? buildInfoItems(projects[1]) : []
   const lineTrackRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
 
@@ -144,12 +183,28 @@ export default function Projects({ projects }: ProjectsProps) {
                 />
                 <span>{firstLocation}</span>
               </motion.p>
-              <motion.p
-                className="border-secondary text-start text-base leading-[1.7] text-black max-md:border-s-2 max-md:ps-6 lg:text-lg"
-                variants={fadeUp}
+              <motion.div
+                className="grid grid-cols-2 gap-x-6"
+                variants={stagger}
               >
-                {first.description}
-              </motion.p>
+                {firstInfoItems.map((item) => (
+                  <motion.div
+                    key={item.label}
+                    className="border-b border-[#E9E9E9] py-3"
+                    variants={fadeUp}
+                  >
+                    <p className="text-text-secondary mb-1 text-xs font-medium md:text-sm">
+                      {item.label}
+                    </p>
+                    <p className="inline-flex items-center gap-1 text-base font-semibold text-black md:text-lg">
+                      <span>{item.value}</span>
+                      {item.showRiyal && (
+                        <SaudiRiyal className="size-4 shrink-0" aria-hidden />
+                      )}
+                    </p>
+                  </motion.div>
+                ))}
+              </motion.div>
               <motion.div variants={fadeUp}>
                 <Link
                   href={`/projects/${first.slug}`}
@@ -250,12 +305,10 @@ export default function Projects({ projects }: ProjectsProps) {
                   variants={imageReveal}
                 >
                   {second.images[0] && (
-                    <Image
+                    <img
                       src={second.images[0]}
                       alt={second.title}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 1024px) 42rem, 100vw"
+                      className="h-full w-full object-cover"
                     />
                   )}
                   <motion.div
@@ -308,12 +361,31 @@ export default function Projects({ projects }: ProjectsProps) {
                     />
                     <span>{secondLocation}</span>
                   </motion.p>
-                  <motion.p
-                    className="border-secondary text-justify text-base leading-[1.7] text-black max-md:border-s-2 max-md:ps-6 lg:text-lg"
-                    variants={fadeUp}
+                  <motion.div
+                    className="grid grid-cols-2 gap-x-6"
+                    variants={stagger}
                   >
-                    {second.description}
-                  </motion.p>
+                    {secondInfoItems.map((item) => (
+                      <motion.div
+                        key={item.label}
+                        className="border-b border-[#E9E9E9] py-3"
+                        variants={fadeUp}
+                      >
+                        <p className="text-text-secondary mb-1 text-xs font-medium md:text-sm">
+                          {item.label}
+                        </p>
+                        <p className="inline-flex items-center gap-1 text-base font-semibold text-black md:text-lg">
+                          <span>{item.value}</span>
+                          {item.showRiyal && (
+                            <SaudiRiyal
+                              className="size-4 shrink-0"
+                              aria-hidden
+                            />
+                          )}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </motion.div>
                   <motion.div variants={fadeUp}>
                     <Link
                       href={`/projects/${second.slug}`}
