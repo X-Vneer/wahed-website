@@ -60,8 +60,8 @@ export default function ProjectPageIntro({
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-6">
-            {startingPriceValue ? (
+          <div className="flex flex-wrap items-center gap-6 md:gap-10">
+            {startingPriceValue && (
               <div className="flex flex-col">
                 <p className="mb-2 text-lg font-bold text-[#A8A8A8]">
                   {startingPriceLabel}
@@ -70,20 +70,20 @@ export default function ProjectPageIntro({
                   {startingPriceValue} <SaudiRiyal />
                 </p>
               </div>
-            ) : (
-              <span></span>
             )}
-            <div className="flex flex-col">
-              <p className="mb-2 text-lg font-bold text-[#A8A8A8]">
-                {statusLabel}
-              </p>
-              <p className="text-success text-base font-medium md:text-xl">
-                {statusValue}
-              </p>
-            </div>
+            {statusValue && (
+              <div className="flex flex-col">
+                <p className="mb-2 text-lg font-bold text-[#A8A8A8]">
+                  {statusLabel}
+                </p>
+                <p className="text-success text-base font-medium md:text-xl">
+                  {statusValue}
+                </p>
+              </div>
+            )}
 
             {guideUrl && (
-              <div className="flex items-center justify-center max-sm:col-span-2">
+              <div className="ms-auto flex items-center justify-center max-sm:w-full">
                 <a
                   href={guideUrl}
                   target="_blank"

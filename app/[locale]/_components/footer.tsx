@@ -2,7 +2,6 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { blackLogo } from "@/assets"
 import { Link } from "@/i18n/navigation"
 import { useSiteSettings } from "./site-settings-context"
 
@@ -77,9 +76,9 @@ export default function Footer() {
   const t = useTranslations("Header")
   const tFooter = useTranslations("Footer")
   const { logos, siteName, footerDescription, socialMedia } = useSiteSettings()
-  const logoSrc = logos.forLightBackground || blackLogo
-  const logoAlt = siteName || tFooter("logoAlt")
-  const tagline = footerDescription || tFooter("tagline")
+  const logoSrc = logos.forLightBackground
+  const logoAlt = siteName
+  const tagline = footerDescription
   const socialLinks = SOCIAL_ORDER.filter((key) => socialMedia[key]).map(
     (key) => ({
       key,

@@ -77,12 +77,10 @@ export default function ImageGallery({
                   onClick={() => openSliderAt(index)}
                   aria-label={t("openImage", { index: index + 1 })}
                 >
-                  <Image
+                  <img
                     src={image}
                     alt={t("imageAlt", { title, index: index + 1 })}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                    sizes="90vw"
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                   <span
                     className="pointer-events-none absolute inset-0 bg-black/20 transition-colors duration-300 group-hover:bg-black/10"
@@ -147,7 +145,7 @@ export default function ImageGallery({
           {previewImages[4] ? (
             <button
               type="button"
-              className="group relative h-104 cursor-pointer overflow-hidden bg-[#f2f2f2] md:col-span-2 md:h-full"
+              className="group relative h-104 cursor-pointer overflow-hidden bg-[#f2f2f2] md:col-span-2 md:h-131"
               onClick={() => openSliderAt(4)}
               aria-label={t("openFeaturedImage")}
             >
