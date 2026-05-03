@@ -1,8 +1,13 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import Image from "next/image"
-import { motion, useScroll, useTransform } from "framer-motion"
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion"
 import { Ripple } from "m3-ripple"
 import { noise } from "@/assets"
 import { TextLinesAnimation } from "@/components/common/text-lines-animation"
@@ -37,12 +42,11 @@ export default function Hero({ content }: HeroProps) {
     ["0%", "-5%", "-12%"]
   )
   const arrowY = useTransform(scrollYProgress, [0, 1], ["0%", "-6%"])
-  // Arrow fades out as hero scrolls away (stays full until 20% scroll so initial fade-in isn’t overridden)
-  const arrowOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.55, 0.85],
-    [1, 1, 0.4, 0]
-  )
+  // Hide arrow once user scrolls past tiny threshold
+  const [scrolled, setScrolled] = useState(false)
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setScrolled(v > 0.02)
+  })
 
   return (
     <section
@@ -125,9 +129,9 @@ export default function Hero({ content }: HeroProps) {
         aria-hidden
         className="text-secondary pointer-events-none absolute bottom-14 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.3 }}
-        style={{ y: arrowY, opacity: arrowOpacity }}
+        animate={{ opacity: scrolled ? 0 : 1 }}
+        transition={{ delay: scrolled ? 0 : 2, duration: 0.3 }}
+        style={{ y: arrowY }}
       >
         <svg
           width="20"
