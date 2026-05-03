@@ -18,6 +18,7 @@ import Partners from "./_components/partners"
 import Projects from "./_components/projects"
 import Statics from "./_components/statics"
 import Wahed from "./_components/wahed"
+import WahedAboutMobile from "./_components/wahed-about-mobile"
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -47,6 +48,10 @@ export default async function HomePage({ params }: Props) {
     <>
       <Header />
       <Hero content={homeContent.heroSection} />
+      <WahedAboutMobile
+        brief={homeContent.briefSection}
+        about={homeContent.aboutSection}
+      />
       <Wahed content={homeContent.briefSection} />
       <About content={homeContent.aboutSection} />
       {homeContent.statsSection.isActive && (

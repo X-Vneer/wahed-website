@@ -63,7 +63,7 @@ export default function About({ content }: AboutProps) {
   return (
     <section
       ref={sectionRef}
-      className="overflow-hidden bg-[#efefef] py-14 md:py-20"
+      className="hidden overflow-hidden bg-[#efefef] py-14 md:block md:py-20"
     >
       <div className="container">
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">

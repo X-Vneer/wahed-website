@@ -62,6 +62,12 @@
     "description": "Waad Real Estate Investment Company seeks to provide high-quality investment opportunities built on quality and smart planning, ensuring sustainable value and long-term trust. We develop real estate projects with professional standards that meet our clients' aspirations and keep pace with market growth.",
     "logoAlt": "Waad logo"
   },
+  "HomeBriefMobile": {
+    "indexBrief": "01",
+    "indexAbout": "02",
+    "logoAlt": "{siteName} logo",
+    "imageAlt": "About {siteName}"
+  },
   "AboutSection": {
     "prefix": "About",
     "title": "Wahed Urban",

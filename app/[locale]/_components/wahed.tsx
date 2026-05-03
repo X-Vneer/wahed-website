@@ -31,9 +31,12 @@ export default function Wahed({ content }: WahedProps) {
   )
 
   return (
-    <section ref={sectionRef} className="py-16 text-black md:py-24 lg:py-32">
+    <section
+      ref={sectionRef}
+      className="hidden py-16 text-black md:block md:py-24 lg:py-32"
+    >
       <div className="container">
-        <div className="relative flex flex-col items-center justify-between gap-6 md:gap-10 lg:flex-row">
+        <div className="relative flex flex-col items-center justify-between gap-6 md:flex-row md:gap-10">
           <motion.div
             className=""
             style={{ y: logoY }}
@@ -54,7 +57,7 @@ export default function Wahed({ content }: WahedProps) {
           </motion.div>
           <motion.div
             aria-hidden
-            className="text-secondary block lg:hidden"
+            className="text-secondary block md:hidden"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -96,7 +99,7 @@ export default function Wahed({ content }: WahedProps) {
             }}
           >
             <motion.div
-              className="mt-2 hidden items-center justify-center md:justify-start lg:flex"
+              className="mt-2 hidden items-center justify-center md:flex md:justify-start"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-20px" }}
@@ -155,7 +158,7 @@ export default function Wahed({ content }: WahedProps) {
             <BasicLineAnimation
               delay={1}
               as="p"
-              className="w-full text-[#4B5563] max-lg:text-center lg:text-lg"
+              className="w-full text-[#4B5563] max-md:text-center lg:text-lg"
             >
               {description}
             </BasicLineAnimation>
