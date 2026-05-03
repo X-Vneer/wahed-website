@@ -91,6 +91,11 @@ export default async function ProjectDetailsPage({ params }: Props) {
                     value: project.category ?? "",
                   },
                   {
+                    label: t("statusLabel"),
+                    value: project.status?.name ?? "",
+                    valueColor: project.status?.color,
+                  },
+                  {
                     label: t("deedNumberLabel"),
                     value: project.deedNumber ?? "",
                   },

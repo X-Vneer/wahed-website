@@ -6,6 +6,7 @@ type InfoItem = {
   label: string
   value: string
   icon?: React.ComponentType<{ className?: string }>
+  valueColor?: string
 }
 
 type ProjectDetailsProps = {
@@ -40,7 +41,10 @@ export default function ProjectDetails({
               <p className="text-text-secondary mb-2 text-base font-medium">
                 {item.label}
               </p>
-              <p className="text-base font-medium text-black md:text-xl lg:text-2xl">
+              <p
+                className="text-base font-medium text-black md:text-xl lg:text-2xl"
+                style={item.valueColor ? { color: item.valueColor } : undefined}
+              >
                 {item.value} {item.icon && <item.icon className="size-4" />}
               </p>
             </div>
