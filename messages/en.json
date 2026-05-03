@@ -141,36 +141,6 @@
       "messageMinLength": "Message must be at least 10 characters."
     }
   },
-  "ProjectContactForm": {
-    "title": "Contact Department – Wahed",
-    "subtitle": "Head of the Contact Department at Wahed",
-    "logoAlt": "Wahed",
-    "emailLabel": "Email",
-    "emailPlaceholder": "Email",
-    "firstNameLabel": "First name",
-    "firstNamePlaceholder": "Enter your first name",
-    "lastNameLabel": "Last name",
-    "lastNamePlaceholder": "Enter your last name",
-    "phoneLabel": "Phone number",
-    "phonePlaceholder": "Enter your phone number",
-    "messageLabel": "Message details",
-    "messagePlaceholder": "Enter your message details",
-    "submit": "Send",
-    "divider": "Or contact via",
-    "whatsapp": "WhatsApp",
-    "success": "Your message has been sent.",
-    "error": "Something went wrong. Please try again.",
-    "errors": {
-      "firstNameRequired": "First name is required.",
-      "lastNameRequired": "Last name is required.",
-      "emailRequired": "Email is required.",
-      "emailInvalid": "Please enter a valid email address.",
-      "phoneRequired": "Phone number is required.",
-      "phoneInvalid": "Please enter a valid phone number.",
-      "messageRequired": "Message is required.",
-      "messageMinLength": "Message must be at least 10 characters."
-    }
-  },
   "ContactSection": {
     "title": "Let’s start the conversation",
     "description": "Whether you have questions or are ready to begin your next project, our team is here to provide you with professional guidance and support at every stage.",

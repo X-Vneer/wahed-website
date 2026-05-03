@@ -141,36 +141,6 @@
       "messageMinLength": "يجب أن تحتوي الرسالة على 10 أحرف على الأقل."
     }
   },
-  "ProjectContactForm": {
-    "title": "دائرة التواصل - وهد",
-    "subtitle": "مسؤول دائرة التواصل في وهد",
-    "logoAlt": "وهد",
-    "emailLabel": "البريد الإلكتروني",
-    "emailPlaceholder": "البريد الإلكتروني",
-    "firstNameLabel": "الاسم الأول",
-    "firstNamePlaceholder": "ادخل الاسم الأول",
-    "lastNameLabel": "الاسم الثاني",
-    "lastNamePlaceholder": "ادخل الاسم الثاني",
-    "phoneLabel": "رقم الهاتف",
-    "phonePlaceholder": "ادخل رقم الهاتف",
-    "messageLabel": "تفاصيل الرسالة",
-    "messagePlaceholder": "ادخل تفاصيل الرسالة",
-    "submit": "إرسال",
-    "divider": "أو تواصل عبر",
-    "whatsapp": "واتساب",
-    "success": "تم إرسال رسالتك بنجاح.",
-    "error": "حدث خطأ ما، الرجاء المحاولة مرة أخرى.",
-    "errors": {
-      "firstNameRequired": "الاسم الأول مطلوب.",
-      "lastNameRequired": "الاسم الثاني مطلوب.",
-      "emailRequired": "البريد الإلكتروني مطلوب.",
-      "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح.",
-      "phoneRequired": "رقم الهاتف مطلوب.",
-      "phoneInvalid": "يرجى إدخال رقم هاتف صحيح.",
-      "messageRequired": "تفاصيل الرسالة مطلوبة.",
-      "messageMinLength": "يجب أن تحتوي الرسالة على 10 أحرف على الأقل."
-    }
-  },
   "ContactSection": {
     "title": "لنبدأ الحديث",
     "description": "سواء كانت لديك استفسارات أو تطمح لبدء مشروعك القادم، فريقنا هنا ليقدّم لك الإرشاد والدعم بكل احترافية في كل مرحلة.",

@@ -6,14 +6,15 @@ import { SaudiRiyal } from "lucide-react"
 import PageShadow from "@/components/common/page-shadow"
 import {
   buildMetadataFromSeo,
+  getContactPageContent,
   getProjectSeo,
   getPublicProject,
   getSiteSettings,
 } from "@/lib/website-cms"
+import ContactForm from "../../_components/contact-form"
 import Header from "../../_components/header"
 import ImageGallery from "./_components/image-gallery"
 import ProjectLocationMap from "./_components/map"
-import ProjectContactForm from "./_components/project-contact-form"
 import ProjectDetails from "./_components/project-details"
 import ProjectDocuments from "./_components/project-documents"
 import ProjectPageIntro from "./_components/project-page-intro"
@@ -35,7 +36,10 @@ export default async function ProjectDetailsPage({ params }: Props) {
   const { locale, slug } = await params
   setRequestLocale(locale as Locale)
 
-  const project = await getPublicProject(slug, locale)
+  const [project, contactContent] = await Promise.all([
+    getPublicProject(slug, locale),
+    getContactPageContent(locale),
+  ])
   const t = await getTranslations("ProjectDetail")
   const tDocs = await getTranslations("ProjectDocuments")
 
@@ -107,7 +111,16 @@ export default async function ProjectDetailsPage({ params }: Props) {
               />
             </div>
             <div className="md:col-span-2 lg:col-span-1">
-              <ProjectContactForm projectSlug={project.slug} />
+              {contactContent?.formSection && (
+                <ContactForm
+                  content={contactContent.formSection}
+                  layout="stacked"
+                  source="project"
+                  projectSlug={project.slug}
+                  submitClassName="bg-primary font-medium text-white"
+                  containerClassName="w-full"
+                />
+              )}
             </div>
           </div>
         </div>

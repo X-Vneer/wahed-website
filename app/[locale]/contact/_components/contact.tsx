@@ -5,7 +5,7 @@ import {
   type ContactInfoSection,
   getSiteSettings,
 } from "@/lib/website-cms"
-import ContactForm from "./contact-form"
+import ContactForm from "../../_components/contact-form"
 
 type Props = {
   content: ContactInfoSection
