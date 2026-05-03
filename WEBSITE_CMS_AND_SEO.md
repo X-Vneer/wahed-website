@@ -81,7 +81,8 @@ Returns global theme, fonts, logos, site name, default SEO, contact info, social
     "facebook": "https://facebook.com/yourpage",
     "instagram": "https://instagram.com/yourpage",
     "youtube": "https://youtube.com/@yourchannel",
-    "x": "https://x.com/yourhandle"
+    "x": "https://x.com/yourhandle",
+    "whatsapp": "https://wa.me/9665XXXXXXXX"
   },
   "faviconUrl": "https://...",
   "googleAnalyticsMeasurementId": "G-XXXXXXXXXX"
@@ -299,11 +300,17 @@ Page content is managed in the CMS admin and stored as flexible JSON per page pe
     "title": "بداية الحوار",
     "description": "...",
     "ctaLabel": "اضغط هنا"
+  },
+  "projectsSection": {
+    "isActive": true,
+    "eyebrowTitle": "بلورة الإبداع",
+    "title": "مشاريعنا",
+    "description": "مشاريعنا هي بلورة الإبداع والفخامة..."
   }
 }
 ```
 
-**Important:** Check `isActive` on `statsSection` and `partnersSection` — only render these sections when `isActive` is `true`.
+**Important:** Check `isActive` on `statsSection`, `partnersSection`, and `projectsSection` — only render these sections when `isActive` is `true`. The `projectsSection` is the heading + intro shown above the homepage projects carousel; the actual project cards come from `PublicProject` records (see Public Projects below).
 
 #### `about` — About Page
 

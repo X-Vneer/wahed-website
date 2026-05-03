@@ -57,8 +57,11 @@ export default async function HomePage({ params }: Props) {
       {homeContent.statsSection.isActive && (
         <Statics content={homeContent.statsSection} />
       )}
-      {featuredProjects.length > 0 && (
-        <Projects projects={featuredProjects} />
+      {homeContent.projectsSection.isActive && featuredProjects.length > 0 && (
+        <Projects
+          projects={featuredProjects}
+          content={homeContent.projectsSection}
+        />
       )}
       {homeContent.partnersSection.isActive && (
         <Partners content={homeContent.partnersSection} />

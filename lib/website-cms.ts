@@ -48,6 +48,13 @@ export type HomeContactSection = {
   ctaLabel: string
 }
 
+export type HomeProjectsSection = {
+  isActive: boolean
+  eyebrowTitle: string
+  title: string
+  description: string
+}
+
 /** CMS JSON shape for the `home` page (`slug === "home"`). */
 export type HomePageContent = {
   heroSection: HomeHeroSection
@@ -56,6 +63,7 @@ export type HomePageContent = {
   statsSection: HomeStatsSection
   partnersSection: HomePartnersSection
   contactSection: HomeContactSection
+  projectsSection: HomeProjectsSection
 }
 
 export const emptyHomeHeroSection: HomeHeroSection = {
@@ -180,6 +188,14 @@ function normalizeHomePageContent(
     ctaLabel: str(contactRaw?.ctaLabel),
   }
 
+  const projectsRaw = asRecord(raw.projectsSection)
+  const projectsSection: HomeProjectsSection = {
+    isActive: projectsRaw?.isActive !== false,
+    eyebrowTitle: str(projectsRaw?.eyebrowTitle),
+    title: str(projectsRaw?.title),
+    description: str(projectsRaw?.description),
+  }
+
   return {
     heroSection,
     briefSection,
@@ -187,6 +203,7 @@ function normalizeHomePageContent(
     statsSection,
     partnersSection,
     contactSection,
+    projectsSection,
   }
 }
 
@@ -668,7 +685,6 @@ export type SiteLogos = {
 export type SiteContact = {
   email: string
   phone: string
-  whatsapp: string
 }
 
 export type SiteSocialMedia = {
@@ -676,6 +692,7 @@ export type SiteSocialMedia = {
   instagram: string
   youtube: string
   x: string
+  whatsapp: string
 }
 
 export type SiteSettings = {
@@ -808,13 +825,13 @@ const fetchSiteSettings = cache(
         contact: {
           email: str(contactRaw.email),
           phone: str(contactRaw.phone),
-          whatsapp: str(contactRaw.whatsapp),
         },
         socialMedia: {
           facebook: str(socialRaw.facebook),
           instagram: str(socialRaw.instagram),
           youtube: str(socialRaw.youtube),
           x: str(socialRaw.x),
+          whatsapp: str(socialRaw.whatsapp),
         },
         faviconUrl: str(data.faviconUrl),
         googleAnalyticsMeasurementId: str(data.googleAnalyticsMeasurementId),

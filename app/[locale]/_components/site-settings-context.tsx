@@ -23,8 +23,8 @@ const DEFAULT_VALUE: SiteSettingsContextValue = {
   footerDescription: "",
   theme: DEFAULT_THEME,
   logos: { forDarkBackground: "", forLightBackground: "" },
-  contact: { email: "", phone: "", whatsapp: "" },
-  socialMedia: { facebook: "", instagram: "", youtube: "", x: "" },
+  contact: { email: "", phone: "" },
+  socialMedia: { facebook: "", instagram: "", youtube: "", x: "", whatsapp: "" },
 }
 
 const SiteSettingsContext =

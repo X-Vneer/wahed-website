@@ -49,8 +49,10 @@ function WhatsAppGlyph({ className }: { className?: string }) {
   )
 }
 
-function buildWhatsAppUrl(number: string) {
-  const digits = number.replace(/[^\d]/g, "")
+function resolveWhatsAppUrl(value: string) {
+  if (!value) return ""
+  if (/^https?:\/\//i.test(value)) return value
+  const digits = value.replace(/[^\d]/g, "")
   return digits ? `https://wa.me/${digits}` : ""
 }
 
@@ -72,7 +74,7 @@ export default function ContactForm({
   containerClassName = "mx-auto w-full max-w-xl",
 }: ContactFormProps) {
   const t = useTranslations("ContactForm")
-  const { contact } = useSiteSettings()
+  const { socialMedia } = useSiteSettings()
   const {
     sectionTitle,
     sectionSubtitle,
@@ -82,7 +84,7 @@ export default function ContactForm({
     whatsappLabel,
     whatsappNumber,
   } = content
-  const whatsappUrl = buildWhatsAppUrl(whatsappNumber || contact.whatsapp)
+  const whatsappUrl = resolveWhatsAppUrl(socialMedia.whatsapp || whatsappNumber)
   const [status, setStatus] = useState<Status>("idle")
   const {
     register,

@@ -48,12 +48,13 @@ export default async function LocaleLayout({ children, params }: Props) {
     forDarkBackground: "",
     forLightBackground: "",
   }
-  const contact = settings?.contact ?? { email: "", phone: "", whatsapp: "" }
+  const contact = settings?.contact ?? { email: "", phone: "" }
   const socialMedia = settings?.socialMedia ?? {
     facebook: "",
     instagram: "",
     youtube: "",
     x: "",
+    whatsapp: "",
   }
   const siteName = settings?.siteName ?? ""
   const footerDescription = settings?.footerDescription ?? ""

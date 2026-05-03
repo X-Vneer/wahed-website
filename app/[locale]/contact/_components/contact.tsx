@@ -59,9 +59,10 @@ const Contact = async ({ content, formContent }: Props) => {
   const settings = await getSiteSettings(locale)
   const phone = content.phone || settings?.contact.phone || ""
   const email = content.email || settings?.contact.email || ""
-  const whatsapp = settings?.contact.whatsapp || ""
-  const whatsappDigits = whatsapp.replace(/[^\d]/g, "")
-  const whatsappUrl = whatsappDigits ? `https://wa.me/${whatsappDigits}` : ""
+  const whatsappUrl = settings?.socialMedia.whatsapp || ""
+  const whatsappLabel = whatsappUrl
+    ? whatsappUrl.replace(/^https?:\/\/(wa\.me\/|api\.whatsapp\.com\/send\?phone=)/i, "+")
+    : ""
   const instagramUrl = content.instagram || settings?.socialMedia.instagram || ""
 
   return (
@@ -107,7 +108,7 @@ const Contact = async ({ content, formContent }: Props) => {
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
-                      {whatsapp}
+                      {whatsappLabel}
                     </a>
                   </p>
                 )}

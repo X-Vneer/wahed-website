@@ -13,7 +13,7 @@ import {
 } from "framer-motion"
 import { MapPin, SaudiRiyal } from "lucide-react"
 import { Link } from "@/i18n/navigation"
-import type { PublicProject } from "@/lib/website-cms"
+import type { HomeProjectsSection, PublicProject } from "@/lib/website-cms"
 
 type InfoItem = {
   label: string
@@ -62,9 +62,10 @@ const stagger = {
 
 type ProjectsProps = {
   projects: PublicProject[]
+  content: HomeProjectsSection
 }
 
-export default function Projects({ projects }: ProjectsProps) {
+export default function Projects({ projects, content }: ProjectsProps) {
   const t = useTranslations("ProjectsSection")
   const tDetail = useTranslations("ProjectDetail")
   const locale = useLocale()
@@ -140,27 +141,33 @@ export default function Projects({ projects }: ProjectsProps) {
           {...revealProps}
           variants={stagger}
         >
-          <motion.div
-            className="mb-3 flex items-center gap-3"
-            variants={fadeUp}
-          >
-            <span className="bg-secondary block h-px w-8" />
-            <span className="text-secondary text-[10px] font-semibold tracking-[0.32em] uppercase md:text-xs">
-              {t("subtitle")}
-            </span>
-          </motion.div>
-          <motion.h2
-            className="text-3xl leading-tight font-bold text-black md:text-5xl lg:text-6xl"
-            variants={fadeUp}
-          >
-            {t("title")}
-          </motion.h2>
-          <motion.p
-            className="text-text-secondary mt-4 max-w-2xl text-sm leading-relaxed md:mt-6 md:text-base lg:text-lg"
-            variants={fadeUp}
-          >
-            {t("description")}
-          </motion.p>
+          {content.eyebrowTitle && (
+            <motion.div
+              className="mb-3 flex items-center gap-3"
+              variants={fadeUp}
+            >
+              <span className="bg-secondary block h-px w-8" />
+              <span className="text-secondary text-[10px] font-semibold tracking-[0.32em] uppercase md:text-xs">
+                {content.eyebrowTitle}
+              </span>
+            </motion.div>
+          )}
+          {content.title && (
+            <motion.h2
+              className="text-3xl leading-tight font-bold text-black md:text-5xl lg:text-6xl"
+              variants={fadeUp}
+            >
+              {content.title}
+            </motion.h2>
+          )}
+          {content.description && (
+            <motion.p
+              className="text-text-secondary mt-4 max-w-2xl text-sm leading-relaxed md:mt-6 md:text-base lg:text-lg"
+              variants={fadeUp}
+            >
+              {content.description}
+            </motion.p>
+          )}
         </motion.header>
       </section>
       <section className="relative overflow-x-clip bg-white py-16 md:py-20">
