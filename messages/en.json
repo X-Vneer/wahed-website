@@ -182,7 +182,7 @@
     "tagline": "Oasis of tranquility weaves simplicity",
     "logoAlt": "Wahed logo",
     "navAriaLabel": "Footer navigation",
-    "copyright": "© 2026 WAHED. All Rights Reserved.",
+    "copyright": "© {year} {siteName}. All Rights Reserved.",
     "social": {
       "instagram": "Instagram",
       "x": "X",

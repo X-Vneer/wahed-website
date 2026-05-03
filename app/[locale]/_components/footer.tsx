@@ -8,7 +8,6 @@ import { useSiteSettings } from "./site-settings-context"
 const NAV_ITEMS = [
   { key: "home", href: "/" },
   { key: "ourProjects", href: "/projects" },
-  { key: "ourServices", href: "/services" },
   { key: "aboutCompany", href: "/about" },
   { key: "contactUs", href: "/contact" },
 ] as const
@@ -123,7 +122,12 @@ export default function Footer() {
 
         {/* Sub-footer: social (left) | copyright (right) */}
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-xs text-[#4B5563]">{tFooter("copyright")}</p>
+          <p className="text-xs text-[#4B5563]">
+            {tFooter("copyright", {
+              year: new Date().getFullYear(),
+              siteName,
+            })}
+          </p>
 
           {socialLinks.length > 0 && (
             <div className="flex items-center gap-4">

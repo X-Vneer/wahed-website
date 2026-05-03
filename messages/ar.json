@@ -182,7 +182,7 @@
     "tagline": "واحة من الطمأنينة تنسج البساطة",
     "logoAlt": "شعار وهد",
     "navAriaLabel": "روابط التصفح",
-    "copyright": "© 2026 WAHED. All Rights Reserved.",
+    "copyright": "© {year} {siteName}. جميع الحقوق محفوظة.",
     "social": {
       "instagram": "انستغرام",
       "x": "إكس",
