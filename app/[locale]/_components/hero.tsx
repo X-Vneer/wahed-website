@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react"
 import Image from "next/image"
+import { buttonVariants } from "@heroui/react"
 import {
   motion,
   useMotionValueEvent,
@@ -114,7 +115,11 @@ export default function Hero({ content }: HeroProps) {
               >
                 <Link
                   href="/about"
-                  className="relative inline-flex h-12 w-full max-w-63 items-center justify-center bg-white text-lg font-medium text-black transition-colors hover:bg-white/80"
+                  className={buttonVariants({
+                    size: "lg",
+                    variant: "secondary",
+                    className: "w-full max-w-63 text-black",
+                  })}
                 >
                   {ctaLabel}
                   <Ripple />

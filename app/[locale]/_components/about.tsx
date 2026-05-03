@@ -2,9 +2,10 @@
 
 import { useRef } from "react"
 import Image from "next/image"
-import { Button } from "@heroui/react"
+import { Button, buttonVariants } from "@heroui/react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { BasicLineAnimation } from "@/components/common/text-lines-animation"
+import { Link } from "@/i18n/navigation"
 import { HomeAboutSection } from "@/lib/website-cms"
 
 function WhatsAppIcon() {
@@ -187,13 +188,18 @@ export default function About({ content }: AboutProps) {
               }}
               className="mt-8 md:mt-20"
             >
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/95 min-w-48 px-8 text-white"
+              <Link
+                href={"/about"}
+                className={buttonVariants({
+                  size: "lg",
+                  // variant: "secondary",
+                  className:
+                    "w-full max-w-63 bg-black text-white hover:bg-black/90",
+                })}
               >
                 <WhatsAppIcon />
                 {ctaLabel}
-              </Button>
+              </Link>
             </motion.div>
           </motion.div>
 

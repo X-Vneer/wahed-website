@@ -424,7 +424,12 @@ export default function Projects({ projects }: ProjectsProps) {
                     <motion.div variants={fadeUp}>
                       <Link
                         href={`/projects/${second.slug}`}
-                        className="mt-6 inline-block w-fit bg-[#222222] px-10 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-black/90 md:text-base lg:mt-12"
+                        className={buttonVariants({
+                          size: "lg",
+                          // variant: "secondary",
+                          className:
+                            "mt-6 w-full bg-black text-white hover:bg-black/90",
+                        })}
                       >
                         {t("exploreProject")}
                       </Link>
