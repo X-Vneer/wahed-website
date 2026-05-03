@@ -72,12 +72,13 @@ export default function Projects({ projects, content }: ProjectsProps) {
   const isRtl = locale === "ar"
 
   const buildInfoItems = (project: PublicProject): InfoItem[] => {
-    const items: InfoItem[] = [
-      {
+    const items: InfoItem[] = []
+    if (project.status) {
+      items.push({
         label: tDetail("statusLabel"),
-        value: tDetail(`status.${project.status}`),
-      },
-    ]
+        value: project.status.name,
+      })
+    }
     if (project.area) {
       items.push({
         label: tDetail("areaLabel"),

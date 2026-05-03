@@ -59,7 +59,7 @@ export default async function ProjectDetailsPage({ params }: Props) {
           project.location ?? `${project.cityName}, ${project.regionName}`
         }
         statusLabel={t("statusLabel")}
-        statusValue={t(`status.${project.status}`)}
+        status={project.status}
         startingPriceLabel={t("startingPriceLabel")}
         startingPriceValue={
           project.startingPrice

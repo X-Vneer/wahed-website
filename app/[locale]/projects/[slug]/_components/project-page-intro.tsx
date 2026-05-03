@@ -1,4 +1,4 @@
-import type { ProjectBadge } from "@/lib/website-cms"
+import type { ProjectBadge, PublicProjectStatus } from "@/lib/website-cms"
 import { Button } from "@heroui/react"
 import { BookOpenText, MapPin, SaudiRiyal } from "lucide-react"
 
@@ -7,7 +7,7 @@ type ProjectPageIntroProps = {
   title: string
   location: string
   statusLabel: string
-  statusValue: string
+  status: PublicProjectStatus | null
   startingPriceLabel: string
   startingPriceValue: string
   guideLabel: string
@@ -20,14 +20,14 @@ export default function ProjectPageIntro({
   title,
   location,
   statusLabel,
-  statusValue,
+  status,
   startingPriceLabel,
   startingPriceValue,
   guideLabel,
   guideUrl,
   badges,
 }: ProjectPageIntroProps) {
-  const hasMeta = Boolean(startingPriceValue || statusValue || guideUrl)
+  const hasMeta = Boolean(startingPriceValue || status?.name || guideUrl)
 
   return (
     <section className="relative pt-6 md:pt-10">
@@ -74,13 +74,18 @@ export default function ProjectPageIntro({
                   </p>
                 </div>
               )}
-              {statusValue && (
+              {status?.name && (
                 <div className="flex flex-col gap-1 md:gap-2">
                   <p className="text-text-secondary text-xs font-semibold tracking-wide uppercase md:text-lg md:tracking-normal md:normal-case">
                     {statusLabel}
                   </p>
-                  <p className="text-success text-lg font-semibold md:text-xl">
-                    {statusValue}
+                  <p
+                    className="text-lg font-semibold md:text-xl"
+                    style={
+                      status.color ? { color: status.color } : undefined
+                    }
+                  >
+                    {status.name}
                   </p>
                 </div>
               )}

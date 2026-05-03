@@ -222,13 +222,6 @@
     "developerValue": "Wahed",
     "sectorLabel": "Sector",
     "areaLabel": "Project Area",
-    "deedNumberLabel": "Deed Number",
-    "status": {
-      "PLANNING": "Planning",
-      "IN_PROGRESS": "In Progress",
-      "ON_HOLD": "On Hold",
-      "COMPLETED": "Completed",
-      "CANCELLED": "Cancelled"
-    }
+    "deedNumberLabel": "Deed Number"
   }
 }

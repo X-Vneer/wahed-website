@@ -503,12 +503,11 @@ export async function getProjectsPageContent(
 // Public Projects
 // ──────────────────────────────────────────────
 
-export type ProjectStatus =
-  | "PLANNING"
-  | "IN_PROGRESS"
-  | "ON_HOLD"
-  | "COMPLETED"
-  | "CANCELLED"
+export type PublicProjectStatus = {
+  id: string
+  name: string
+  color: string
+}
 
 export type ProjectBadge = {
   id: string
@@ -539,7 +538,7 @@ export type PublicProject = {
   shortDescription: string | null
   images: string[]
   isActive: boolean
-  status: ProjectStatus
+  status: PublicProjectStatus | null
   location: string | null
   area: number | null
   deedNumber: string | null
@@ -558,11 +557,32 @@ export type PublicProject = {
 }
 
 type PublicProjectsResponse = {
-  projects: PublicProject[]
+  projects: unknown[]
 }
 
 type PublicProjectResponse = {
-  project: PublicProject
+  project: unknown
+}
+
+function normalizePublicProjectStatus(raw: unknown): PublicProjectStatus | null {
+  const rec = asRecord(raw)
+  if (!rec) return null
+  const id = str(rec.id)
+  if (!id) return null
+  return {
+    id,
+    name: str(rec.name),
+    color: str(rec.color),
+  }
+}
+
+function normalizePublicProject(raw: unknown): PublicProject | null {
+  const rec = asRecord(raw)
+  if (!rec) return null
+  return {
+    ...(rec as unknown as PublicProject),
+    status: normalizePublicProjectStatus(rec.status),
+  }
 }
 
 const fetchPublicProjects = cache(
@@ -582,7 +602,9 @@ const fetchPublicProjects = cache(
 
       const data = (await res.json()) as PublicProjectsResponse
       if (!Array.isArray(data.projects)) return []
-      return data.projects.filter((p) => p.isActive)
+      return data.projects
+        .map(normalizePublicProject)
+        .filter((p): p is PublicProject => p !== null && p.isActive)
     } catch {
       return []
     }
@@ -605,8 +627,7 @@ const fetchPublicProjectBySlug = cache(
       if (!res.ok) return null
 
       const data = (await res.json()) as PublicProjectResponse
-      if (!data.project) return null
-      return data.project
+      return normalizePublicProject(data.project)
     } catch {
       return null
     }
@@ -643,7 +664,9 @@ const fetchFeaturedProjects = cache(
 
       const data = (await res.json()) as PublicProjectsResponse
       if (!Array.isArray(data.projects)) return []
-      return data.projects.filter((p) => p.isActive)
+      return data.projects
+        .map(normalizePublicProject)
+        .filter((p): p is PublicProject => p !== null && p.isActive)
     } catch {
       return []
     }

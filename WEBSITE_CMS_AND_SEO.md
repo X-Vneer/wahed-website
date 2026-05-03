@@ -433,7 +433,7 @@ Each public project contains:
 | `shortDescription` | string \| null | Card/preview description |
 | `images` | string[] | Array of image URLs |
 | `isActive` | boolean | Whether visible on the public site |
-| `status` | enum | `PLANNING`, `IN_PROGRESS`, `ON_HOLD`, `COMPLETED`, `CANCELLED` |
+| `status` | object \| null | `{ id, name, color }` — locale-resolved name and hex color from the configurable `PublicProjectStatus` table (separate from internal `ProjectStatus`). System rows have stable IDs: `public-project-status-planning`, `public-project-status-in-progress`, `public-project-status-on-hold`, `public-project-status-completed`, `public-project-status-cancelled`. Custom statuses use CUIDs. |
 | `location` | string \| null | Locale-resolved location text |
 | `area` | number \| null | Area in square meters |
 | `deedNumber` | string \| null | Property deed number |
@@ -474,15 +474,19 @@ Only projects with `isActive: true` should be displayed on the public website. F
 
 ### Project Status Display
 
-Map the status enum to user-friendly labels:
+`status` is returned as a locale-resolved object — render `status.name` for the label and `status.color` for the badge. The five system rows ship with these defaults (admins can rename/recolor them and add custom statuses via the internal panel under `lists/public-project-status`):
 
-| Enum Value | Arabic | English |
-|------------|--------|---------|
-| `PLANNING` | مخطط | Planning |
-| `IN_PROGRESS` | قيد التنفيذ | In Progress |
-| `ON_HOLD` | متوقف | On Hold |
-| `COMPLETED` | مكتمل | Completed |
-| `CANCELLED` | ملغي | Cancelled |
+| Stable ID | Arabic | English | Default color |
+|-----------|--------|---------|---------------|
+| `public-project-status-planning` | التخطيط | Planning | `#F59E0B` |
+| `public-project-status-in-progress` | قيد التنفيذ | In Progress | `#3B82F6` |
+| `public-project-status-on-hold` | متوقف | On Hold | `#F97316` |
+| `public-project-status-completed` | منتهي | Completed | `#8B5CF6` |
+| `public-project-status-cancelled` | ملغي | Cancelled | `#EF4444` |
+
+When you need to act on a specific system bucket (e.g. show only "In Progress" projects), compare `status.id === "public-project-status-in-progress"`. Custom statuses created in the admin will appear with CUID ids and a name/color the admin chose.
+
+Note: internal projects use a separate `ProjectStatus` table (system row IDs prefixed `project-status-*`); public projects on the marketing site use `PublicProjectStatus` (prefix `public-project-status-*`). The two are independent — admins can configure them separately.
 
 ---
 

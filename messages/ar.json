@@ -222,13 +222,6 @@
     "developerValue": "شركة وهد",
     "sectorLabel": "القطاع",
     "areaLabel": "مساحة المشروع",
-    "deedNumberLabel": "رقم الصك",
-    "status": {
-      "PLANNING": "مخطط",
-      "IN_PROGRESS": "قيد التنفيذ",
-      "ON_HOLD": "متوقف",
-      "COMPLETED": "مكتمل",
-      "CANCELLED": "ملغي"
-    }
+    "deedNumberLabel": "رقم الصك"
   }
 }

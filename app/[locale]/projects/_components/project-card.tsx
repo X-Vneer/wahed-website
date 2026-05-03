@@ -44,7 +44,7 @@ export default function ProjectCard({
     },
     {
       label: tDetail("statusLabel"),
-      value: tDetail(`status.${project.status}`),
+      value: project.status?.name ?? "",
     },
     {
       label: tDetail("sectorLabel"),
